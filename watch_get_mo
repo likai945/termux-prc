@@ -1,0 +1,20 @@
+#!/bin/bash
+read -p "minutes:" m
+read -p "seconds:" s
+s=$[${m:=0}*60+${s:=0}]
+clear
+ot=`date +%s`
+zt=$[ot+s]
+while :
+do
+	xm=$[s/60]
+	xs=$[s%60]
+	[ $xm -lt 10 ] && xm=0$xm
+	[ $xs -lt 10 ] && xs=0$xs
+	echo -e "\033[1;1H\033[?25l"
+	toilet --gay ${xm}:${xs}
+	nt=`date +%s`
+	ct=$[nt-ot]
+	[ $ct -eq 1 ] && ot=$nt && let s--
+	[ $nt -gt $zt ] && echo -e "\a\033[?25h" && exit
+done

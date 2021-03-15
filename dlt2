@@ -1,0 +1,22 @@
+#!/bin/bash
+while [ 1 ]
+do
+r[0]=$[RANDOM%35+1]
+r[1]=$[RANDOM%35+1]
+r[2]=$[RANDOM%35+1]
+r[3]=$[RANDOM%35+1]
+r[4]=$[RANDOM%35+1]
+r[5]=$[RANDOM%35+1]
+#echo ${r[@]}
+sr=$(echo ${r[@]} | tr ' ' '\n' | sort -n  | uniq)
+#echo $sr
+l=$(echo ${r[@]} | tr ' ' '\n' | sort -n  | uniq|wc -l)
+b=$[RANDOM%12+1]
+c=$[RANDOM%12+1]
+if [ $l -eq 5 ] && [ $b -lt $c ];then
+        echo -n $sr
+        echo -n " + "
+        echo -e "\033[34m$b $c\033[0m"
+        exit
+fi
+done

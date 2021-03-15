@@ -1,0 +1,50 @@
+#/bin/bash
+cha(){
+[ `cat $jl | wc -l` -eq 0 ] && echo -e "\t\t\033[31mNO DATA\033[0m" && exit 
+zc=`date +%j`
+sc=`tail -1 ${jl} | awk '{print $1}'`
+d=`expr $zc - $sc`
+[ $d -lt 0 ] && d=$[365+d]
+tail=`tail -1 ${jl}`
+et=${tail:18}
+[ $d -eq 1 ] && echo -e "\n\033[32m$d\033[0m day no shit" || echo -e "\n\033[32m$d\033[0m days no shit"
+echo -e "\033[?25l--------------------------------"
+#echo "your last shit like below shows:"
+length=`echo $et | wc -L` 
+for i in `seq ${length}`;do
+	echo -en "\033[32m${et:$[i-1]:1}\033[0m"
+	sleep 0.02
+	done
+	echo
+echo -e "--------------------------------\033[?25h\n"
+}
+ji(){
+zheci=`date +%j`
+shangci=$(tail -1 ${jl} | awk '{print $1}')
+[ -z $shangci ] && delay=0 || delay=`expr $zheci - $shangci - 1`
+[ $delay -eq -1 ] &>/dev/null && echo -e "\t\t\033[31mDUPLICATE RECORD\033[0m" && exit 
+[ $delay -lt -1 ] && delay=$[365+delay]
+read -p 'the scale(nml):' s
+read -p 'easy or difficult(esy):' e
+read -p 'color(brn):' c
+read -p 'time(8min):' t
+read -p 'remark(-):' r
+echo "${zheci} d${delay} `date +%R` `date +%Y` `date +%b` `date +%d` `date +%a` | ${s:=nml} ${e:=esy} ${c:=brn} ${t:=8}min ${r:=-}"   >> ${jl}
+}
+quan(){
+echo -e '\n\033[32m------------------------------\033[0m'
+[ `cat $jl | wc -l` -eq 0 ] && echo -e "\t\t\033[31mNO DATA\033[0m"  || cat ${jl}
+echo -e '\033[32m------------------------------\033[0m\n'
+}
+jl=/data/data/com.termux/files/home/jl
+[ ! -f $jl ] && touch $jl
+case $1 in 
+	--cha|-c|c)
+	cha;;
+	--ji|-j|j)
+	ji;;
+	--quan|-q|q)
+	quan;;
+	*)
+	echo "cha|ji|quan"
+esac

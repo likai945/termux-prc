@@ -1,0 +1,19 @@
+#!/data/data/com.termux/files/usr/bin/bash
+while [ 1 ]
+do
+        path=$PREFIX/tmp/ssq.txt
+        rm -rf $path
+        for i in {1..6}
+        do
+                num=$[RANDOM%33+1]
+                echo $num >> $path
+        done
+        if [ `cat $path|sort -n|uniq|wc -l` -eq 6 ];then
+                for j in `cat $path|sort -n |uniq`
+		do
+                	y=$y' '$j
+                done
+                echo -e "\033[31m$y\033[0m + \033[34m$[RANDOM%16+1]\033[0m"
+		exit
+        fi
+done

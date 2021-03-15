@@ -1,0 +1,22 @@
+#!/bin/bash
+while [ 1 ]
+do
+r[0]=$[RANDOM%33+1]
+r[1]=$[RANDOM%33+1]
+r[2]=$[RANDOM%33+1]
+r[3]=$[RANDOM%33+1]
+r[4]=$[RANDOM%33+1]
+r[5]=$[RANDOM%33+1]
+#echo ${r[@]}
+sr=$(echo ${r[@]} | tr ' ' '\n' | sort -n  | uniq)
+#echo $sr
+l=$(echo ${r[@]} | tr ' ' '\n' | sort -n  | uniq|wc -l)
+b=$[RANDOM%16+1]
+if [ $l -eq 6 ];then
+	echo -en '\033[31m '
+        echo -n $sr
+        echo -en "\033[0m + "
+        echo -e "\033[34m$b\033[0m"
+        exit
+fi
+done

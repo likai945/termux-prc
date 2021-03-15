@@ -1,0 +1,42 @@
+#!/data/data/com.termux/files/usr/bin/bash
+nginx
+php-fpm  
+nohup mysqld >/dev/null 2>&1 &
+#以上是啟動三大服務
+sleep 1
+clear
+#以下是echo提示信息
+echo -e '\t\t######################
+\t\tweb service is running
+\t\t\a######################'
+#以下是生成list.html的函数
+shengcheng(){
+list=$PREFIX/share/nginx/html/list.html
+archive=$PREFIX/share/nginx/html/cunc
+ls $archive > $list
+substance=`cat $list`
+> $list
+##以下小部分是生成链接URL的语句
+c=`awk 'END{print $1}' $PREFIX/var/log/nginx/access.log`
+server_ip=`ifconfig |awk /inet/'{print $2}'`
+for i in $server_ip
+do
+        [ ${i%.*} == ${c%.*} ] && u=$i
+done
+#以下是产生网页的语句
+echo '<meta http-equiv="refresh" content="1">' > $list
+for sub in $substance
+do
+	echo "<font size=123><br><a href=\"http://$u:8080/cunc/${sub}\">${sub}</a></br></font>" >> $list
+done
+}
+#以下是变化时生成新list.html的语句
+shengcheng
+log=$PREFIX/var/log/nginx/access.log
+origin=`md5sum ${log} | awk '{print $1}'`
+while [ 1 ]
+do
+	new=`md5sum ${log} | awk '{print $1}'`
+	tail -1 ${log} | grep 'list.html' &> /dev/null
+	[ $? -eq 0 ] && [ $origin != $new ] && origin=$new && shengcheng &> /dev/null
+done

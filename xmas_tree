@@ -1,0 +1,16 @@
+#/bin/bash
+read -p 'floor:' a
+a=${a:=20}
+for i in `seq $a`; do
+let a--
+let c=$[RANDOM%7+31]
+	for j in `seq $a`
+	do 
+		echo -n ' ' 
+	done
+	for k in `seq $[i*2-1]`
+	do
+		echo -en "\033[${c}m*\033[0m"
+	done
+	echo
+done

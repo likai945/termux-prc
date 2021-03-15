@@ -1,0 +1,140 @@
+#!/bin/bash
+bdown(){
+echo -e "\033[?25l\c"
+for i in `seq $h`
+do
+n=`tail -$i motd`
+clear
+echo "$n" 
+sleep $1
+done
+}
+bup(){
+echo -e '\033[?25l'
+for i in `seq $h`
+do
+	clear
+	k=$[h-i]
+	for j in `seq $k`
+	do
+		echo
+	done
+	head -$i motd
+	sleep $1
+done
+}
+sup(){
+for i in `seq $h -1 1`
+do
+	n=`sed -n $i'p' motd`
+	echo -e "\033[$i;1H\033[$[RANDOM%7+31]m$n"
+	sleep $1
+done
+echo -e "\033[$h;1H\033[0m\033[?25h"
+}
+sdown(){
+echo -e '\033[1;1H\c'
+for i in `seq $h`
+do
+n=`sed -n $i'p' motd`
+c=$[RANDOM%7+31]
+echo -e "\033[${c}m$n" 
+sleep $1
+done
+echo -e '\033[?25h\033[0m\c'
+}
+mup(){
+for i in `seq $h -1 1`
+do
+	n=`sed -n $i'p' motd`
+	echo -e "\033[$i;1H\c"
+	l=`echo "$n" | wc -L`
+	for r in `seq $l -1 1`;do
+		echo -en "\033[$i;${r}H\033[$[RANDOM%7+31]m${n:$[r-l-1]:1}"
+		sleep $1
+	done
+	echo
+done
+echo -e "\033[$h;1H\033[0m\033[?25h"
+}
+mdown(){
+echo -e '\033[1;1H\c'
+for i in `seq $h`
+do
+n=`sed -n $i'p' motd`
+l=`echo "$n" | wc -L`
+for r in `seq $l`;do
+	c=$[RANDOM%7+31]
+	echo -en "\033[${c}m${n:$[r-1]:1}"
+	sleep $1
+done
+echo
+done
+echo -e '\033[?25h\033[0m\c'
+}
+hash(){
+case $1 in
+	0)
+		bup 0.1;
+		sdown 0.01;;
+	1)
+		bup 0.05;
+		mdown 0;;
+	2)
+		bdown 0.1;
+		sup 0.01;;
+	3)
+		bdown 0.05;
+		mup 0
+esac
+}
+roundrobin(){
+case $1 in
+	--us)
+		bup 0.1;
+		sdown 0.01;
+		sed -i /bird/'s/--us/--um/' .bashrc;;
+	--um)
+		bup 0.05;
+		mdown 0;
+		sed -i /bird/'s/--um/--ds/' .bashrc;;
+	--ds)
+		bdown 0.1;
+		sup 0.01;
+		sed -i /bird/'s/--ds/--dm/' .bashrc;;
+	--dm)
+		bdown 0.05;
+		mup 0;
+		sed -i /bird/'s/--dm/--us/' .bashrc;;
+	*)
+		echo -e '\e[32mus•um•ds•dm\e[0m'
+esac
+}
+h=`cat motd | wc -l`
+case $1 in
+	--config)
+		os=`tail -1 bird`
+		echo -e "\e[33mNOW ${os:1}\e[0m"
+		echo -e '\e[32mroundrobin•datehash•random\e[0m'
+		read -p "strategy: " con;
+		if [ "$con" == "random" ];then
+			rcon='hash $[RANDOM%4]'
+		elif [ "$con" == "datehash" ];then
+			rcon='hash $[`date +%j`%4]'
+		elif [ "$con" == "roundrobin" ];then
+			rcon='roundrobin $1'
+	else
+		echo -e "\e[33mNO CHANGE\e[0m"
+		exit
+		fi;
+		sed -i '$d' bird;
+		sed -i '$d' bird;
+		echo "$rcon" >> bird
+		echo "#$con" >> bird
+		ns=`tail -1 bird`
+		echo -e "\e[33mNOW ${ns:1}\e[0m"
+		exit;;
+	*)
+esac
+hash $[RANDOM%4]
+#random

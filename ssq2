@@ -1,0 +1,13 @@
+#!/data/data/com.termux/files/usr/bin/bash
+while [ 1 ]
+do
+	a=$[RANDOM%33+1]
+	b=$[RANDOM%33+1]
+	c=$[RANDOM%33+1]
+	d=$[RANDOM%33+1]
+	e=$[RANDOM%33+1]
+	f=$[RANDOM%33+1]
+	g=$[RANDOM%16+1]
+	[ $a -lt $b ] && [ $b -lt $c ] && [ $c -lt $d ] && [ $d -lt $e ] && [ $e -lt $f ] && echo -en "\033[31m $a $b $c $d $e $f \033[0m+ \033[34m$g\033[0m" && echo && exit
+done
+

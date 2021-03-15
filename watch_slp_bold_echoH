@@ -1,0 +1,18 @@
+#!/data/data/com.termux/files/usr/bin/bash
+read -p "minutes:" m
+read -p "seconds:" S
+clear
+echo -e "\e[?25l"
+for s in `seq $[${m:=0}*60+${S:=0}] -1 0`
+do
+	c=$[s%7+31]
+	f=$[s/60]
+	n=$[s%60]
+	[ $f -lt 10 ] && f=0$f
+	[ $n -lt 10 ] && n=0$n
+	echo -e '\033[1;1H'
+	toilet -t --metal びょうよみ
+	toilet  --gay "${f}:${n}"
+	sleep 0.8559322
+done
+echo -e "\a\e[?25h"

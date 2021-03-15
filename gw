@@ -1,0 +1,26 @@
+#!/data/data/com.termux/files/usr/bin/bash
+#以下是杀掉监控进程的语句
+pid=`ps -ef |grep 'home/web' | awk /bash/'{print $2}'`
+for p in $pid
+do
+	kill $p
+done
+#首先定義殺掉進程的函數
+kill_svc(){
+for i in `pgrep $1`
+do
+	kill $i
+done
+}
+#以下是三次調用函數
+kill_svc nginx
+kill_svc mysqld
+kill_svc php-fpm
+rm $PREFIX/share/nginx/html/list.html &> /dev/null #刪除產生的list.html網頁
+rm $PREFIX/share/nginx/html/biao &> /dev/null #刪除產生的biao
+rm $PREFIX/share/nginx/html/piao &> /dev/null #刪除產生的piao
+sed -i /list.html/'d' $PREFIX/var/log/nginx/access.log #删除掉日志中因频繁刷新产生的海量list.html部分
+#以下是提示信息
+echo -e '\t\t*******************
+\t\tweb service is down
+\t\t\a*******************'

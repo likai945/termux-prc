@@ -1,0 +1,7 @@
+for i in `seq $1`
+do
+	c=$[RANDOM%7+(RANDOM%2+3)*10+1]
+	echo -en "\033[${c}m$[RANDOM%10]\033[0m"
+	sleep 0.01
+done
+echo

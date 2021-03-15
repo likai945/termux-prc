@@ -1,0 +1,11 @@
+#!/data/data/com.termux/files/usr/bin/bash
+for p in {1..9}
+do
+	let i++
+	s=$[i%7+31]
+	for k in `seq $i`
+	do
+		echo -en "\033[${s}m${k}x$i=$[k*i]\033[0m "
+	done
+	echo
+done

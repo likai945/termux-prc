@@ -1,0 +1,10 @@
+clear
+echo -e "\033[?25l"
+tput sc
+while :
+do
+	toilet --metal `date +%X`
+	toilet --metal `date +%D`
+	toilet --metal `date +%A`
+	tput rc
+	done

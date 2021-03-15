@@ -1,0 +1,10 @@
+a="one two  three"
+b="   four    five"
+c="     six       seven"
+p=0
+while [ 1 ]
+do
+	[ $p -eq 0 ] && e=${a:n:1} && echo -en "\033[32m$e" && sleep 0.1 && let n++ && [ "$e" == "" ] && echo && let p++
+	[ $p -eq 1 ] && e=${b:m:1} && echo -en "\033[031m$e" && sleep 0.1 && let m++ && [ "$e" == "" ] && echo && let p++
+	[ $p -eq 2 ] && e=${c:o:1} && echo -en "\033[33m$e\033[0m" && sleep 0.1 && let o++ && [ "$e" == "" ] && echo && exit
+done

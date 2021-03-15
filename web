@@ -1,0 +1,37 @@
+#!/data/data/com.termux/files/usr/bin/bash
+nginx
+#php-fpm  
+#nohup mysqld >/dev/null 2>&1 &
+#以上是啟動三大服務
+sleep 1
+clear
+#以下是echo提示信息
+echo -e '\t\t######################
+\t\tweb service is running
+\t\t\a######################'
+#以下是生成list.html的函数
+shengcheng(){
+list=$PREFIX/share/nginx/html/list.html
+archive=$PREFIX/share/nginx/html/cunc
+ls $archive > $list
+substance=`cat $list`
+> $list
+#以下是产生网页的语句
+echo '<meta http-equiv="refresh" content="1">' > $list
+for sub in $substance
+do
+	echo "<font size=123><br><a href=\"cunc/${sub}\">${sub}</a></br></font>" >> $list
+done
+}
+#以下是变化时生成新list.html的语句
+shengcheng
+biao=$PREFIX/share/nginx/html/biao
+ls $archive > $biao
+origin=`md5sum $biao | awk '{print $1}'`
+while [ 1 ]
+do
+	piao=$PREFIX/share/nginx/html/piao
+	ls $archive > $piao
+	new=`md5sum $piao | awk '{print $1}'`
+	[ $origin != $new ] && origin=$new && shengcheng &> /dev/null
+done

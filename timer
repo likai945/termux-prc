@@ -1,0 +1,158 @@
+#!/bin/bash
+timer(){
+read -p 'subject: ' case
+start=`date +%s`
+echo -e "\033[32m count started, just go ${case}, input 'stop' to end \033[0m"
+while [ 1 ]
+do
+read -p 'command: ' code
+case $code in
+stop | STOP )
+        stop=`date +%s`;
+        gap=$[stop-start];
+        middle=$[gap/60];
+        second=$[gap%60];
+        minute=$[middle%60];
+        hour=$[middle/60];
+        echo -e "\n\n\t\tyour \033[32m${case}\033[0m costs \n\n\t\t\033[32m${hour} hours ${minute} minutes ${second} seconds\033[0m.\n\n";
+        exit;;
+*)
+        echo "input stop|STOP to end the count"
+esac
+done
+}
+stopwatch(){
+start=`date +%s`
+echo -e "\033[32m count started,input 'mk' to mark,'end' to end \033[0m"
+while [ 1 ]
+do
+read -p 'opt: ' opt
+case $opt in
+mk | MK )
+        stop=`date +%s`;
+	op=$point;
+        point=$[stop-start];
+	gap=$[point-op];
+        minute=$[point/60];
+        second=$[point%60];
+	gm=$[gap/60];
+	gs=$[gap%60];
+	let i++
+        echo -e "\033[32m\t${i}\t${minute} M : ${second} S\033[0m\c";
+	echo -e "\033[32m | cst ${gm}M ${gs}S\033[0m";;
+end | END )
+        stop=`date +%s`;
+	op=$point;
+        point=$[stop-start];
+	gap=$[point-op];
+        minute=$[point/60];
+        second=$[point%60];
+	gm=$[gap/60];
+	gs=$[gap%60];
+	let i++
+        echo -e "\033[32m\t${i}\t${minute} M : ${second} S\033[0m\c";
+	echo -e "\033[32m | cst ${gm}M ${gs}S\033[0m";
+	exit;;
+*)
+        echo "input mk|MK to mark,end|END to end"
+esac
+done
+}
+countdown(){
+read -p "minutes: " minutes
+echo -e "\033[32m \n\n\t\tclock will alarm \n\t\tafter $minutes minutes\n\n \033[0m"
+now=`date +%s`
+seconds=$[minutes*60+now]
+arrow=$[minutes*60-6]
+gap=`echo "scale=5;$arrow/31"|bc`
+echo -e '\033[?25l\033[33m\t-\c\033[0m'
+sleep 0.1
+for i in {1..30}
+do
+	if [ $i -eq 15 ];then
+		echo -e '\033[32m*\c\033[0m'
+	elif [ $i -eq 16 ];then
+		echo -e '\033[32m*\c\033[0m'
+	else
+		echo -e '\033[33m-\c\033[0m'
+	fi
+	sleep 0.1
+done
+echo -e '\033[33m- \033[0m'
+echo -e '\033[31m\t>\c \033[0m'
+sleep $gap
+for i in {1..30}
+do
+	c=$[i%7+31]
+	echo -e "\033[${c}m>\c \033[0m"
+	sleep $gap
+done
+echo -e '\033[34m>\c \033[0m'
+while [ 1 ]
+do
+        current=`date +%s`
+        [ $current -eq $seconds ] && echo -e '\033[32m \n\n\t\t    time up \a\n\n \033[0m\033[?25h' && exit
+        [ $current -gt $seconds ] && echo -e "\033[32m \n\n\t\t$[current-seconds] more seconds \a\n\n \033[0m\033[?25h" && exit
+done
+}
+alarmclock(){
+while [ 1 ]
+do
+        read -p "the hour: " h
+        read -p "the minute: " m
+        ringtime=$h$m
+        now=`date +%H%M`
+        if [ $now -gt $ringtime ];then
+                echo -e "\033[32m \n\n\t\tnow is `date +%H:%M`\a\n\n \033[0m"
+        	read -p 'clock gonna ring on tommorrow, are you sure? ' sure
+	        case $sure in
+        	yes | y | YES | Y)
+                	echo -e "\033[32m \n\n\t\tclock gonna ring at next ${h}:${m}\a\n\n \033[0m";
+                	break;;
+		no | n | NO | N)
+			continue;;
+	        *)
+	                echo -e "\033[32minput 'yes' to make sure, 'no' to reset \033[0m";
+        		read -p 'clock gonna ring on tommorrow, are you sure? ' sure
+			[ $sure == "yes" ] && echo -e "\033[32m \n\n\t\tclock gonna ring at next ${h}:${m}\a\n\n \033[0m" && break || continue;;
+	        esac
+        else
+                break
+        fi
+done
+while [ 1 ]
+do
+        now=`date +%H%M`
+        [ $now -eq $ringtime ] && echo -e "\033[32m \n\n\t\tnow is `date +%H:%M`\a\n\n \033[0m" && exit
+done
+}
+if [ ! $1 ];then
+	read -p 'timer or countdown or alarmclock or stopwatch: ' choose
+        case $choose in
+        timer|TIMER|jishi|js)
+                timer;;
+        countdown|COUNTDOWN|daojishi|djs)
+                countdown;;
+	alarmclock|ALARMCLOCK|naozhong|nz)
+		alarmclock;;
+	stopwatch|STOPWATCH|mabiao|mb)
+		stopwatch;;
+        *)
+                echo -e "\033[34mtimer|countdown|alarmclock|stopwatch\033[0m"
+        esac
+else
+	case $1 in
+        --timer|--TIMER|--jishi|--js)
+		timer;;
+        --countdown|--COUNTDOWN|--daojishi|--djs)
+		countdown;;
+	--stopwatch|--STOPWATCH|--mabiao|--mb)
+		stopwatch;;
+	--alarmclock|--ALARMCLOCK|--naozhong|--nz)
+		alarmclock;;
+	--help)
+       		echo -e "\033[34mtimer|countdown|alarmclock|stopwatch\033[0m";;
+	*)
+		echo 'bad option!'
+	esac
+fi

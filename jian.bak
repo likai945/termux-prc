@@ -1,0 +1,60 @@
+#/bin/bash
+huitu(){
+[ `cat $tz | wc -l` -eq 0 ] && echo -e "\t\t\033[31mNO DATA\033[0m" && exit 
+echo -e '\n\033[?25l------------------------------'
+for i in `cat ${tz}`;do
+	let b++
+	c=$[b%2]
+	if [ $c -eq 1 ];then 
+		echo -en "\033[46m${i:4}\033[0m" 
+	else
+		k=$[i-105] 
+		for j in `seq $k`;do
+			s=$[b%7+31]
+			echo -en "\033[${s}m/\033[0m"
+			sleep 0.02
+		done
+		for k in {0..2};do
+			echo -en "\033[${s}m${i:$k:1}\033[0m"
+			[ $k -lt 2 ] && sleep 0.02
+		done
+		echo
+	fi
+done
+echo -e '------------------------------\033[?25h\n'
+}
+jilu(){
+zheci=`date +%Y%b%d`
+shangci=$(tail -1 ${tz} | awk '{print $1}')
+[ $zheci == $shangci ] &> /dev/null && echo -e "\t\t\033[31mDUPLICATE RECORD\033[0m" && exit 
+while [ 1 ]
+do
+	read -p 'weight:' w
+	[ $w -ge 105 ] &> /dev/null && [ $w -le 150 ] &> /dev/null && echo "${zheci} $w" >> ${tz} && cp $tz /data/data/com.termux/files/usr/Termuxbak/backup/hm/ && echo -e '\033[1A\033[10C\033[32m[✓]\033[0m' && exit
+	[ $? -ne 0 ] && echo -e "\t\t\033[31mBETWEEN 105 AND 150\033[0m"
+done
+}
+quan(){
+[ `cat $tz | wc -l` -eq 0 ] && echo -e "\t\t\033[31mNO DATA\033[0m" && exit
+echo -e '\n\033[32m-------------\033[0m'
+	cat ${tz}
+echo -e '\033[32m-------------\033[0m\n'
+}
+beifen(){
+cp $tz /data/data/com.termux/files/usr/Termuxbak/backup/hm/ && echo -e '\t\t\033[32mBACKUP COMPLETED\033[0m'
+}
+##########the program##########
+tz=/data/data/com.termux/files/home/tz
+[ ! -f $tz ] && touch $tz
+case $1 in
+        --hui|-h|h)
+        huitu;;
+        --ji|-j|j)
+        jilu;;
+        --quan|-q|q)
+        quan;;
+	--bei|-b|b)
+	beifen;;
+        *)
+        echo "hui|ji|quan|bei"
+esac

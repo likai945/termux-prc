@@ -1,0 +1,44 @@
+#!/bin/bash
+clock(){
+clear
+echo -e "\033[?25l"
+tput sc
+while :
+do
+	tput rc
+	toilet --metal `date +%X`
+	toilet --metal `date +%D`
+	toilet --metal `date +%A`
+done
+}
+djs(){
+read -p "minutes:" m
+read -p "seconds:" s
+s=$[${m:=0}*60+${s:=0}]
+clear
+ot=`date +%s`
+zm=$[s/60]
+ow=${#zm}
+while :
+do
+	xm=$[s/60]
+	xs=$[s%60]
+	[ $xm -lt 10 ] && xm=0$xm
+	[ $xs -lt 10 ] && xs=0$xs
+	[ ${#xm} -lt $ow ] && ow=${#xm} && clear
+	echo -e "\033[1;1H\033[?25l"
+	toilet --gay ${xm}:${xs}
+	nt=`date +%s`
+	[ $nt -gt $ot ] && ot=$nt && let s--
+	[ $s -lt 0 ] && echo -e "\a\033[?25h" && espeak "she jan dau le" && exit
+done
+}
+case $1 in
+	--djs|'')
+		djs;;
+	--clock)
+		clock;;
+	*)
+		echo -e '\e[32mdjs|clock\e[0m'
+esac
+

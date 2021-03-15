@@ -1,0 +1,103 @@
+#!/bin/bash
+mdown(){
+echo -e '\033[1;1H\c'
+for i in `seq $h`
+do
+n=`sed -n $i'p' fw`
+l=`echo "$n" | wc -L`
+for r in `seq $l`;do
+	echo -en "\033[${c}m${n:$[r-1]:1}" && [ "$2" == "esp" ] && espeak "${n:$[r-1]:1}"
+	sleep $1
+done
+echo
+done
+echo -e '\033[?25h\033[0m\c'
+}
+bup(){
+echo -e '\033[?25l'
+for i in `seq $h`
+do
+	clear
+	k=$[h-i]
+	for j in `seq $k`
+	do
+		echo
+	done
+	head -$i fw
+	sleep $1
+done
+[ "$2" == "esp" ] && cat fw | espeak
+}
+sdown(){
+echo -e '\033[1;1H\c'
+for i in `seq $h`
+do
+n=`sed -n $i'p' fw`
+echo -e "\033[${c}m$n" && [ "$2" == "esp" ] && espeak "$n" 
+sleep $1
+done
+echo -e '\033[?25h\033[0m\c'
+}
+wdown(){
+echo -e '\033[1;1H\c'
+for j in `seq $h`
+do
+n=`sed -n $j'p' fw`
+for i in $n
+do
+	echo -en "\033[${c}m$i " && [ "$2" == "esp" ] && [[ "$i" =~ [0-9a-zA-Z] ]] && espeak "$i"
+	sleep $1
+done
+echo
+done
+echo -e '\033[?25h\033[0m\c'
+}
+fall(){
+while :
+do
+a=`fortune`
+s=`echo $a | wc -w`
+echo -e "\e[$[(RANDOM%2+3)*10+1+RANDOM%7]m$a\e[0m"
+[ "$1" == "esp" ] && espeak "$a" || sleep `echo "scale=3;$s/10" | bc`
+done
+}
+main(){
+while :
+do
+echo -e '\e[?25l'
+clear
+fortune > fw
+grep '*' fw && continue
+h=`cat fw | wc -l`
+c=$[RANDOM%7+31]
+p=$[c+10]
+$1 $2 $4
+echo -e "\n\t\t\e[${p}m[✓]\e[0m"
+sleep 0.5
+[ "$3" == "h" ] && sleep $h || sleep $3 
+done
+}
+case ${1} in
+	--pb|'')
+		fall;;
+	--pbld)
+		fall esp;;
+	--zz)
+		main mdown 0.02 1;;
+	--zh)
+		main sdown 1.5 2;;
+	--sf)
+		main bup 0.1 h;;
+	--zc)
+		main wdown 0.1 1;;
+	--zcld)
+		main wdown 0 0 esp;;
+	--zzld)
+		main mdown 0 0 esp;;
+	--zhld)
+		main sdown 0 0 esp;;
+	--sfld)
+		main bup 0.1 0 esp;;
+	*)
+		echo -e "\e[32mzz|zc|zh|sf|sfld|zcld|zzld|zhld|pb|pbld\e[0m"
+esac
