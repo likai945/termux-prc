@@ -1,9 +1,0 @@
-clear
-echo -e "\033[?25l"
-while :
-do
-	echo -e "\033[1;1H"
-	toilet --metal `date +%X`
-	toilet --metal `date +%D`
-	toilet --metal `date +%A`
-	done
