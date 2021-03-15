@@ -3,7 +3,7 @@ bdown(){
 echo -e "\033[?25l\c"
 for i in `seq $h`
 do
-n=`tail -$i motd`
+n=`tail -$i .motd`
 clear
 echo "$n" 
 sleep $1
@@ -19,14 +19,14 @@ do
 	do
 		echo
 	done
-	head -$i motd
+	head -$i .motd
 	sleep $1
 done
 }
 sup(){
 for i in `seq $h -1 1`
 do
-	n=`sed -n $i'p' motd`
+	n=`sed -n $i'p' .motd`
 	echo -e "\033[$i;1H\033[$[RANDOM%7+31]m$n"
 	sleep $1
 done
@@ -36,7 +36,7 @@ sdown(){
 echo -e '\033[1;1H\c'
 for i in `seq $h`
 do
-n=`sed -n $i'p' motd`
+n=`sed -n $i'p' .motd`
 c=$[RANDOM%7+31]
 echo -e "\033[${c}m$n" 
 sleep $1
@@ -46,7 +46,7 @@ echo -e '\033[?25h\033[0m\c'
 mup(){
 for i in `seq $h -1 1`
 do
-	n=`sed -n $i'p' motd`
+	n=`sed -n $i'p' .motd`
 	echo -e "\033[$i;1H\c"
 	l=`echo "$n" | wc -L`
 	for r in `seq $l -1 1`;do
@@ -61,7 +61,7 @@ mdown(){
 echo -e '\033[1;1H\c'
 for i in `seq $h`
 do
-n=`sed -n $i'p' motd`
+n=`sed -n $i'p' .motd`
 l=`echo "$n" | wc -L`
 for r in `seq $l`;do
 	c=$[RANDOM%7+31]
@@ -110,7 +110,7 @@ case $1 in
 		echo -e '\e[32mus•um•ds•dm\e[0m'
 esac
 }
-h=`cat motd | wc -l`
+h=`cat .motd | wc -l`
 case $1 in
 	--config)
 		os=`tail -1 bird`
