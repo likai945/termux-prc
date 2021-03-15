@@ -3,7 +3,7 @@ mdown(){
 echo -e '\033[1;1H\c'
 for i in `seq $h`
 do
-n=`sed -n $i'p' fw`
+n=`sed -n $i'p' .fw`
 l=`echo "$n" | wc -L`
 for r in `seq $l`;do
 	echo -en "\033[${c}m${n:$[r-1]:1}" && [ "$2" == "esp" ] && espeak "${n:$[r-1]:1}"
@@ -23,16 +23,16 @@ do
 	do
 		echo
 	done
-	head -$i fw
+	head -$i .fw
 	sleep $1
 done
-[ "$2" == "esp" ] && cat fw | espeak
+[ "$2" == "esp" ] && cat .fw | espeak
 }
 sdown(){
 echo -e '\033[1;1H\c'
 for i in `seq $h`
 do
-n=`sed -n $i'p' fw`
+n=`sed -n $i'p' .fw`
 echo -e "\033[${c}m$n" && [ "$2" == "esp" ] && espeak "$n" 
 sleep $1
 done
@@ -42,7 +42,7 @@ wdown(){
 echo -e '\033[1;1H\c'
 for j in `seq $h`
 do
-n=`sed -n $j'p' fw`
+n=`sed -n $j'p' .fw`
 for i in $n
 do
 	echo -en "\033[${c}m$i " && [ "$2" == "esp" ] && [[ "$i" =~ [0-9a-zA-Z] ]] && espeak "$i"
@@ -66,9 +66,9 @@ while :
 do
 echo -e '\e[?25l'
 clear
-fortune > fw
-grep '*' fw && continue
-h=`cat fw | wc -l`
+fortune > .fw
+grep '*' .fw && continue
+h=`cat .fw | wc -l`
 c=$[RANDOM%7+31]
 p=$[c+10]
 $1 $2 $4
