@@ -1,0 +1,13 @@
+#!/bin/bash
+origin=`md5sum ji | awk '{print $1}'`
+while [ 1 ]
+do
+	new=`md5sum ji | awk '{print $1}'`
+	tail -1 ji | grep mao &> /dev/null
+	if [ $? -eq 0 ];then
+		if [ $origin != $new ];then
+			origin=$new
+			date >> date
+		fi
+	fi
+done

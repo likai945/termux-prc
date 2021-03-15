@@ -10,3 +10,5 @@ pkg install bc -y
 pkg install openssh -y 
 pkg install fortune -y
 pkg install rsync -y
+pkg install zip -y
+pkg install unzip -y
