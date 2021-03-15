@@ -1,0 +1,19 @@
+#!/data/data/com.termux/files/usr/bin/bash
+read -p 'a num:' a
+read -p 'b num:' b
+[ $a -gt $b ] && d=$a a=$b b=$d
+[ $a -eq $b ] && echo $a && exit
+[ $a -eq 0 ] && echo $b && exit
+while [ 1 ]
+do
+        c=$[b-a]
+        if [ $c -lt $a ];then
+        	b=$a
+                a=$c
+        elif [ $c -gt $a ];then
+                b=$c                         
+	else
+                echo $c
+                exit
+        fi
+done
