@@ -1,7 +1,0 @@
-#!/bin/bash
-origin=`md5sum ji | awk '{print $1}'`
-while [ 1 ]
-do
-	new=`md5sum ji | awk '{print $1}'`
-	[ $origin != $new ] && origin=$new && date >> date 
-done
