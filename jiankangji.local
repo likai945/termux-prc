@@ -1,8 +1,4 @@
 #/bin/bash
-my(){
-bpath=$PREFIX/Termuxbak/backup/hm
-rsync -r ${bpath}/ $HOME/termux-app && cd $HOME/termux-app && git add . && git commit -m "daily_sync_`date +%Y%b%e%X`" && git push && echo -e '\n\t\t\e[31m(\e[0mG\e[31m)\e[0m' && espeak "pushed"
-}
 cha(){
 [ `cat $jl | wc -l` -eq 0 ] && echo -e "\t\t\033[31mNO DATA\033[0m" && exit 
 zc=`date +%j`
@@ -176,27 +172,23 @@ case $1 in
 	lan;;
 	--laj)
 	ji;
-	lan;
-	my;;
+	lan;;
 	--laq)
 	quan;;
 	--lat)
 	tong;;
 	--lab)
-	bei;
-	my;;
+	bei;;
 	--jnh)
 	huitu;;
 	--jnj)
-	jilu;
-	my;;
+	jilu;;
 	--jnq)
 	quanbu;;
 	--jnt)
 	tongji;;
 	--jnb)
-	beifen;
-	my;;
+	beifen;;
 	*)
 	echo -e "\033[32mlac•laj•laq•lat•lab\njnh•jnj•jnq•jnt•jnb\033[0m"
 esac
