@@ -1,0 +1,25 @@
+#!/bin/bash
+sync(){
+bpath=$PREFIX/Termuxbak/backup/hm
+cd
+for i in `ls`;do
+[ -f $i ] && cp $i $bpath && echo -e "$i \e[32m✓\e[0m" && let e++
+done
+echo -e "\e[32m---------------\ncopied $e files\e[0m"
+read -p "git push them all? " y
+[[ "$y" =~ "no" ]] && exit
+[[ "${y:=yes}" =~ "yes" ]] && rsync -r ${bpath}/ $1 && cd $1 && git add . && read -p "any remarks? " rm && git commit -m "${rm:=}`date +%Y%b%e•%X`" && git push && echo -e "$2"
+cd
+}
+ghl='\t\t\e[32m(×)\n\t\t/|\\e[0m'
+gtl='\n\t\t\e[31m(\e[0mG\e[31m)\e[0m'
+ghp=$HOME/termux-prc
+gtp=$HOME/termux-app
+case $1 in
+	--github)
+		push $ghp $ghl;;
+	--gitee)
+		push $gtp $gtl;;
+	*)
+		echo -e '\e[32mgithub|gitee\e[0m'
+esac
