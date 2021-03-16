@@ -13,3 +13,4 @@ pkg install rsync -y
 pkg install zip -y
 pkg install unzip -y
 pkg install ncurses-utils -y
+pkg install man -y

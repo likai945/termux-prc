@@ -1,0 +1,10 @@
+#!/bin/bash
+read -p "IP addr: " ip
+[ `echo "$ip>4" | bc` -eq 1 ] && path=/etc/network/interfaces.d/ens39 || path=/etc/network/interfaces.d/ens38
+de=${path#*d/}
+echo "auto $de
+iface $de inet static
+    address 192.168.$ip
+    netmask 255.255.255.0" > $path
+ifdown $de &> /dev/null
+ifup $de
