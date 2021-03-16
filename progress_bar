@@ -1,0 +1,29 @@
+#!/bin/bash
+cs(){
+echo -en "\e[1;1H\e[?25l"
+for j in `seq $3`
+do
+	echo -en "\e[$2m \e[0m"
+done
+	[ $3 -lt 30 ] && espeak "go"
+	[ "$bj" == "z" ] && espeak "done" 
+echo 
+tput rc
+}
+c=$[RANDOM%7+41]
+cs 0 $c 30 
+echo
+tput sc
+sleep 3
+date && tput sc  && sleep 2 && jd=5
+cs 0 $[c+1] $jd
+ls && tput sc && sleep 3 && jd=10 
+cs 0 $[c+1] $jd
+ls && tput sc && sleep 2 && jd=20 
+cs 0 $[c+1] $jd
+date && tput sc && sleep 2 && jd=25 
+cs 0 $[c+1] $jd
+ls && tput sc && sleep 2 && jd=30 && bj=z 
+cs 0 $[c+1] $jd
+echo -e "\e[?25h\e[0m"
+
