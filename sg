@@ -8,18 +8,20 @@ done
 echo -e "\e[32m---------------\ncopied $e files\e[0m"
 read -p "git push them all? " y
 [[ "$y" =~ "no" ]] && exit
-[[ "${y:=yes}" =~ "yes" ]] && rsync -r ${bpath}/ $1 && cd $1 && git add . && read -p "any remarks? " rm && git commit -m "${rm:=}`date +%Y%b%e•%X`" && git push && echo -e "$2"
+[[ "${y:=yes}" =~ "yes" ]] && rsync -r ${bpath}/ $1 && cd $1 && git add . && read -p "any remarks? " rm && git commit -m "${rm:=}`date +%Y%b%e•%X`" && git push && echo -e "$2" || echo -e "$3"
 cd
 }
 ghl='\t\t\e[32m(×)\n\t\t/|\\\e[0m'
 gtl='\n\t\t\e[31m(\e[0mG\e[31m)\e[0m'
+bghl='\t\t\e[31m(×)\n\t\t/|\\\e[0m'
+bgtl='\n\t\t\e[33m(\e[32mG\e[33m)\e[0m'
 ghp=$HOME/termux-prc
 gtp=$HOME/termux-app
 case $1 in
 	--github)
-		push $ghp $ghl;;
+		push $ghp $ghl $bghl;;
 	--gitee)
-		push $gtp $gtl;;
+		push $gtp $gtl $bgtl;;
 	*)
 		echo -e '\e[32mgithub|gitee\e[0m'
 esac
