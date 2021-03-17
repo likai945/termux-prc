@@ -1,7 +1,12 @@
 #/bin/bash
 my(){
-bpath=$PREFIX/Termuxbak/backup/hm
-rsync -r ${bpath}/ $HOME/termux-app && cd $HOME/termux-app && git add . && git commit -m "daily_sync_`date +%Y%b%e%X`" && git push && echo -e '\n\t\t\e[31m(\e[0mG\e[31m)\e[0m' && espeak "pushed"
+rsync -r ${bpath}/ $HOME/termux-app && cd $HOME/termux-app && git add . && git commit -m "daily_sync_`date +%Y%b%e%X`" &> /dev/null && git push &> /dev/null && return 0
+}
+dxa(){
+[ $? -eq 0 ] && echo -e "\e[1A\e[$[rl+3]C\e[31m(\e[0mG\e[31m)\e[0m"
+}
+dxb(){
+[ $? -eq 0 ] && echo -e "\t\t\e[31m(\e[0mG\e[31m)\e[0m"
 }
 cha(){
 [ `cat $jl | wc -l` -eq 0 ] && echo -e "\t\t\033[31mNO DATA\033[0m" && exit 
@@ -113,7 +118,7 @@ shangci=$(tail -1 ${tz} | awk '{print $1}')
 while [ 1 ]
 do
 	read -p 'weight:' w
-	[ $w -ge 100 ] &> /dev/null && [ $w -le 150 ] &> /dev/null && echo "${zheci} $w" >> ${tz} && cp $tz $bpath && echo -e '\033[1A\033[10C\033[32m[✓]\033[0m' && exit
+	[ $w -ge 100 ] &> /dev/null && [ $w -le 150 ] &> /dev/null && echo "${zheci} $w" >> ${tz} && cp $tz $bpath && echo -e '\033[1A\033[10C\033[32m[✓]\033[0m' && rl=10 && break
 	[ $? -ne 0 ] && echo -e "\t\t\033[31mBETWEEN 100 AND 150\033[0m"
 done
 }
@@ -176,27 +181,31 @@ case $1 in
 	lan;;
 	--laj)
 	ji;
-	lan;
-	my;;
+	my;
+	dxa;
+	lan;;
 	--laq)
 	quan;;
 	--lat)
 	tong;;
 	--lab)
 	bei;
-	my;;
+	my;
+	dxb;;
 	--jnh)
 	huitu;;
 	--jnj)
 	jilu;
-	my;;
+	my;
+	dxa;;
 	--jnq)
 	quanbu;;
 	--jnt)
 	tongji;;
 	--jnb)
 	beifen;
-	my;;
+	my;
+	dxb;;
 	*)
 	echo -e "\033[32mlac•laj•laq•lat•lab\njnh•jnj•jnq•jnt•jnb\033[0m"
 esac
