@@ -45,6 +45,9 @@ case $1 in
 		push $ghp $ghl $bghl;;
 	--gitee)
 		push $gtp $gtl $bgtl;;
+	--db)
+		push $gtp $gtl $bgtl;
+		push $ghp $ghl $bghl;;
 	--ql)
 		ql;;
 	--hf)

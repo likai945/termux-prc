@@ -16,6 +16,7 @@ alias 'ql=/data/data/com.termux/files/home/.toolbox --ql'
 alias 'hf=/data/data/com.termux/files/home/.toolbox --hf'
 alias 'gh=/data/data/com.termux/files/home/.toolbox --github'
 alias 'my=/data/data/com.termux/files/home/.toolbox --gitee'
+alias 'db=/data/data/com.termux/files/home/.toolbox --db'
 alias 'djs=/data/data/com.termux/files/home/clock'
 ./bird --um
 espeak "hello"
