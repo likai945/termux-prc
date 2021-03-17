@@ -1,4 +1,27 @@
 #!/bin/bash
+ql(){
+echo
+ls .*.sw* 2> /dev/null
+[ $? -eq 2 ] && echo -e "\t\t\e[32mNO TRASH\e[0m" && exit
+echo -e "\e[32m--------------------\e[0m"
+while :
+read -p "sure? " s
+do
+	if [[ ${s:=yes} =~ yes ]];then
+		rm .*.sw*
+		echo -e "\t\t\e[32mTRASH CLEANED UP\e[0m"
+		exit
+	elif [[ $s =~ no ]];then
+		exit
+	else
+		echo -e "\e[32myes|no\e[0m"
+	fi
+done
+}	
+hf(){
+clear
+echo -e '\e[0m\e[?25h'
+}
 push(){
 bpath=$PREFIX/Termuxbak/backup/hm
 cd
@@ -22,6 +45,10 @@ case $1 in
 		push $ghp $ghl $bghl;;
 	--gitee)
 		push $gtp $gtl $bgtl;;
+	--ql)
+		ql;;
+	--hf)
+		hf;;
 	*)
-		echo -e '\e[32mgithub|gitee\e[0m'
+		echo -e '\e[32mgithub|gitee|ql|hf\e[0m'
 esac
