@@ -23,7 +23,7 @@ clear
 echo -e '\e[0m\e[?25h'
 }
 push(){
-bpath=$PREFIX/Termuxbak/backup/hm
+bpath=$PREFIX/backup
 cd
 for i in `ls`;do
 [ -f $i ] && rsync $i $bpath && echo -e "$i \e[32m✓\e[0m" && let e++
