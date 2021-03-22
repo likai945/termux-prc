@@ -34,9 +34,9 @@ read -p "git push them all? " y
 [[ "${y:=yes}" =~ "yes" ]] && rsync -r ${bpath}/ $1 && cd $1 && git add . && read -p "any remarks? " rm && git commit -m "${rm:=}`date +%Y%b%e•%X`" && git push && echo -e "$2" || echo -e "$3"
 cd
 }
-ghl='\n\t\t\e[1m\e[32m(×)\n\t\t/|\\\e[0m\n'
+ghl='\n\t\t\e[1m\e[37m(×)\n\t\t/|\\\e[0m\n'
 gtl='\n\t\t\e[1m\e[31m(\e[37mG\e[31m)\e[0m\n'
-bghl='\n\t\t\e[1m\e[31m(×)\n\t\t/|\\\e[0m\n'
+bghl='\n\t\t\e[1m\e[33m(×)\n\t\t/|\\\e[0m\n'
 bgtl='\n\t\t\e[1m\e[33m(\e[32mG\e[33m)\e[0m\n'
 ghp=$HOME/termux-prc
 gtp=$HOME/termux-app
