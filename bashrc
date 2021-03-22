@@ -1,6 +1,5 @@
 alias 'web=/data/data/com.termux/files/home/web &'
 alias 'gw=/data/data/com.termux/files/home/gw'
-alias 'timer=/data/data/com.termux/files/home/timer'
 alias 'laj=/data/data/com.termux/files/home/jiankangji --laj'
 alias 'lac=/data/data/com.termux/files/home/jiankangji --lac'
 alias 'laq=/data/data/com.termux/files/home/jiankangji --laq'
@@ -17,8 +16,7 @@ alias 'hf=/data/data/com.termux/files/home/.toolbox --hf'
 alias 'gh=/data/data/com.termux/files/home/.toolbox --github'
 alias 'my=/data/data/com.termux/files/home/.toolbox --gitee'
 alias 'db=/data/data/com.termux/files/home/.toolbox --db'
-alias 'djs=/data/data/com.termux/files/home/clock'
-./bird --um
+./.bird --um
 espeak "hello"
 #PS1="[\W]$"
 alias 'grep=grep --color'
