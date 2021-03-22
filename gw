@@ -14,8 +14,8 @@ done
 }
 #以下是三次調用函數
 kill_svc nginx
-#kill_svc mysqld
-#kill_svc php-fpm
+kill_svc mysqld
+kill_svc php-fpm
 rm $PREFIX/share/nginx/html/list.html &> /dev/null #刪除產生的list.html網頁
 rm $PREFIX/share/nginx/html/biao &> /dev/null #刪除產生的biao
 rm $PREFIX/share/nginx/html/piao &> /dev/null #刪除產生的piao
