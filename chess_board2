@@ -1,0 +1,8 @@
+#!/bin/bash
+for i in {1..64}
+do
+	t=$[i+j]
+	c=$[7**(t%2)+40]
+	echo -en "\e[${c}m  \e[0m"
+	[ $[i%8] -eq 0 ] && echo && let j++
+done
