@@ -1,0 +1,11 @@
+#!/bin/bash
+for i in {1..8}
+do
+	for j in {1..8}
+	do
+		s=$[7**(i%2)+40]
+		echo -en "\e[${s}m  \e[0m"
+		let i++
+	done
+	echo
+done
