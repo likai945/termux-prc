@@ -54,7 +54,7 @@ read -p 'remark(-):' r
 t=$[(bi-shi)/60]
 [ $[(bi-shi)%60/6] -ge 5 ] && let t++
 rl=$[`echo "$r" | wc -L`+10]
-[[ $r == manual* ]] &>/dev/null && read -p 'duration(8min):' t && r=`echo ${r:6} | sed 's/ //g'` && rl=$[`echo "$t" | wc -L`+11]
+[[ $r == manual* ]] &>/dev/null && read -p 'duration(8min):' t && r=`echo ${r:6} | sed 's/ //g'` && rl=$[`echo "$t" | wc -L`+15]
 [ $t -lt 10 ] &>/dev/null && t=0$t
 echo "${zheci} d${delay} `date +%R` `date +%Y` `date +%b` `date +%d` `date +%a` | ${s:=nml} ${e:=eas} ${c:=brn} ${t:=08}min ${r:=-}" >> ${jl}
 cp $jl $bpath && echo -e "\033[1A\033[${rl}C\033[1m\033[32m[✓]\033[0m"
