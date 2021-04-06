@@ -24,7 +24,16 @@ dxa(){
 [ $? -eq 0 ] && echo -e "\e[1A\e[$[rl+3]C\e[1m\e[31m(\e[37mG\e[31m)\e[0m\n"
 }
 dxb(){
-[ $? -eq 0 ] && echo -e "\t\t\e[1m\e[31m(\e[37mG\e[31m)\e[32mGIT PUSHED\e[0m"
+[ $? -eq 0 ] && echo -e "\t\t\e[1m\e[31m(\e[37mG\e[31m)\e[32mGITEE PUSHED\e[0m"
+}
+gh(){
+rsync -r ${bpath}/ $HOME/termux-prc && cd $HOME/termux-prc && git add . && git commit -m "daily_sync_`date +%Y%b%e%X`" &> /dev/null && git push &> /dev/null && return 0
+}
+dxc(){
+[ $? -eq 0 ] && echo -e "\e[2A\e[$[rl+6]C\e[1m\e[37m^ ^\e[0m\n"
+}
+dxd(){
+[ $? -eq 0 ] && echo -e "\t\t\e[1m\e[37m^ ^\e[32mGITHUB PUSHED\e[0m"
 }
 cha(){
 [ `cat $jl | wc -l` -eq 0 ] && echo -e "\t\t\033[31mNO DATA\033[0m" && exit 
@@ -59,7 +68,7 @@ ji(){
 zheci=`date +%j`
 shangci=$(tail -1 ${jl} | awk '{print $1}')
 [ -z $shangci ] && delay=0 || delay=`expr $zheci - $shangci - 1`
-[ $delay -eq -1 ] &>/dev/null && zhuijia && my && dxa 
+[ $delay -eq -1 ] &>/dev/null && zhuijia && my && dxa && gh && dxc
 [ $delay -eq -1 ] &>/dev/null && lan && exit
 [ $delay -lt -1 ] && delay=$[365+delay]
 shi=`date +%s`
@@ -203,6 +212,8 @@ case $1 in
 	ji;
 	my;
 	dxa;
+	gh;
+	dxc;
 	lan;;
 	--laq)
 	quan;;
@@ -211,13 +222,17 @@ case $1 in
 	--lab)
 	bei;
 	my;
-	dxb;;
+	dxb;
+	gh;
+	dxd;;
 	--jnh)
 	huitu;;
 	--jnj)
 	jilu;
 	my;
-	dxa;;
+	dxa;
+	gh;
+	dxc;;
 	--jnq)
 	quanbu;;
 	--jnt)
@@ -225,7 +240,9 @@ case $1 in
 	--jnb)
 	beifen;
 	my;
-	dxb;;
+	dxb;
+	gh;
+	dxd;;
 	*)
 	echo -e "\033[32mlac•laj•laq•lat•lab\njnh•jnj•jnq•jnt•jnb\033[0m"
 esac
