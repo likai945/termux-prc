@@ -59,7 +59,7 @@ ji(){
 zheci=`date +%j`
 shangci=$(tail -1 ${jl} | awk '{print $1}')
 [ -z $shangci ] && delay=0 || delay=`expr $zheci - $shangci - 1`
-[ $delay -eq -1 ] &>/dev/null && echo -e "\t\t\033[31mDUPLICATE RECORD\033[0m" && exit 
+[ $delay -eq -1 ] &>/dev/null && $HOME/jiankangji --laz && exit
 [ $delay -lt -1 ] && delay=$[365+delay]
 shi=`date +%s`
 echo -e "\033[32m\ntime recording...\ncomplete all after poop\nremark 'manual' if necessary\033[0m\n"
@@ -68,13 +68,13 @@ bi=`date +%s`
 [[ $s =~ quit ]] && exit
 read -p 'easy or difficult(eas):' e
 read -p 'color(brn):' c
-read -p 'remark(-):' r
+read -p 'remark(null):' r
 t=$[(bi-shi)/60]
 [ $[(bi-shi)%60/6] -ge 5 ] && let t++
 rl=$[`echo "$r" | wc -L`+10]
 [[ $r == manual* ]] &>/dev/null && read -p 'duration(8min):' t && r=`echo ${r:6} | sed 's/ //g'` && rl=$[`echo "$t" | wc -L`+15]
 [ $t -lt 10 ] &>/dev/null && t=0$t
-echo "${zheci} d${delay} `date +%R` `date +%Y` `date +%b` `date +%d` `date +%a` | ${s:=nml} ${e:=eas} ${c:=brn} ${t:=08}min ${r:=-}" >> ${jl}
+echo "${zheci} d${delay} `date +%R` `date +%Y` `date +%b` `date +%d` `date +%a` | ${s:=nml} ${e:=eas} ${c:=brn} ${t:=08}min ${r:=null}" >> ${jl}
 cp $jl $bpath && echo -e "\033[1A\033[${rl}C\033[1m\033[32m[✓]\033[0m"
 }
 quan(){
@@ -215,7 +215,8 @@ case $1 in
 	zhuijia;
 	my;
 	dxa;
-	lan;;
+	lan;
+	exit;;
 	--jnh)
 	huitu;;
 	--jnj)
@@ -231,5 +232,5 @@ case $1 in
 	my;
 	dxb;;
 	*)
-	echo -e "\033[32mlac•laj•laq•lat•lab•laz\njnh•jnj•jnq•jnt•jnb\033[0m"
+	echo -e "\033[32mlac•laj•laq•lat•lab\njnh•jnj•jnq•jnt•jnb\033[0m"
 esac
