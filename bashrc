@@ -5,6 +5,7 @@ alias 'lac=/data/data/com.termux/files/home/jiankangji --lac'
 alias 'laq=/data/data/com.termux/files/home/jiankangji --laq'
 alias 'lat=/data/data/com.termux/files/home/jiankangji --lat'
 alias 'lab=/data/data/com.termux/files/home/jiankangji --lab'
+alias 'laz=/data/data/com.termux/files/home/jiankangji --laz'
 alias 'jnj=/data/data/com.termux/files/home/jiankangji --jnj'
 alias 'jnh=/data/data/com.termux/files/home/jiankangji --jnh'
 alias 'jnq=/data/data/com.termux/files/home/jiankangji --jnq'
@@ -17,6 +18,6 @@ alias 'gh=/data/data/com.termux/files/home/.toolbox --github'
 alias 'my=/data/data/com.termux/files/home/.toolbox --gitee'
 alias 'db=/data/data/com.termux/files/home/.toolbox --db'
 ./.bird --um
-espeak "hello"
+#espeak "hello"
 #PS1="[\W]$"
 alias 'grep=grep --color'

@@ -1,4 +1,22 @@
 #/bin/bash
+zhuijia(){
+echo -e '\e[32m\nshit once more?\nenter "yes" to add plus mark\n\e[0m'
+while :
+do
+	read -p "yes or no:" opt
+	rl=$[10+`echo "$opt" | wc -L`]
+	[[ ${opt:=yes} =~ yes ]] && break
+	[[ $opt =~ no ]] && exit
+done
+last=`tail -1 $jl`
+ly=`echo $last | awk '{print $NF}'`
+echo $last | grep -q '+' || sed -i "s/\($ly\)/(\1)/" $jl
+nly=`tail -1 $jl | awk '{print $NF}'`
+nb=${nly##*+}
+nnb=$[nb+1]
+sed -i "\$s/).*/)+$nnb/" $jl
+cp $jl $bpath && echo -e "\033[1A\033[${rl}C\033[1m\033[32m[✓]\033[0m"
+}
 my(){
 rsync -r ${bpath}/ $HOME/termux-app && cd $HOME/termux-app && git add . && git commit -m "daily_sync_`date +%Y%b%e%X`" &> /dev/null && git push &> /dev/null && return 0
 }
@@ -193,6 +211,11 @@ case $1 in
 	bei;
 	my;
 	dxb;;
+	--laz)
+	zhuijia;
+	my;
+	dxa;
+	lan;;
 	--jnh)
 	huitu;;
 	--jnj)
@@ -208,5 +231,5 @@ case $1 in
 	my;
 	dxb;;
 	*)
-	echo -e "\033[32mlac•laj•laq•lat•lab\njnh•jnj•jnq•jnt•jnb\033[0m"
+	echo -e "\033[32mlac•laj•laq•lat•lab•laz\njnh•jnj•jnq•jnt•jnb\033[0m"
 esac
