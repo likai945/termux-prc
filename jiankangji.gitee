@@ -1,4 +1,22 @@
 #/bin/bash
+zhuijia(){
+echo -e '\e[32m\nshit again?\nenter "yes" to plus one\nenter "no" to cancel\n\e[0m'
+while :
+do
+	read -p "yes or no:" opt
+	rl=$[10+`echo "$opt" | wc -L`]
+	[[ ${opt:=yes} =~ yes ]] && break
+	[[ $opt =~ no ]] && exit
+done
+last=`tail -1 $jl`
+ly=`echo $last | awk '{print $NF}'`
+echo $last | grep -q '+' || sed -i "s/\($ly\)/(\1)/" $jl
+nly=`tail -1 $jl | awk '{print $NF}'`
+nb=${nly##*+}
+nnb=$[nb+1]
+sed -i "\$s/).*/)+$nnb/" $jl
+cp $jl $bpath && echo -e "\033[1A\033[${rl}C\033[1m\033[32m[✓]\033[0m"
+}
 my(){
 rsync -r ${bpath}/ $HOME/termux-app && cd $HOME/termux-app && git add . && git commit -m "daily_sync_`date +%Y%b%e%X`" &> /dev/null && git push &> /dev/null && return 0
 }
@@ -41,7 +59,7 @@ ji(){
 zheci=`date +%j`
 shangci=$(tail -1 ${jl} | awk '{print $1}')
 [ -z $shangci ] && delay=0 || delay=`expr $zheci - $shangci - 1`
-[ $delay -eq -1 ] &>/dev/null && echo -e "\t\t\033[31mDUPLICATE RECORD\033[0m" && exit 
+[ $delay -eq -1 ] &>/dev/null && zhuijia && my && dxa && lan && exit
 [ $delay -lt -1 ] && delay=$[365+delay]
 shi=`date +%s`
 echo -e "\033[32m\ntime recording...\ncomplete all after poop\nremark 'manual' if necessary\033[0m\n"
@@ -50,13 +68,13 @@ bi=`date +%s`
 [[ $s =~ quit ]] && exit
 read -p 'easy or difficult(eas):' e
 read -p 'color(brn):' c
-read -p 'remark(-):' r
+read -p 'remark(null):' r
 t=$[(bi-shi)/60]
 [ $[(bi-shi)%60/6] -ge 5 ] && let t++
-rl=$[`echo "$r" | wc -L`+10]
+rl=$[`echo "$r" | wc -L`+13]
 [[ $r == manual* ]] &>/dev/null && read -p 'duration(8min):' t && r=`echo ${r:6} | sed 's/ //g'` && rl=$[`echo "$t" | wc -L`+15]
 [ $t -lt 10 ] &>/dev/null && t=0$t
-echo "${zheci} d${delay} `date +%R` `date +%Y` `date +%b` `date +%d` `date +%a` | ${s:=nml} ${e:=eas} ${c:=brn} ${t:=08}min ${r:=-}" >> ${jl}
+echo "${zheci} d${delay} `date +%R` `date +%Y` `date +%b` `date +%d` `date +%a` | ${s:=nml} ${e:=eas} ${c:=brn} ${t:=08}min ${r:=null}" >> ${jl}
 cp $jl $bpath && echo -e "\033[1A\033[${rl}C\033[1m\033[32m[✓]\033[0m"
 }
 quan(){
