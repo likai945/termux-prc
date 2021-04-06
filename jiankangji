@@ -71,7 +71,7 @@ read -p 'color(brn):' c
 read -p 'remark(null):' r
 t=$[(bi-shi)/60]
 [ $[(bi-shi)%60/6] -ge 5 ] && let t++
-rl=$[`echo "$r" | wc -L`+10]
+rl=$[`echo "$r" | wc -L`+13]
 [[ $r == manual* ]] &>/dev/null && read -p 'duration(8min):' t && r=`echo ${r:6} | sed 's/ //g'` && rl=$[`echo "$t" | wc -L`+15]
 [ $t -lt 10 ] &>/dev/null && t=0$t
 echo "${zheci} d${delay} `date +%R` `date +%Y` `date +%b` `date +%d` `date +%a` | ${s:=nml} ${e:=eas} ${c:=brn} ${t:=08}min ${r:=null}" >> ${jl}
@@ -215,8 +215,7 @@ case $1 in
 	zhuijia;
 	my;
 	dxa;
-	lan;
-	exit;;
+	lan;;
 	--jnh)
 	huitu;;
 	--jnj)
