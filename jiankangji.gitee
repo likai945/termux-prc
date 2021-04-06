@@ -59,7 +59,8 @@ ji(){
 zheci=`date +%j`
 shangci=$(tail -1 ${jl} | awk '{print $1}')
 [ -z $shangci ] && delay=0 || delay=`expr $zheci - $shangci - 1`
-[ $delay -eq -1 ] &>/dev/null && zhuijia && my && dxa && lan && exit
+[ $delay -eq -1 ] &>/dev/null && zhuijia && my && dxa 
+[ $delay -eq -1 ] &>/dev/null && lan && exit
 [ $delay -lt -1 ] && delay=$[365+delay]
 shi=`date +%s`
 echo -e "\033[32m\ntime recording...\ncomplete all after poop\nremark 'manual' if necessary\033[0m\n"
