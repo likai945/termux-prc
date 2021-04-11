@@ -1,6 +1,6 @@
 #/bin/bash
 zhuijia(){
-echo -e '\e[32m\nshit again?\nenter "yes" to plus one\nenter "no" to cancel\n\e[0m'
+echo -e '\e[32m\nshit again?\nenter "yes" to plus one\nenter "no" to quit\n\e[0m'
 while :
 do
 	read -p "yes or no:" opt
