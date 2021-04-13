@@ -10,7 +10,7 @@ do
 done
 last=`tail -1 $jl`
 ly=`echo $last | awk '{print $NF}'`
-echo $last | grep -q '+' || sed -i "s/\($ly\)/(\1)/" $jl
+echo $last | grep -q '+' || sed -i "\$s/\($ly\)/(\1)/" $jl
 nly=`tail -1 $jl | awk '{print $NF}'`
 nb=${nly##*+}
 nnb=$[nb+1]
