@@ -31,3 +31,4 @@
 095 d2 15:17 2021 Apr 05 Mon | dry eas brn 13min null
 096 d0 10:47 2021 Apr 06 Tue | lqd eas brn 08min (no_brkfst)+3
 101 d4 22:59 2021 Apr 11 Sun | lqd eas brn 11min null
+103 d1 15:09 2021 Apr 13 Tue | sft eas brn 05min null
