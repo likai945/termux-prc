@@ -15,13 +15,12 @@ nly=`tail -1 $jl | awk '{print $NF}'`
 nb=${nly##*+}
 nnb=$[nb+1]
 sed -i "\$s/).*/)+$nnb/" $jl
-cp $jl $bpath && echo -e "\033[1A\033[${rl}C\033[1m\033[32m[✓]\033[0m\n"
 }
 my(){
 rsync -r ${bpath}/ $HOME/termux-app && cd $HOME/termux-app && git add . && git commit -m "daily_sync_`date +%Y%b%e%X`" &> /dev/null && git push &> /dev/null && return 0
 }
 dxa(){
-[ $? -eq 0 ] && echo -e "\e[2A\e[$[rl+3]C\e[1m\e[31m(\e[37mG\e[31m)\e[0m\n"
+[ $? -eq 0 ] && echo -e "\e[1A\e[$[rl+0]C\e[1m\e[31m(\e[37mG\e[31m)\e[0m\n"
 }
 dxb(){
 [ $? -eq 0 ] && echo -e "\t\t\e[1m\e[31m(\e[37mG\e[31m)\e[32mGITEE PUSHED\e[0m"
@@ -30,10 +29,10 @@ gh(){
 rsync -r ${bpath}/ $HOME/termux-prc && cd $HOME/termux-prc && git add . && git commit -m "daily_sync_`date +%Y%b%e%X`" &> /dev/null && git push &> /dev/null && return 0
 }
 dxc(){
-[ $? -eq 0 ] && echo -e "\e[2A\e[$[rl+6]C\e[1m\e[37mGHP\e[0m\n"
+[ $? -eq 0 ] && echo -e "\e[2A\e[$[rl+3]C\e[1m\e[32m[✓]\e[0m\n"
 }
 dxd(){
-[ $? -eq 0 ] && echo -e "\t\t\e[1m\e[37mGHP\e[32mGITHUB PUSHED\e[0m"
+[ $? -eq 0 ] && echo -e "\t\t\e[1m\e[32m[✓]\e[32mGITHUB PUSHED\e[0m"
 }
 cha(){
 [ `cat $jl | wc -l` -eq 0 ] && echo -e "\t\t\033[31mNO DATA\033[0m" && exit 
@@ -85,7 +84,7 @@ rl=$[`echo "$r" | wc -L`+13]
 [[ $r == manual* ]] &>/dev/null && read -p 'duration(8min):' t && r=`echo ${r:6} | sed 's/ //g'` && rl=$[`echo "$t" | wc -L`+15]
 [ $t -lt 10 ] &>/dev/null && t=0$t
 echo "${zheci} d${delay} `date +%R` `date +%Y` `date +%b` `date +%d` `date +%a` | ${s:=nml} ${e:=eas} ${c:=brn} ${t:=08}min ${r:=null}" >> ${jl}
-cp $jl $bpath && echo -e "\033[1A\033[${rl}C\033[1m\033[32m[✓]\033[0m\n"
+cp $jl $bpath
 }
 quan(){
 if [ `cat $jl | wc -l` -eq 0 ];then
@@ -111,9 +110,6 @@ ltre=`echo "scale=2;$ltte/0.01" | bc`
 echo -e "\n-----------------------------"
 echo -e "\033[32mRP:$ltrd% RN:$ltrn% RE:$ltre%\033[0m"
 echo -e "-----------------------------\n"
-}
-bei(){
-cp $jl $bpath && echo -e '\t\t\033[1m\033[32m[✓]BACKUP COMPLETED\033[0m'
 }
 huitu(){
 [ `cat $tz | wc -l` -eq 0 ] && echo -e "\t\t\033[31mNO DATA\033[0m" && exit 
@@ -147,7 +143,7 @@ echo
 while [ 1 ]
 do
 	read -p 'weight:' w
-	[ $w -ge 100 ] &> /dev/null && [ $w -le 150 ] &> /dev/null && echo "${zheci} $w" >> ${tz} && cp $tz $bpath && echo -e '\033[1A\033[10C\033[1m\033[32m[✓]\033[0m\n' && rl=10 && break
+	[ $w -ge 100 ] &> /dev/null && [ $w -le 150 ] &> /dev/null && echo "${zheci} $w" >> ${tz} && cp $tz $bpath && rl=10 && break
 	[ $? -ne 0 ] && echo -e "\t\t\033[31mBETWEEN 100 AND 150\033[0m"
 done
 }
@@ -195,9 +191,6 @@ done
 echo 
 echo
 }
-beifen(){
-cp $tz $bpath && echo -e '\t\t\033[1m\033[32m[✓]BACKUP COMPLETED\033[0m'
-}
 ##########the program##########
 bpath=/data/data/com.termux/files/usr/backup
 tz=/data/data/com.termux/files/home/tz
@@ -220,7 +213,7 @@ case $1 in
 	--lat)
 	tong;;
 	--lab)
-	bei;
+	cp $jl $bpath;
 	my;
 	dxb;
 	gh;
@@ -238,7 +231,7 @@ case $1 in
 	--jnt)
 	tongji;;
 	--jnb)
-	beifen;
+	cp $tz $bpath
 	my;
 	dxb;
 	gh;
