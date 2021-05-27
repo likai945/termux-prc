@@ -28,6 +28,8 @@ def hebing_wendang(jia,yi):
                 q+=1
                 if q>1:
                     jiawen.write(str(i.rstrip())+"\n")
+        else:
+            os.rename(yi,jia)
 
 def shan_wendang(wendang):
     import os
