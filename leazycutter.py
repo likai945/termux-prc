@@ -1,28 +1,33 @@
 #!/data/data/com.termux/files/usr/bin/python
 def shengcheng_sbm(chu,zhong):
-    k=0
-    wen=open(zhong,"a")
-    for i in open(chu):
-        k+=1
-        vmn=i.split(",")[3]
-        if k==1:
-            sbm=",识别码"
-        elif k>1:
-            psbm=vmn.split("-")[7]
-            if "ZX" in psbm:
-                sbm=str(","+psbm[:psbm.index("ZX")]+"ZX")
-            else:
-                sbm=","+psbm
-        line=i.rstrip()+sbm
-        wen.write(str(line)+"\n")
+    import os
+    if os.path.exists(chu):
+        k=0
+        wen=open(zhong,"a")
+        for i in open(chu):
+            k+=1
+            vmn=i.split(",")[3]
+            if k==1:
+                sbm=",识别码"
+            elif k>1:
+                psbm=vmn.split("-")[7]
+                if "ZX" in psbm:
+                    sbm=str(","+psbm[:psbm.index("ZX")]+"ZX")
+                else:
+                    sbm=","+psbm
+            line=i.rstrip()+sbm
+            wen.write(str(line)+"\n")
 
 def hebing_wendang(jia,yi):
-    jiawen=open(jia,"a")
-    q=0
-    for i in open(yi):
-        q+=1
-        if q>1:
-            jiawen.write(str(i.rstrip())+"\n")
+    import os
+    if os.path.exists(yi):
+        if os.path.exists(jia):
+            jiawen=open(jia,"a")
+            q=0
+            for i in open(yi):
+                q+=1
+                if q>1:
+                    jiawen.write(str(i.rstrip())+"\n")
 
 def shan_wendang(wendang):
     import os
