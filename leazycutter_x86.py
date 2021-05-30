@@ -1,4 +1,5 @@
 #!/usr/bin/python
+#this is a python script for linux computer, it must set coding mode like next line shows
 # -*- coding: utf-8 -*-
 def shengcheng_sbm(chu,zhong):
     import os
