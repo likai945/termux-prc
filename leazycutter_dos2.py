@@ -19,9 +19,9 @@ def shengcheng_sbm(chu, zhong):
             elif k > 1:
                 if "-OMC-" in vmn:
                     sbm = ",OMC"
-                elif "NFVO" in vmn:
+                elif "-NFVO-" in vmn:
                     sbm = ",NFVO"
-                elif "xnqVNFM3" in vmn:
+                elif "-xnqVNFM3" in vmn:
                     sbm = ",VNFM03"
                 elif "-VNFM-" in vmn:
                     sbm = ",VNFM"
