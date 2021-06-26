@@ -98,9 +98,9 @@ fi
 }
 tong(){
 [ `cat $jl | wc -l` -eq 0 ] && echo -e "\n\t\t\033[31mMORE DATA IN NEED\033[0m\n" && exit
-ltd=`grep d0 $jl | wc -l`
-ltn=`grep nml $jl | wc -l`
-lte=`grep eas $jl | wc -l`
+ltd=`grep -c d0 $jl`
+ltn=`grep -c nml $jl`
+lte=`grep -c eas $jl`
 ltt=`cat $jl | wc -l`
 lttd=`echo "scale=4;$ltd/$ltt" | bc`
 ltrd=`echo "scale=2;$lttd/0.01" | bc`
