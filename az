@@ -15,3 +15,5 @@ pkg install unzip -y
 pkg install ncurses-utils -y
 pkg install man -y
 pkg install wget -y
+pkg install python -y
+pkg install golang -y
