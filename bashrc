@@ -20,3 +20,4 @@ alias 'db=/data/data/com.termux/files/home/.toolbox --db'
 #espeak "hello"
 #PS1="[\W]$"
 alias 'grep=grep --color'
+alias 'll=ls -l'
