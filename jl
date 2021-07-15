@@ -78,3 +78,4 @@
 191 d0 10:21 2021 Jul 10 Sat | sft eas brn 04min null
 192 d0 10:21 2021 Jul 11 Sun | sft eas brn 03min null
 194 d1 22:29 2021 Jul 13 Tue | dry eas brn 11min null
+196 d1 23:54 2021 Jul 15 Thu | nml eas brn 14min null
