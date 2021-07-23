@@ -19,7 +19,7 @@ ifNoEmptyDir(){
 fork(){
 	mn=`ls -R | sed -n '/:/,+1p' | sed -n '/^$/{x;p};h' | wc -l`
 	en=`ls -R | sed -n '/:/,+1p' | tail -1 | grep ':' | wc -l`
-	[ $[mn+en] -eq 0 ] && return 0 
+	[ $[mn+en] -eq 0 ] #&& return 0 
 }
 #######the program######
 listNotThisDayShots
