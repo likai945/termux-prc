@@ -13,6 +13,7 @@ at(){
 }
 #####show the information#####
 show(){
+	tmp_data=`ls -t *.runlog | head -1`
 	kx3=`at '-03A-'`
 	kx4=`at '-04A-'`
 	kx5_srv=`at '05A.*SRV'`
