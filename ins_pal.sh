@@ -28,18 +28,20 @@ show(){
 	echo -e "the data comes from $tmp_data"
 }
 #####check if the pics not shotted this day#####
-listNotThisDayShots(){
+listOtherDaysShots(){
+	echo -e '\e[42mScreenshots not this day:\e[0m'
+	ls -lR | grep -E '.jpg|.png' | grep -v "`date "+%b %e"`" | awk '{print $NF}'
+}
+checkNotThisDayShots(){
 	rq=`ls -lR | grep -E '.jpg|.png' | awk '{print $7,$8}'  | sort | uniq | wc -l`
 	if [ $rq -gt 1 ];then
-		echo -e '\e[42mScreenshots not this day:\e[0m'
-		ls -lR | grep -E '.jpg|.png' | grep -v "`date "+%b %e"`" | awk '{print $NF}'
+		listOtherDaysShots
 	else
 		ls -lR | grep -E '.jpg|.png' | grep -q "`date "+%b %e"`" 
 		if [ $? -eq 0 ];then
 			echo -e "\e[44mall pictures screenshotted this day.\e[0m"
 		else
-			echo -e '\e[42mScreenshots not this day:\e[0m'
-			ls -lR | grep -E '.jpg|.png' | grep -v "`date "+%b %e"`" | awk '{print $NF}' 
+			listOtherDaysShots
 		fi
 	fi
 }
@@ -60,8 +62,9 @@ case $1 in
 	--at|--AT)
 		show;;
 	--cf|--CF)
-		listNotThisDayShots;
+		checkNotThisDayShots;
 		listEmptyDir;;
 	*)
-		echo "at|cf"
+		echo -e "\e[32m--at\e[0m\tshow the average of tempratures."
+		echo -e "\e[32m--cf\e[0m\tcheck old pictures and empty directories."
 esac
