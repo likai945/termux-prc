@@ -9,7 +9,7 @@ line(){
 check(){
 	while [ 1 ]
 	do
-		read -p "screenshot ${1}?" e
+		read -p "screenshot ${1##*/}?" e
 		if [ ${e:="yes"} == "yes" ];then
 			cd $1
 			line `pwd`
@@ -25,5 +25,5 @@ check(){
 	done
 }
 ####the program####
-check .
+check /data/data/com.termux/files/home/playground 
 check ..
