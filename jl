@@ -44,7 +44,7 @@
 128 d0 20:35 2021 May 08 Sat | nml eas brn 09min null
 130 d1 07:21 2021 May 10 Mon | nml eas brn 08min (null)+1
 131 d0 23:13 2021 May 11 Tue | nml eas brn 08min null
-133 d1 09:14 2021 May 13 Thu | nml eas brn 07min paper
+133 d1 09:14 2021 May 13 Thu | nml eas brn 07min paper_wiped
 134 d0 07:49 2021 May 14 Fri | sft eas brn 07min null
 135 d0 08:53 2021 May 15 Sat | sft eas brn 04min (null)+1
 142 d6 15:14 2021 May 22 Sat | sld eas brn 25min huge_amnt
@@ -92,3 +92,4 @@
 216 d2 00:09 2021 Aug 04 Wed | dry eas brn 16min null
 219 d2 01:15 2021 Aug 07 Sat | nml eas brn 10min null
 221 d1 10:18 2021 Aug 09 Mon | sft eas brn 09min paper_wiped
+222 d0 07:54 2021 Aug 10 Tue | nml eas brn 04min null
