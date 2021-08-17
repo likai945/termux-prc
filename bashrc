@@ -17,7 +17,6 @@ alias 'gh=/data/data/com.termux/files/home/.toolbox --github'
 alias 'my=/data/data/com.termux/files/home/.toolbox --gitee'
 alias 'db=/data/data/com.termux/files/home/.toolbox --db'
 ./.bird --um
-#espeak "hello"
-#PS1="[\W]$"
 alias 'grep=grep --color'
 alias 'll=ls -l'
+alias 'fedora=proot-distro login fedora-33'
