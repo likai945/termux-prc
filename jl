@@ -98,4 +98,4 @@
 226 d0 09:20 2021 Aug 14 Sat | sft dff brn 06min null
 227 d0 08:41 2021 Aug 15 Sun | sft eas brn 06min null
 229 d1 08:03 2021 Aug 17 Tue | nml eas brn 09min null
-230 d0 07:47 2021 Aug 18 Wed | nml eas brn 09min (null)+2
+230 d0 07:47 2021 Aug 18 Wed | nml eas brn 09min (null)+1
