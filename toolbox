@@ -47,6 +47,7 @@ case $1 in
 		push $gtp $gtl $bgtl;;
 	--db)
 		push $gtp $gtl $bgtl;
+		unset e;
 		push $ghp $ghl $bghl;;
 	--ql)
 		ql;;
