@@ -98,10 +98,11 @@ do
 done
 }
 kill_svc(){
-for i in `pgrep $1`
-do
-	kill $i
-done
+killall $1 &> /dev/null
+#for i in `pgrep $1`
+#do
+#	kill $i
+#done
 }
 cl_rbs(){
 rm $PREFIX/share/nginx/html/list.html &> /dev/null
