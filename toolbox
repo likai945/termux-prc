@@ -51,17 +51,17 @@ show(){
 length=`echo "$1" | wc -L` 
 echo -en "\033[?25l\t"
 for x in `seq ${length}`;do
-	echo -en "\033[$[x%7+31]m#"
+	echo -en "\033[$[x%7+31]m/"
 	sleep 0.001
 done
 echo -en "\n\t"
 for i in `seq ${length}`;do
-	echo -en "\033[32m${1:$[i-1]:1}\033[0m"
+	echo -en "\033[$2m${1:$[i-1]:1}\033[0m"
 	sleep 0.01
 done
 echo -en "\n\t"
 for x in `seq ${length}`;do
-	echo -en "\033[$[x%7+31]m#"
+	echo -en "\033[$[x%7+31]m/"
 	sleep 0.001
 done
 echo -e "\033[?25h\n\033[0m"
@@ -112,7 +112,7 @@ sed -i /list.html/'d' $PREFIX/var/log/nginx/access.log
 case $1 in
 	--web)
 		startService;
-		show "web service is running";
+		show "web service is running" 32;
 		shengcheng;
 		dynamic;;
 	--gw)
@@ -121,7 +121,7 @@ case $1 in
 		#kill_svc mysqld;
 		#kill_svc php-fpm;
 		cl_rbs;
-		show "web service is down";;
+		show "web service is down" 34;;
 	--github)
 		push $ghp $ghl $bghl;;
 	--gitee)
