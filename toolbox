@@ -40,7 +40,88 @@ bghl='\n\t\t\e[1m\e[33m(×)\n\t\t/|\\\e[0m\n'
 bgtl='\n\t\t\e[1m\e[33m(\e[32mG\e[33m)\e[0m\n'
 ghp=$HOME/termux-prc
 gtp=$HOME/termux-app
+startService(){
+nginx
+#php-fpm  
+#nohup mysqld &> /dev/null &
+sleep 1
+clear
+}
+show(){
+length=`echo "$1" | wc -L` 
+echo -en "\033[?25l\t"
+for x in `seq ${length}`;do
+	echo -en "\033[$[x%7+31]m#"
+	sleep 0.001
+done
+echo -en "\n\t"
+for i in `seq ${length}`;do
+	echo -en "\033[32m${1:$[i-1]:1}\033[0m"
+	sleep 0.01
+done
+echo -en "\n\t"
+for x in `seq ${length}`;do
+	echo -en "\033[$[x%7+31]m#"
+	sleep 0.001
+done
+echo -e "\033[?25h\n\033[0m"
+}
+shengcheng(){
+list=$PREFIX/share/nginx/html/list.html
+archive=$PREFIX/share/nginx/html/cunc
+ls $archive > $list
+substance=`cat $list`
+> $list
+echo '<meta http-equiv="refresh" content="1">' > $list
+for sub in $substance
+do
+	echo "<font size=123><br><a href=\"cunc/${sub}\">${sub}</a></br></font>" >> $list
+done
+}
+dynamic(){
+biao=$PREFIX/share/nginx/html/biao
+ls $archive > $biao
+origin=`md5sum $biao | awk '{print $1}'`
+while [ 1 ]
+do
+	piao=$PREFIX/share/nginx/html/piao
+	ls $archive > $piao
+	new=`md5sum $piao | awk '{print $1}'`
+	[ $origin != $new ] && origin=$new && shengcheng &> /dev/null
+done
+}
+kill_scrpt(){
+pid=`ps -ef |grep '.toolbox --web' | awk /bash/'{print $2}'`
+for p in $pid
+do
+	kill $p
+done
+}
+kill_svc(){
+for i in `pgrep $1`
+do
+	kill $i
+done
+}
+cl_rbs(){
+rm $PREFIX/share/nginx/html/list.html &> /dev/null
+rm $PREFIX/share/nginx/html/biao &> /dev/null
+rm $PREFIX/share/nginx/html/piao &> /dev/null
+sed -i /list.html/'d' $PREFIX/var/log/nginx/access.log
+}
 case $1 in
+	--web)
+		startService;
+		show "web service is running";
+		shengcheng;
+		dynamic;;
+	--gw)
+		kill_scrpt;
+		kill_svc nginx;
+		#kill_svc mysqld;
+		#kill_svc php-fpm;
+		cl_rbs;
+		show "web service is down";;
 	--github)
 		push $ghp $ghl $bghl;;
 	--gitee)
@@ -54,5 +135,5 @@ case $1 in
 	--hf)
 		hf;;
 	*)
-		echo -e '\e[32mgithub|gitee|ql|hf\e[0m'
+		echo -e '\e[32mweb|gw|github|gitee|ql|hf\e[0m'
 esac

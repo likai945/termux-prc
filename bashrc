@@ -1,5 +1,5 @@
-alias 'web=/data/data/com.termux/files/home/web &'
-alias 'gw=/data/data/com.termux/files/home/gw'
+alias 'web=/data/data/com.termux/files/home/.toolbox --web &'
+alias 'gw=/data/data/com.termux/files/home/.toolbox --gw'
 alias 'laj=/data/data/com.termux/files/home/jiankangji --laj'
 alias 'lac=/data/data/com.termux/files/home/jiankangji --lac'
 alias 'laq=/data/data/com.termux/files/home/jiankangji --laq'
