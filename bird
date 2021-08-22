@@ -134,7 +134,9 @@ case $1 in
 		ns=`tail -1 $0`
 		echo -e "\e[33mNOW ${ns:1}\e[0m"
 		exit;;
-	*)
+	--help)
+		echo -e '\e[32m\n--config\e[0m check or change the strategy of motd.\n';
+		exit
 esac
 hash $[RANDOM%4]
 #random
