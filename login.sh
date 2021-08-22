@@ -1,7 +1,7 @@
 #!/data/data/com.termux/files/usr/bin/bash
-user='9a712d6c17631ce1579a08e617af08fa'
+user='66a98ac20df4b708292457c6928faf38'
 password='fe5bce4b36915b6edca604182fe907fa'
-gate=1629619370
+gate=1629630926
 login(){
 	now=`date +%s`
 	if [ $now -lt $gate ];then
@@ -24,7 +24,7 @@ login(){
 		nown=`date +%s`
 		if [ $i -ge 3 ];then
 			echo "3 times wrong,you can try again after 60 seconds." >&2
-			sed -i "/^gate/s/^.*$/gate=$[nown+60]/" login.sh
+			sed -i "/^gate/s/^.*$/gate=$[nown+60]/" $0
 			return 1
 		fi
 	done
@@ -57,7 +57,7 @@ chgeSth(){
 			fi
 			echo "$1 changed"
 			md5npw=`echo $newpwo | md5sum | awk '{print $1}'`
-			sed -i "/^$1/s/^.*$/$1=\'$md5npw\'/" login.sh
+			sed -i "/^$1/s/^.*$/$1=\'$md5npw\'/" $0
 			else
 				echo "$1 not the same" >&2
 				return 1
