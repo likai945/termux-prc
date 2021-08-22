@@ -208,43 +208,43 @@ jl=/data/data/com.termux/files/home/jl
 [ ! -f $jl ] && touch $jl
 case $1 in 
 	--lac)
-	cha;
-	lan;;
+		cha;
+		lan;;
 	--laj)
-	ji;
-	my;
-	dxa;
-	gh;
-	dxc;
-	lan;;
+		ji;
+		my;
+		dxa;
+		gh;
+		dxc;
+		lan;;
 	--laq)
-	quan;;
+		quan;;
 	--lat)
-	tong;;
+		tong;;
 	--lab)
-	bei;
-	my;
-	dxb;
-	gh;
-	dxd;;
+		bei;
+		my;
+		dxb;
+		gh;
+		dxd;;
 	--jnh)
-	huitu;;
+		huitu;;
 	--jnj)
-	jilu;
-	my;
-	dxa;
-	gh;
-	dxc;;
+		jilu;
+		my;
+		dxa;
+		gh;
+		dxc;;
 	--jnq)
-	quanbu;;
+		quanbu;;
 	--jnt)
-	tongji;;
+		tongji;;
 	--jnb)
-	beifen;
-	my;
-	dxb;
-	gh;
-	dxd;;
+		beifen;
+		my;
+		dxb;
+		gh;
+		dxd;;
 	*)
 	echo -e "\033[32mlac•laj•laq•lat•lab\njnh•jnj•jnq•jnt•jnb\033[0m"
 esac
