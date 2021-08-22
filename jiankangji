@@ -174,7 +174,7 @@ done
 jnttj=`echo "scale=4;$jntj/$jntt" | bc`
 jnttjj=$(echo "scale=2;$jnttj/0.01" | bc)
 [ `echo "$jnttjj < 1" | bc` -eq 1 ] && [ `echo "$jnttjj > 0" | bc` -eq 1 ] && jnttjj="0$jnttjj"
-jntchang=`echo "LC $jntd ${jntb}d ${jntc}jn | RRBOUNDED $jntj RR $jnttjj%" | wc -L`
+jntchang=`echo "LC $jntd ${jntb}d ${jntc}jn | REBOUNDED $jntj RR $jnttjj%" | wc -L`
 [ $jntd == '-' ] && echo -e "\n\t\t\033[31mMORE DATA IN NEED\033[0m\n" && exit
 echo
 for jntq in `seq $jntchang`;do
