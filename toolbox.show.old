@@ -51,24 +51,24 @@ nginx
 sleep 1
 clear
 }
-line(){
-	echo -en "$3\e[?25l"
-	for i in $(seq `echo "$1" | wc -L`)
-	do
-		if [[ $2 =~ [[:digit:]] ]];then
-			echo -en "\e[$2m${1:$[i-1]:1}"
-			else
-				echo -en "\e[$[i%7+31]m$2\e[0m"
-		fi
-		sleep $4
-	done
-		echo
-}
 show(){
-line "$1" '/' '\t' '0.001'
-line "$1" "$2" '\t' '0.01'
-line "$1" '/' '\t' '0.001'
-echo -en '\e[?25h'
+length=`echo "$1" | wc -L` 
+echo -en "\033[?25l\t"
+for x in `seq ${length}`;do
+	echo -en "\033[$[x%7+31]m/"
+	sleep 0.001
+done
+echo -en "\n\t"
+for i in `seq ${length}`;do
+	echo -en "\033[$2m${1:$[i-1]:1}\033[0m"
+	sleep 0.01
+done
+echo -en "\n\t"
+for x in `seq ${length}`;do
+	echo -en "\033[$[x%7+31]m/"
+	sleep 0.001
+done
+echo -e "\033[?25h\n\033[0m"
 }
 shengcheng(){
 list=$PREFIX/share/nginx/html/list.html
