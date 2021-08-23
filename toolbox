@@ -22,6 +22,9 @@ hf(){
 clear
 echo -e '\e[0m\e[?25h'
 }
+mp3(){
+ffmpeg -i $1 -acodec libmp3lame $2
+}
 push(){
 local e
 bpath=$PREFIX/backup
@@ -135,6 +138,8 @@ case $1 in
 		ql;;
 	--hf)
 		hf;;
+	--mp3)
+		mp3;;
 	*)
 		echo -e '\e[32mweb|gw|github|gitee|ql|hf\e[0m'
 esac
