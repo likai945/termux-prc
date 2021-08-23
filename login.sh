@@ -1,7 +1,7 @@
 #!/data/data/com.termux/files/usr/bin/bash
 user='66a98ac20df4b708292457c6928faf38'
-password='fe5bce4b36915b6edca604182fe907fa'
-gate=1629630926
+password='de000a7ada0c32bf1cd5f0ad1674ee81'
+gate=1629648700
 login(){
 	now=`date +%s`
 	if [ $now -lt $gate ];then
@@ -48,9 +48,7 @@ chgeSth(){
 		echo $n
 		if [ "$newpwo" == "$newpwt" ];then
 			if [ "$1" == "password" ];then
-				if [[ $newpwo =~ [0-9]+ ]] && [[ $newpwo =~ [a-z]+ ]] && [[ $newpwo =~ [A-Z]+ ]] && [ ${#newpwo} -ge 8 ];then
-				echo j > /dev/null
-			else
+				if ! ([[ $newpwo =~ [0-9]+ ]] && [[ $newpwo =~ [a-z]+ ]] && [[ $newpwo =~ [A-Z]+ ]] && [ ${#newpwo} -ge 8 ]);then
 				echo "not legal, 8 long, big letters small letters and digits in need." >&2
 				return 4
 				fi
