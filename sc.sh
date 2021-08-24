@@ -1,6 +1,6 @@
 #!/bin/bash
 line(){
-	for i in $(seq `echo "$1" | wc -L`)
+	for i in `seq ${#1}`
 	do
 		echo -en '\e[33m-\e[0m'
 	done
