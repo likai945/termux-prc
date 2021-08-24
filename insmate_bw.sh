@@ -30,7 +30,7 @@ kx4_dbs  $kx4_dbs
 kx5_srv  $kx5_srv
 kx5_dbs  $kx5_dbs
 ================================
-the data comes from $tmp_data
+based on $tmp_data
 _EOF_
 }
 #####check if the pics not shotted this day#####

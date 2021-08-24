@@ -29,7 +29,7 @@ show(){
 	echo -e "kx5_srv\t $kx5_srv"
 	echo -e "kx5_dbs\t $kx5_dbs"
 	echo -e "\e[032m================================\e[0m"
-	echo -e "the data comes from $tmp_data"
+	echo -e "based on $tmp_data"
 }
 #####check if the pics not shotted this day#####
 listOtherDaysShots(){
