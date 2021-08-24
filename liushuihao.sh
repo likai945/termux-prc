@@ -1,7 +1,7 @@
 #!/bin/bash
-sc=23
+sc=236
 jt=`date +%j`
-i=6
+i=18
 count(){
 	while [ 1 ];do
 		read -p "count? " c
@@ -10,7 +10,8 @@ count(){
 			let i++
 			sed -i "/^i=/s/^.*$/i=$i/" $0
 		elif [[ "$c" =~ "quit" ]];then
-			exit
+			sed -i "/^i=/s/^.*$/i=$i/" $0
+			break
 		fi
 	done
 }
@@ -19,8 +20,8 @@ count(){
 
 if [ "$jt" != "$sc" ];then
 	i=1
-	count
 	sed -i "/^sc=/s/^.*$/sc=$jt/" $0
+	count
 else
 	count
 fi
