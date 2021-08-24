@@ -48,7 +48,7 @@ for i in `seq $h -1 1`
 do
 	n=`sed -n $i'p' .motd`
 	echo -e "\033[$i;1H\c"
-	l=`echo "$n" | wc -L`
+	l="${#n}"
 	for r in `seq $l -1 1`;do
 		echo -en "\033[$i;${r}H\033[$[RANDOM%7+31]m${n:$[r-l-1]:1}"
 		sleep $1
@@ -62,7 +62,7 @@ echo -e '\033[1;1H\c'
 for i in `seq $h`
 do
 n=`sed -n $i'p' .motd`
-l=`echo "$n" | wc -L`
+l="${#n}"
 for r in `seq $l`;do
 	c=$[RANDOM%7+31]
 	echo -en "\033[${c}m${n:$[r-1]:1}"
