@@ -105,9 +105,7 @@ case $1 in
 	--dm)
 		bdown 0.05;
 		mup 0;
-		sed -i /bird/'s/--dm/--us/' .bashrc;;
-	*)
-		echo -e '\e[32mus•um•ds•dm\e[0m'
+		sed -i /bird/'s/--dm/--us/' .bashrc
 esac
 }
 h=`cat .motd | wc -l`
