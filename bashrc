@@ -16,7 +16,9 @@ alias 'hf=/data/data/com.termux/files/home/.toolbox --hf'
 alias 'gh=/data/data/com.termux/files/home/.toolbox --github'
 alias 'my=/data/data/com.termux/files/home/.toolbox --gitee'
 alias 'db=/data/data/com.termux/files/home/.toolbox --db'
-./.bird --um
+./.bird --ds
 alias 'grep=grep --color'
 alias 'll=ls -l'
 alias 'fedora=proot-distro login fedora-33'
+_day_=`date +%w`
+[ $[_day_%6] -ne 0 ] && sshd
