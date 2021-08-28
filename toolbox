@@ -141,5 +141,5 @@ case $1 in
 	--mp3)
 		mp3;;
 	*)
-		echo -e '\e[32mweb|gw|github|gitee|ql|hf\e[0m'
+		echo -e '\e[32mweb|gw|github|gitee|ql|hf|mp3\e[0m'
 esac
