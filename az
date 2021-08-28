@@ -17,3 +17,4 @@ pkg install man -y
 pkg install wget -y
 pkg install python -y
 pkg install golang -y
+pkg install fish -y
