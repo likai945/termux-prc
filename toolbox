@@ -139,7 +139,7 @@ case $1 in
 	--hf)
 		hf;;
 	--mp3)
-		mp3;;
+		mp3 $2 $3;;
 	*)
 		echo -e '\e[32mweb|gw|github|gitee|ql|hf|mp3\e[0m'
 esac
