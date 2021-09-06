@@ -64,6 +64,7 @@ listEmptyDir(){
 #######the program######
 case $1 in 
 	--at|--AT)
+		[ ! -f *.runlog ] && echo -e "\e[43mno runlog file in this directory.\e[0m" && exit 2
 		show;;
 	--cf|--CF)
 		checkNotThisDayShots;
