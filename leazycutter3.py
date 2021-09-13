@@ -13,9 +13,9 @@ dy8={'nxAMF004BZX':'APP-XNCDnxAMF004BZX-05AZX012','gsCHF002BZX':'APP-XNCDgsCHF00
 dy9={'nxAMFm004BZX':'APP-XNCDnxAMFm004BZX-05AZX012','nxSMFm004BZX':'APP-XNCDnxSMFm004BZX-05AZX012','nxSMFm002BZX':'APP-XNCDnxSMFm002BZX-05AZX011','xjAMFm002BZX':'APP-XNCDxjAMFm002BZX-05AZX011','nxCHFm002BZX':'APP-XNCDnxCHFm002BZX-05AZX011','gzCHFm001BZX':'APP-XNCDgzCHFm001BZX-05AZX012','cqAMF003BZX':'APP-XNCDcqAMF003BZX-05AZX012','nxNSSF002BZX':'APP-XNCDnxNSSF002BZX-05AZX012','snCHFm002BZX':'APP-XNCDsnCHFm002BZX-05AZX011','gsAMFm002BZX':'APP-XNCDgsAMFm002BZX-05AZX011','cqAMFm001BZX':'APP-XNCDcqAMFm001BZX-05AZX011','ynSMFm001BZX':'APP-XNCDynSMFm001BZX-05AZX011','xbqPCFm001PCF002AZX':'APP-XNCDxbqPCFm001PCF002AZX-05AZX012','xzSMFm003BZX':'APP-XNCDxzSMFm003BZX-05AZX012','cqAMF001BZX':'APP-XNCDcqAMF001BZX-05AZX011','ynAMF001BZX':'APP-XNCDynAMF001BZX-05AZX011','snSMFm004BZX':'APP-XNCDsnSMFm004BZX-05AZX012','xbqUDMm001UDM000AZX':'APP-XNCDxbqUDMm001UDM000AZX-05AZX011','cqUDM001UDM001BZX':'APP-XNCDcqUDM001UDM001BZX-05AZX011','xzCHFm001BZX':'APP-XNCDxzCHFm001BZX-05AZX011','cqUDM001UUDR001BZX':'APP-XNCDcqUDM001UUDR001BZX-05AZX011','ynAMFm003BZX':'APP-XNCDynAMFm003BZX-05AZX012','cqSMF007BZX':'APP-XNCDcqSMF007BZX-05AZX012','gsSMFm002BZX':'APP-XNCDgsSMFm002BZX-05AZX011','gsCHFm002BZX':'APP-XNCDgsCHFm002BZX-05AZX011','xzAMFm001BZX':'APP-XNCDxzAMFm001BZX-05AZX011','cqSMF001BZX':'APP-XNCDcqSMF001BZX-05AZX011','snSMFm002BZX':'APP-XNCDsnSMFm002BZX-05AZX011','scUDM003UUDR001BZX':'APP-XNCDscUDM003UUDR001BZX-05AZX011','snAMFm004BZX':'APP-XNCDsnAMFm004BZX-05AZX012','cqSMF003BZX':'APP-XNCDcqSMF003BZX-05AZX011','ynAMFm001BZX':'APP-XNCDynAMFm001BZX-05AZX011','ynCHFm001BZX':'APP-XNCDynCHFm001BZX-05AZX011','cqSMF005BZX':'APP-XNCDcqSMF005BZX-05AZX012','ynPCF002PUDR001BZX':'APP-XNCDynPCF002PUDR001BZX-05AZX012','ynAMF003BZX':'APP-XNCDynAMF003BZX-05AZX012','gsUDM001UDM000BZX':'APP-XNCDgsUDM001UDM000BZX-05AZX011','qhAMFm004BZX':'APP-XNCDqhAMFm004BZX-05AZX012','ynPCF002PCF001BZX':'APP-XNCDynPCF002PCF001BZX-05AZX012'}
 
 import os
-def shengcheng_sbm(chu, zhong,weizhi):
+def shengcheng_sbm(chu, zhong,weizhi,kz):
     if os.path.exists(chu):
-        k = 0
+        k = kz
         wen = open(zhong, "a", encoding='UTF-8')
         for i in open(chu, encoding='UTF-8'):
             k += 1
@@ -137,9 +137,9 @@ shan_wendang("fz3.csv")
 shan_wendang("fz4.csv")
 shan_wendang("fz5.csv")
 hebing_wendang(jia="kx41.csv", yi="kx42.csv")
-shengcheng_sbm(chu="kx3.csv", zhong="sbmkx3.csv",weizhi=3)
-shengcheng_sbm(chu="kx41.csv", zhong="sbmkx4.csv",weizhi=3)
-shengcheng_sbm(chu="kx5.csv", zhong="sbmkx5.csv",weizhi=3)
+shengcheng_sbm(chu="kx3.csv", zhong="sbmkx3.csv",weizhi=3,kz=0)
+shengcheng_sbm(chu="kx41.csv", zhong="sbmkx4.csv",weizhi=3,kz=0)
+shengcheng_sbm(chu="kx5.csv", zhong="sbmkx5.csv",weizhi=3,kz=0)
 shan_wendang("kx3.csv")
 shan_wendang("kx41.csv")
 shan_wendang("kx42.csv")
@@ -150,9 +150,9 @@ chuli("sbmkx5.csv", "jz5.csv",7,4,7,"pjz")
 chuli("sbmkx3.csv", "zj3.csv",3,4,3,"zdz")
 chuli("sbmkx4.csv", "zj4.csv",3,4,3,"zdz")
 chuli("sbmkx5.csv", "zj5.csv",3,4,3,"zdz")
-shengcheng_sbm("zj3.csv", "zd3.csv",0)
-shengcheng_sbm("zj4.csv", "zd4.csv",0)
-shengcheng_sbm("zj5.csv", "zd5.csv",0)
+shengcheng_sbm("zj3.csv", "zd3.csv",0,1)
+shengcheng_sbm("zj4.csv", "zd4.csv",0,1)
+shengcheng_sbm("zj5.csv", "zd5.csv",0,1)
 chuli("zd3.csv", "fz3.csv",2,1,2,"pjz")
 chuli("zd4.csv", "fz4.csv",2,1,2,"pjz")
 chuli("zd5.csv", "fz5.csv",2,1,2,"pjz")
