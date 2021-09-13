@@ -410,15 +410,29 @@ def chuli(chu, zhong, panduan, quzhi, shengchenglieming, gongneng):
                 wen.write(str(hang) + "\n")
 
 
+def zidian(chu):
+    shengchengzd = {}
+    for i in open(chu, encoding='utf_8_sig'):
+        lst = i.split(",")[1]
+        fst = i.split(",")[0]
+        shengchengzd[fst] = lst
+    return shengchengzd
+
+
+def shengcheng_yingshe(chu, zhong):
+    if os.path.exists(chu):
+        wen = open(zhong, "a", encoding='utf_8_sig')
+        sczd = zidian("fz.csv")
+        for i in open(chu, encoding='utf_8_sig'):
+            vnfname = i.split(",")[0]
+            line = i.rstrip("\n") + "," + sczd[vnfname].rstrip("\n")
+            wen.write(str(line) + "\n")
+
+
 #######program#######
 
-shan_wendang("jz3.csv")
-shan_wendang("jz4.csv")
-shan_wendang("jz5.csv")
-shan_wendang("fz3.csv")
-shan_wendang("fz4.csv")
-shan_wendang("fz5.csv")
-hebing_wendang(jia="kx41.csv", yi="kx42.csv")
+shan_wendang("jzfz.csv")
+hebing_wendang(jia="kx41.csv", yi="kx42.csv", qz=0)
 shengcheng_sbm(chu="kx3.csv", zhong="sbmkx3.csv", weizhi=3, kz=0)
 shengcheng_sbm(chu="kx41.csv", zhong="sbmkx4.csv", weizhi=3, kz=0)
 shengcheng_sbm(chu="kx5.csv", zhong="sbmkx5.csv", weizhi=3, kz=0)
@@ -438,6 +452,13 @@ shengcheng_sbm("zj5.csv", "zd5.csv", 0, 1)
 chuli("zd3.csv", "fz3.csv", 2, 1, 2, "pjz")
 chuli("zd4.csv", "fz4.csv", 2, 1, 2, "pjz")
 chuli("zd5.csv", "fz5.csv", 2, 1, 2, "pjz")
+hebing_wendang("fz3.csv", "fz4.csv", 1)
+hebing_wendang("fz3.csv", "fz5.csv", 1)
+os.rename("fz3.csv", "fz.csv")
+hebing_wendang("jz3.csv", "jz4.csv", 1)
+hebing_wendang("jz3.csv", "jz5.csv", 1)
+os.rename("jz3.csv", "jz.csv")
+shengcheng_yingshe("jz.csv", "jzfz.csv")
 shan_wendang("sbmkx3.csv")
 shan_wendang("sbmkx4.csv")
 shan_wendang("sbmkx5.csv")
@@ -447,3 +468,9 @@ shan_wendang("zj5.csv")
 shan_wendang("zd3.csv")
 shan_wendang("zd4.csv")
 shan_wendang("zd5.csv")
+shan_wendang("jz4.csv")
+shan_wendang("jz5.csv")
+shan_wendang("fz4.csv")
+shan_wendang("fz5.csv")
+shan_wendang("fz.csv")
+shan_wendang("jz.csv")
