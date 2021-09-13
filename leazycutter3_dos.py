@@ -16,8 +16,8 @@ import os
 def shengcheng_sbm(chu, zhong,weizhi):
     if os.path.exists(chu):
         k = 0
-        wen = open(zhong, "a", encoding='UTF-8')
-        for i in open(chu, encoding='UTF-8'):
+        wen = open(zhong, "a", encoding='utf_8_sig')
+        for i in open(chu, encoding='utf_8_sig'):
             k += 1
             inkey = "no"
             vmn = i.split(",")[weizhi]
@@ -71,9 +71,9 @@ def shengcheng_sbm(chu, zhong,weizhi):
 def hebing_wendang(jia, yi):
     if os.path.exists(yi):
         if os.path.exists(jia):
-            jiawen = open(jia, "a", encoding='UTF-8')
+            jiawen = open(jia, "a", encoding='utf_8_sig')
             q = 0
-            for i in open(yi, encoding='UTF-8'):
+            for i in open(yi, encoding='utf_8_sig'):
                 q += 1
                 if q > 1:
                     jiawen.write(str(i.rstrip()) + "\n")
@@ -86,7 +86,7 @@ def shan_wendang(wendang):
 
 def liebiao(chu, zhuti,panduan,quzhi):
     shengchenglb = []
-    for i in open(chu, encoding='UTF-8'):
+    for i in open(chu, encoding='utf_8_sig'):
         lst = i.split(",")[panduan]
         fft = i.split(",")[quzhi]
         if lst == zhuti:
@@ -103,7 +103,7 @@ def lbzuida(lb):
 
 def xunhuanlb(chu,shengchenglieming): 
     jihe = set('')
-    for i in open(chu, encoding='UTF-8'):
+    for i in open(chu, encoding='utf_8_sig'):
         lst = i.split(",")[shengchenglieming]
         jihe.add(lst)
     lbjihe = list(jihe)
@@ -111,7 +111,7 @@ def xunhuanlb(chu,shengchenglieming):
 
 def chuli(chu, zhong,panduan,quzhi,shengchenglieming,gongneng):
     if os.path.exists(chu):
-        wen = open(zhong, "a", encoding='UTF-8')
+        wen = open(zhong, "a", encoding='utf_8_sig')
         lbjihe = xunhuanlb(chu,shengchenglieming)
         for j in lbjihe:
             sclb = liebiao(chu, j,panduan,quzhi)
