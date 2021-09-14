@@ -220,10 +220,6 @@ def shengcheng_yingshe(chu, zhong):
 #######program#######
 
 shan_wendang("jzfz.csv")
-shan_wendang("kx3.csv")
-shan_wendang("kx41.csv")
-shan_wendang("kx42.csv")
-shan_wendang("kx5.csv")
 shan_wendang("sbmkx3.csv")
 shan_wendang("sbmkx4.csv")
 shan_wendang("sbmkx5.csv")
