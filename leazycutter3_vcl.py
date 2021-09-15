@@ -131,7 +131,7 @@ if os.path.exists("dy.csv"):
     dy = zidian("dy.csv")
 else:
     print("File dy.csv in need!")
-    exit(1)
+    input("\nPress Enter to quit.")
 
 shan_wendang("jzfz.csv")
 shan_wendang("sbmkx3.csv")
