@@ -1,5 +1,6 @@
 # beta3.5
-# 用法：将导出的资料分别按照kx3.csv、kx41.csv、kx42.csv、kx5.csv命名，放置在本工具所在目录后双击稍事等待即可得到名为jzx.csv和fzx.csv的文件，分别对应均值和峰值
+# 用法：将导出的资料分别按照kx3.csv、kx41.csv、kx42.csv、kx5.csv命名，放置在本工具所在目录后双击稍事等待即可得到名为jzfz.csv的文件，由四列构成，分别为网元名、对应均值、峰值和网元的虚机数量，与需填报的报表相对应。
+# 需配合dy.csv文件使用
 # by Li Kai
 
 
@@ -12,7 +13,6 @@ def shengcheng_sbm(chu, zhong, weizhi, kz):
         wen = open(zhong, "a", encoding='utf_8_sig')
         for i in open(chu, encoding='utf_8_sig'):
             k += 1
-            inkey = "no"
             vmn = i.split(",")[weizhi]
             if k > 1:
                 if "-OMC-" in vmn:
@@ -33,9 +33,7 @@ def shengcheng_sbm(chu, zhong, weizhi, kz):
                         sbm = psbm
                 if sbm in dy:
                     sbm = dy[sbm]
-                    inkey = "yes"
-                vnfname = "," + sbm
-                if inkey == "yes":
+                    vnfname = "," + sbm
                     line = i.rstrip() + vnfname
                     wen.write(str(line))
 
@@ -115,9 +113,10 @@ def chuli(chu, zhong, panduan, quzhi, shengchenglieming, gongneng, shuliangpandu
 def zidian(chu, lstweizhi, fstweizhi):
     shengchengzd = {}
     for i in open(chu, encoding='utf_8_sig'):
-        lst = i.split(",")[lstweizhi]
-        fst = i.split(",")[fstweizhi]
-        shengchengzd[fst] = lst
+        if i != "\n":
+            lst = i.split(",")[lstweizhi]
+            fst = i.split(",")[fstweizhi]
+            shengchengzd[fst] = lst
     return shengchengzd
 
 
