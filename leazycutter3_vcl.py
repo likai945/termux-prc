@@ -66,16 +66,6 @@ def liebiao(chu, zhuti, panduan, quzhi):
     return shengchenglb
 
 
-def lbpingjun(lb):
-    pingjun = sum(lb) / len(lb)
-    return pingjun
-
-
-def lbzuida(lb):
-    zuida = max(lb)
-    return zuida
-
-
 def xunhuanlb(chu, shengchenglieming):
     jihe = set('')
     for i in open(chu, encoding='utf_8_sig'):
@@ -92,7 +82,7 @@ def chuli(chu, zhong, panduan, quzhi, shengchenglieming, gongneng, shuliangpandu
         for j in lbjihe:
             sclb = liebiao(chu, j, panduan, quzhi)
             if gongneng == "pjz":
-                pingjunzhi = lbpingjun(sclb)
+                pingjunzhi = sum(sclb) / len(sclb)
                 pingjunzhi = str(pingjunzhi)
                 j = j.rstrip('\n')
                 if shuliangpanduan == "yes":
@@ -103,7 +93,7 @@ def chuli(chu, zhong, panduan, quzhi, shengchenglieming, gongneng, shuliangpandu
                     hang = j + ',' + pingjunzhi
                 wen.write(str(hang) + "\n")
             elif gongneng == "zdz":
-                zuidazhi = lbzuida(sclb)
+                zuidazhi = max(sclb)
                 zuidazhi = str(zuidazhi)
                 j = j.rstrip('\n')
                 hang = j + ',' + zuidazhi
