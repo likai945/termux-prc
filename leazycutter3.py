@@ -84,7 +84,7 @@ def chuli(chu, zhong, panduan, quzhi, shengchenglieming, gongneng, shuliangpandu
             if gongneng == "pjz":
                 pingjunzhi = sum(sclb) / len(sclb)
                 pingjunzhi = str(pingjunzhi)
-                j = j.rstrip('\n')
+                j = j.rstrip()
                 if shuliangpanduan == "yes":
                     shuliang = len(sclb)
                     shuliang = str(shuliang)
@@ -95,7 +95,7 @@ def chuli(chu, zhong, panduan, quzhi, shengchenglieming, gongneng, shuliangpandu
             elif gongneng == "zdz":
                 zuidazhi = max(sclb)
                 zuidazhi = str(zuidazhi)
-                j = j.rstrip('\n')
+                j = j.rstrip()
                 hang = j + ',' + zuidazhi
                 wen.write(str(hang) + "\n")
 
@@ -117,7 +117,7 @@ def shengcheng_yingshe(chu, zhong, lstweizhi, scdweizhi, fstweizhi):
         sczdsl = zidian("fz3.csv", lstweizhi, fstweizhi)
         for i in open(chu, encoding='utf_8_sig'):
             vnfname = i.split(",")[0]
-            line = i.rstrip("\n") + "," + sczdfz[vnfname].rstrip("\n") + "," + sczdsl[vnfname].rstrip("\n")
+            line = i.rstrip() + "," + sczdfz[vnfname].rstrip() + "," + sczdsl[vnfname].rstrip()
             wen.write(str(line) + "\n")
 
 
@@ -159,11 +159,11 @@ shan_wendang("kx41.csv")
 shan_wendang("kx42.csv")
 shan_wendang("kx5.csv")
 
-chuli("sbmkx3.csv", "jz3.csv", 7, 4, 7, "pjz", "no")
+chuli("sbmkx3.csv", "jz3.csv", -1, 4, -1, "pjz", "no")
 print("Average of kx3 done.")
-chuli("sbmkx4.csv", "jz4.csv", 7, 4, 7, "pjz", "no")
+chuli("sbmkx4.csv", "jz4.csv", -1, 4, -1, "pjz", "no")
 print("Average of kx4 done.")
-chuli("sbmkx5.csv", "jz5.csv", 7, 4, 7, "pjz", "no")
+chuli("sbmkx5.csv", "jz5.csv", -1, 4, -1, "pjz", "no")
 print("Average of kx5 done.")
 
 print("This part may take a long time, just wait or do whatever you like :)")
