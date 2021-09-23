@@ -98,12 +98,7 @@ def fengzhi(dct):
 
 
 def shuliang(dct):
-    sllb = []
-    for item in dct:
-        vmlbs = dct[item]
-        yuansu = len(vmlbs)
-        sllb.append(yuansu)
-    jieguo = len(sllb)
+    jieguo = len(dct)
     return jieguo
 
 
