@@ -1,5 +1,5 @@
 # beta6.0
-# 立等可取
+#快如闪电
 # 用法：将导出的资料分别按照kx3.csv、kx41.csv、kx42.csv、kx5.csv命名，放置在本工具所在目录后双击稍事等待即可得到名为jzfz.csv的文件，由四列构成，分别为网元名、对应系统均值、均值、峰值和网元的虚机数量，与需填报的报表相对应。
 # 需配合dy.csv文件使用
 # by Li Kai
@@ -69,38 +69,27 @@ def bianli(chu, dxweizhi):
     return wydct
 
 
-def junzhi(dct):
+def junzhisl(dct):
     fengzhilb = []
     for item in dct:
         vmlbs = dct[item]
         yuansu = max(vmlbs)
         fengzhilb.append(yuansu)
-    jieguo = sum(fengzhilb) / len(fengzhilb)
+    jzjg = sum(fengzhilb) / len(fengzhilb)
+    sljg = len(dct)
+    jieguo=f'{jzjg},{sljg}'
     return jieguo
 
 
-def fengzhi(dct):
+def fengzhixt(dct):
     junzhilb = []
     for item in dct:
         sjlbs = dct[item]
         yuansu = sum(sjlbs) / len(sjlbs)
         junzhilb.append(yuansu)
-    jieguo = max(junzhilb)
-    return jieguo
-
-
-def xtjunzhi(dct):
-    xtjunzhilb = []
-    for item in dct:
-        sjlbs = dct[item]
-        yuansu = sum(sjlbs) / len(sjlbs)
-        xtjunzhilb.append(yuansu)
-    jieguo = sum(xtjunzhilb) / len(xtjunzhilb)
-    return jieguo
-
-
-def shuliang(dct):
-    jieguo = len(dct)
+    fzjg = max(junzhilb)
+    xtjg = sum(junzhilb) / len(junzhilb)
+    jieguo=f'{fzjg},{xtjg}'
     return jieguo
 
 
@@ -110,14 +99,10 @@ def chuli_wendang(chu, zhong, dxwz, jzorfzorxtorsl):
         wen = open(zhong, "a", encoding='utf_8_sig')
         dct = bianli(chu, dxwz)
         for vnf in dct:
-            if jzorfzorxtorsl == 'jz':
-                jg = junzhi(dct[vnf])
-            elif jzorfzorxtorsl == 'fz':
-                jg = fengzhi(dct[vnf])
-            elif jzorfzorxtorsl == 'xtjz':
-                jg = xtjunzhi(dct[vnf])
-            elif jzorfzorxtorsl == 'sl':
-                jg = shuliang(dct[vnf])
+            if jzorfzorxtorsl == 'jzsl':
+                jg = junzhisl(dct[vnf])
+            elif jzorfzorxtorsl == 'fzxt':
+                jg = fengzhixt(dct[vnf])
             wen.write(vnf + ',' + str(jg) + '\n')
 
 
@@ -134,13 +119,13 @@ def zidian(chu, lstweizhi, fstweizhi):
 def shengcheng_yingshe(chu, zhong):
     if os.path.exists(chu):
         wen = open(zhong, "a", encoding='utf_8_sig')
-        sczdjz = zidian("jz3.csv", -1, 0)
-        sczdfz = zidian("fz3.csv", -1, 0)
-        sczdsl = zidian("sl3.csv", -1, 0)
+        sczdjz = zidian("jzsl3.csv", 1, 0)
+        sczdfz = zidian("fzxt3.csv", 1, 0)
+        sczdxt = zidian("fzxt3.csv", -1, 0)
+        sczdsl = zidian("jzsl3.csv", -1, 0)
         for i in open(chu, encoding='utf_8_sig'):
             vnfname = i.split(",")[0]
-            line = i.rstrip() + "," + sczdjz[vnfname].rstrip() + "," + sczdfz[vnfname].rstrip() + ',' + sczdsl[
-                vnfname].rstrip()
+            line = vnfname.rstrip() + "," + sczdxt[vnfname].rstrip() + "," + sczdjz[vnfname].rstrip() + ',' + sczdfz[vnfname].rstrip() + ',' + sczdsl[vnfname].rstrip()
             wen.write(str(line) + "\n")
 
 
@@ -157,18 +142,12 @@ shan_wendang("jzfz.csv")
 shan_wendang("sbmkx3.csv")
 shan_wendang("sbmkx4.csv")
 shan_wendang("sbmkx5.csv")
-shan_wendang("sl3.csv")
-shan_wendang("sl4.csv")
-shan_wendang("sl5.csv")
-shan_wendang("jz4.csv")
-shan_wendang("jz5.csv")
-shan_wendang("fz4.csv")
-shan_wendang("fz5.csv")
-shan_wendang("jz3.csv")
-shan_wendang("fz3.csv")
-shan_wendang("xtjz5.csv")
-shan_wendang("xtjz3.csv")
-shan_wendang("xtjz4.csv")
+shan_wendang("jzsl4.csv")
+shan_wendang("jzsl5.csv")
+shan_wendang("fzxt4.csv")
+shan_wendang("fzxt5.csv")
+shan_wendang("jzsl3.csv")
+shan_wendang("fzxt3.csv")
 print("Old files removed yet.")
 
 hebing_wendang(jia="kx41.csv", yi="kx42.csv", qz=0)
@@ -182,59 +161,35 @@ shan_wendang("kx41.csv")
 shan_wendang("kx42.csv")
 shan_wendang("kx5.csv")
 
-chuli_wendang('sbmkx3.csv', 'jz3.csv', 3, 'jz')
-print("Average of kx3 done.")
-chuli_wendang('sbmkx4.csv', 'jz4.csv', 3, 'jz')
-print("Average of kx4 done.")
-chuli_wendang('sbmkx5.csv', 'jz5.csv', 3, 'jz')
-print("Average of kx5 done.")
+chuli_wendang('sbmkx3.csv', 'jzsl3.csv', 3, 'jzsl')
+print("Average and number of kx3 done.")
+chuli_wendang('sbmkx4.csv', 'jzsl4.csv', 3, 'jzsl')
+print("Average and number of kx4 done.")
+chuli_wendang('sbmkx5.csv', 'jzsl5.csv', 3, 'jzsl')
+print("Average and number of kx5 done.")
 
-chuli_wendang('sbmkx3.csv', 'fz3.csv', 0, 'fz')
-print("Max of kx3 done.")
-chuli_wendang('sbmkx4.csv', 'fz4.csv', 0, 'fz')
-print("Max of kx4 done.")
-chuli_wendang('sbmkx5.csv', 'fz5.csv', 0, 'fz')
-print("Max of kx5 done.")
-
-chuli_wendang('sbmkx3.csv', 'xtjz3.csv', 0, 'xtjz')
-print("Sysavg of kx3 done.")
-chuli_wendang('sbmkx4.csv', 'xtjz4.csv', 0, 'xtjz')
-print("Sysavg of kx4 done.")
-chuli_wendang('sbmkx5.csv', 'xtjz5.csv', 0, 'xtjz')
-print("Sysavg of kx5 done.")
-
-chuli_wendang('sbmkx3.csv', 'sl3.csv', 3, 'sl')
-print("Number of kx3 done.")
-chuli_wendang('sbmkx4.csv', 'sl4.csv', 3, 'sl')
-print("Number of kx4 done.")
-chuli_wendang('sbmkx5.csv', 'sl5.csv', 3, 'sl')
-print("Number of kx5 done.")
+chuli_wendang('sbmkx3.csv', 'fzxt3.csv', 0, 'fzxt')
+print("Max and sysavg of kx3 done.")
+chuli_wendang('sbmkx4.csv', 'fzxt4.csv', 0, 'fzxt')
+print("Max and sysavg of kx4 done.")
+chuli_wendang('sbmkx5.csv', 'fzxt5.csv', 0, 'fzxt')
+print("Max and sysavg of kx5 done.")
 
 shan_wendang("sbmkx3.csv")
 shan_wendang("sbmkx4.csv")
 shan_wendang("sbmkx5.csv")
 
-hebing_wendang("jz3.csv", "jz4.csv", 1)
-hebing_wendang("jz3.csv", "jz5.csv", 1)
-shan_wendang("jz4.csv")
-shan_wendang("jz5.csv")
-hebing_wendang("fz3.csv", "fz4.csv", 1)
-hebing_wendang("fz3.csv", "fz5.csv", 1)
-shan_wendang("fz4.csv")
-shan_wendang("fz5.csv")
-hebing_wendang("xtjz3.csv", "xtjz4.csv", 1)
-hebing_wendang("xtjz3.csv", "xtjz5.csv", 1)
-shan_wendang("xtjz4.csv")
-shan_wendang("xtjz5.csv")
-hebing_wendang("sl3.csv", "sl4.csv", 1)
-hebing_wendang("sl3.csv", "sl5.csv", 1)
-shan_wendang("sl4.csv")
-shan_wendang("sl5.csv")
+hebing_wendang("jzsl3.csv", "jzsl4.csv", 1)
+hebing_wendang("jzsl3.csv", "jzsl5.csv", 1)
+shan_wendang("jzsl4.csv")
+shan_wendang("jzsl5.csv")
+hebing_wendang("fzxt3.csv", "fzxt4.csv", 1)
+hebing_wendang("fzxt3.csv", "fzxt5.csv", 1)
+shan_wendang("fzxt4.csv")
+shan_wendang("fzxt5.csv")
 
-shengcheng_yingshe("xtjz3.csv", "jzfz.csv")
+shengcheng_yingshe("jzsl3.csv", "jzfz.csv")
 print("Done!")
 
-shan_wendang("jz3.csv")
-shan_wendang("fz3.csv")
-shan_wendang("xtjz3.csv")
-shan_wendang("sl3.csv")
+shan_wendang("jzsl3.csv")
+shan_wendang("fzxt3.csv")
