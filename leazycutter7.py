@@ -8,9 +8,9 @@
 import os
 
 
-def shengcheng_sbm(chu, zhong, kz):
+def shengcheng_sbm(chu, zhong):
     if os.path.exists(chu):
-        k = kz
+        k = 0
         with open(zhong, "a", encoding='utf_8_sig') as wen:
             with open(chu, encoding='utf_8_sig') as nwen:
                 for i in nwen:
@@ -159,9 +159,9 @@ shan_wendang("fzxt3.csv")
 print("Old files removed yet.")
 
 hebing_wendang(jia="kx41.csv", yi="kx42.csv", qz=0)
-shengcheng_sbm(chu="kx3.csv", zhong="sbmkx3.csv", kz=0)
-shengcheng_sbm(chu="kx41.csv", zhong="sbmkx4.csv", kz=0)
-shengcheng_sbm(chu="kx5.csv", zhong="sbmkx5.csv", kz=0)
+shengcheng_sbm(chu="kx3.csv", zhong="sbmkx3.csv")
+shengcheng_sbm(chu="kx41.csv", zhong="sbmkx4.csv")
+shengcheng_sbm(chu="kx5.csv", zhong="sbmkx5.csv")
 print("SBM files done.")
 
 shan_wendang("kx3.csv")
