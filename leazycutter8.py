@@ -222,7 +222,8 @@ shan_wendang("fzxt4.csv")
 shan_wendang("fzxt5.csv")
 hebing_wendang("vmjzfz3.csv", "vmjzfz4.csv", 1)
 hebing_wendang("vmjzfz3.csv", "vmjzfz5.csv", 1)
-os.rename("vmjzfz3.csv", "vmjzfz.csv")
+if os.path.exists("vmjzfz3.csv"):
+    os.rename("vmjzfz3.csv", "vmjzfz.csv")
 shan_wendang("vmjzfz4.csv")
 shan_wendang("vmjzfz5.csv")
 
