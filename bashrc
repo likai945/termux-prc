@@ -19,7 +19,6 @@ alias 'db=/data/data/com.termux/files/home/.toolbox --db'
 ./.bird --ds
 alias 'grep=grep --color'
 alias 'll=ls -l'
-alias 'fedora=proot-distro login fedora-33'
 _day_=`date +%w`
 [ $[_day_%6] -ne 0 ] && sshd
 PS2='\[\e[0;32m\]>\[\e[0m\]'
