@@ -44,10 +44,10 @@ def fmt_print():
         print(fmttmp)
 
 def print_avg_tmp():
-    print('================================')
+    print('\n================================')
     fmt_print()
     print('================================')
-    print(f'based on {runlog}')
+    print(f'based on {runlog}\n')
 
 today=time.gmtime(time.time())[1:3]
 fmttoday=time.strftime("%Y%m%d", time.localtime())
