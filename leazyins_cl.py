@@ -3,6 +3,7 @@
 import glob
 import os
 import time
+import re
 runlogs=glob.glob('*.runlog')
 runlogs.sort()
 if runlogs:
@@ -47,9 +48,9 @@ def print_avg_tmp():
     print(f'\033[32m================================\033[0m')
     fmt_print()
     print(f'\033[32m================================\033[0m')
-    print(f'based on {runlog}')
+    print(f'based on {runlog}\n')
 
-today=time.gmtime(time.time())[1:3]
+today=time.localtime(time.time())[1:3]
 fmttoday=time.strftime("%Y%m%d", time.localtime())
 crtdir=os.getcwd()
 def clct_old_files():
@@ -58,7 +59,7 @@ def clct_old_files():
         for file in files:
             filepath=os.path.join(root,file)
             chgtime=os.path.getmtime(filepath)
-            fmtcht=time.gmtime(chgtime)[1:3]
+            fmtcht=time.localtime(chgtime)[1:3]
             if fmtcht != today:
                 ofs.append(filepath)
     return ofs
@@ -72,31 +73,37 @@ def clct_empty_dirs():
                 eds.append(dirpath)
     return eds
 
+def sub_clct(pre,loop):
+    ons=[]
+    for i in loop:
+        if '.' in i:
+            j=i.split('.')[-2]
+            nbs=re.findall('\d+',j)
+        else:
+            nbs=re.findall('\d+',i)
+        if nbs:
+            nb=nbs[-1][0:8]
+            if len(nb)==8 and nb != fmttoday:
+                thepath=os.path.join(pre,i)
+                ons.append(thepath)
+    return ons
+
 def clct_old_nm_files():
     onfs=[]
     for root,dirs,files in os.walk(crtdir):
-        for file in files:
-            if '.' in file:
-                slimfln=file.split('.')[-2][-8:]
-            else:
-                slimfln=file[-8:]
-            if slimfln.isdigit() and len(slimfln)==8 and slimfln != fmttoday:
-                filepath=os.path.join(root,file)
-                onfs.append(filepath)
+        lst=sub_clct(root,files)
+        onfs+=lst
     return onfs
 
 def clct_old_nm_dirs():
     onds=[]
     for root,dirs,files in os.walk(crtdir):
-        for dirc in dirs:
-            dirdate=dirc[-8:]
-            if dirdate.isdigit() and len(dirdate) == 8 and dirdate != fmttoday:
-                dirpath=os.path.join(root,dirc)
-                onds.append(dirpath)
+        lst=sub_clct(root,dirs)
+        onds+=lst
     return onds
 
 def print_stuffs(opt):
-    echoes=['old files','empty directories','old name files','old name directories']
+    echoes=('old files','empty directories','old name files','old name directories')
     if opt=='of':
         stfs=clct_old_files()
         mk=0
