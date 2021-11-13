@@ -106,15 +106,19 @@ def write_contents(sheet,hisorcrt):
         rs.append(r)
     return rs
 
+def write_lframe(sheet,rows):
+    sheet.merge_range(2,0,rows[2]-1,0,date,lfmt)
+    sheet.merge_range(2,1,rows[0]-1,1,'可信3',lfmt)
+    sheet.merge_range(rows[0],1,rows[1]-1,1,'可信4',lfmt)
+    sheet.merge_range(rows[1],1,rows[2]-1,1,'可信5',lfmt)
+
+
 def write_his_sheet(sheet):
     sheet.merge_range(0,0,0,7,'历史告警',lfmt)
     title=['时间','资源池','告警时间','清除时间','对象名称','告警描述','数量','处理结果']
     sheet.write_row(1,0,title,cfmts)
     hisrows=write_contents(sheet,'his')
-    sheet.merge_range(2,0,hisrows[2]-1,0,date,lfmt)
-    sheet.merge_range(2,1,hisrows[0]-1,1,'可信3',lfmt)
-    sheet.merge_range(hisrows[0],1,hisrows[1]-1,1,'可信4',lfmt)
-    sheet.merge_range(hisrows[1],1,hisrows[2]-1,1,'可信5',lfmt)
+    write_lframe(sheet,hisrows)
 
 
 def write_crt_sheet(sheet):
@@ -122,10 +126,7 @@ def write_crt_sheet(sheet):
     title=['时间','资源池','告警时间','确认恢复时间','对象名称',' 告警描述','数量','处理结果','是否清除','未确认恢复原因']
     sheet.write_row(1,0,title,cfmts)
     crtrows=write_contents(sheet,'crt')
-    sheet.merge_range(2,0,crtrows[2]-1,0,date,lfmt)
-    sheet.merge_range(2,1,crtrows[0]-1,1,'可信3',lfmt)
-    sheet.merge_range(crtrows[0],1,crtrows[1]-1,1,'可信4',lfmt)
-    sheet.merge_range(crtrows[1],1,crtrows[2]-1,1,'可信5',lfmt)
+    write_lframe(sheet,crtrows)
 
 
 def write_smr_sheet(sheet):
@@ -140,7 +141,6 @@ def write_smr_sheet(sheet):
     sheet.write_row(3,1,linekx5,cfmts)
 
 def check_files_exist():
-    files=[his3,his4,his5,crt3,crt4,crt5]
     for i in files:
         if not os.path.exists(i):
             print(f'File {i} does not exist or named wrong, have a check.')
@@ -155,11 +155,17 @@ def do_it():
     book.close()
 
 
+def delete_files():
+    for i in files:
+        os.remove(i)
+
+
 today=time.localtime()
 date=f'{today[0]}-{today[1]}-{today[2]}'
 now=f'{date} {today[3]}:{today[4]}:{today[5]}'
 his3,his4,his5='kx3_h.csv','kx4_h.csv','kx5_h.csv'
 crt3,crt4,crt5='kx3_c.csv','kx4_c.csv','kx5_c.csv'
+files=[his3,his4,his5,crt3,crt4,crt5]
 bookname=f'附件7：资源池告警处理情况表-中兴资源池{date}.xlsx'
 book=xw.Workbook(bookname)
 sheetsmr=book.add_worksheet('汇总')
@@ -173,3 +179,4 @@ cfmt=book.add_format({'border':1})
 if __name__=='__main__':
     check_files_exist()
     do_it()
+    delete_files()
