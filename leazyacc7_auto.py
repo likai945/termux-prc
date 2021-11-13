@@ -57,16 +57,16 @@ def prd_his_alllines(his3,his4,his5):
     dct4=prd_alrm_dct(his4,2,5,7,4)
     dct5=prd_alrm_dct(his5,2,5,7,4)
 
-    lines3=one_line_to_write(dct3)[0]
-    lines4=one_line_to_write(dct4)[0]
-    lines5=one_line_to_write(dct5)[0]
-    alllines=[lines3,lines4,lines5]
+    lines3=one_line_to_write(dct3)
+    lines4=one_line_to_write(dct4)
+    lines5=one_line_to_write(dct5)
+    alllines=[lines3[0],lines4[0],lines5[0]]
 
     global htotal3,htotal4,htotal5
 
-    htotal3=one_line_to_write(dct3)[1]
-    htotal4=one_line_to_write(dct4)[1]
-    htotal5=one_line_to_write(dct5)[1]
+    htotal3=lines3[1]
+    htotal4=lines4[1]
+    htotal5=lines5[1]
 
     return alllines
 
@@ -75,16 +75,16 @@ def prd_crt_alllines(crt3,crt4,crt5):
     dct4=prd_alrm_dct(crt4,1,5,8,4)
     dct5=prd_alrm_dct(crt5,1,5,8,4)
 
-    lines3=one_line_to_write(dct3)[0]
-    lines4=one_line_to_write(dct4)[0]
-    lines5=one_line_to_write(dct5)[0]
-    alllines=[lines3,lines4,lines5]
+    lines3=one_line_to_write(dct3)
+    lines4=one_line_to_write(dct4)
+    lines5=one_line_to_write(dct5)
+    alllines=[lines3[0],lines4[0],lines5[0]]
 
     global ctotal3,ctotal4,ctotal5
 
-    ctotal3=one_line_to_write(dct3)[1]
-    ctotal4=one_line_to_write(dct4)[1]
-    ctotal5=one_line_to_write(dct5)[1]
+    ctotal3=lines3[1]
+    ctotal4=lines4[1]
+    ctotal5=lines5[1]
 
     return alllines
 
