@@ -6,7 +6,7 @@ import time
 import os
 
 def prd_alrm_dct(csvfile,d,s,e,n):
-    with open(csvfile) as f:
+    with open(csvfile,encoding='utf_8_sig') as f:
         fl=csv.reader(f)
         c=0
         dct={}
@@ -164,20 +164,21 @@ def delete_files():
 
 today=time.localtime()
 date=f'{today[0]}-{today[1]}-{today[2]}'
+fndate=f'{today[0]}{today[1]}{today[2]}'
 now=f'{date} {today[3]}:{today[4]}:{today[5]}'
 
 his3,his4,his5='kx3_h.csv','kx4_h.csv','kx5_h.csv'
 crt3,crt4,crt5='kx3_c.csv','kx4_c.csv','kx5_c.csv'
 files=[his3,his4,his5,crt3,crt4,crt5]
 
-bookname=f'附件7：资源池告警处理情况表-中兴资源池{date}.xlsx'
+bookname=f'附件7：资源池告警处理情况表-中兴资源池{fndate}.xlsx'
 book=xw.Workbook(bookname)
 sheetsmr=book.add_worksheet('汇总')
 sheethis=book.add_worksheet('历史告警处理记录')
 sheetcrt=book.add_worksheet('当前告警处理记录')
 
 cfmt=book.add_format({'align':'center','valign':'vcenter','border':1})
-bfmt=book.add_format({'border':1,'text_wrap':True})
+bfmt=book.add_format({'valign':'vcenter','border':1,'text_wrap':True})
 fmtdct={2:bfmt,3:bfmt,4:bfmt,5:bfmt,6:cfmt,7:bfmt,8:cfmt,9:bfmt}
 
 if __name__=='__main__':
