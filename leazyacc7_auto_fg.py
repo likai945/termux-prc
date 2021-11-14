@@ -97,11 +97,14 @@ def write_contents(sheet,hisorcrt):
     rs=[]
     for lines in alllines:
         for line in lines:
+            c=2
             line=line+['']
             if hisorcrt=='crt':
                 line[1]=now
                 line=line+['是','']
-            sheet.write_row(r,2,line,bfmt)
+            for cell in line:
+                sheet.write(r,c,cell,fmtdct[c])
+                c+=1
             r+=1
         rs.append(r)
     return rs
@@ -175,7 +178,8 @@ sheethis=book.add_worksheet('历史告警处理记录')
 sheetcrt=book.add_worksheet('当前告警处理记录')
 
 cfmt=book.add_format({'align':'center','valign':'vcenter','border':1})
-bfmt=book.add_format({'border':1})
+bfmt=book.add_format({'border':1,'text_wrap':True})
+fmtdct={2:bfmt,3:bfmt,4:bfmt,5:bfmt,6:cfmt,7:bfmt,8:cfmt,9:bfmt}
 
 if __name__=='__main__':
     check_files_exist()
