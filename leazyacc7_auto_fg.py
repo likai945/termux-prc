@@ -8,19 +8,17 @@ import os
 def prd_alrm_dct(csvfile,d,s,e,n):
     with open(csvfile,encoding='utf_8_sig') as f:
         fl=csv.reader(f)
-        c=0
         dct={}
+        next(fl)
         for l in fl:
-            c+=1
-            if c>1:
-                desc=l[d]
-                start=l[s]
-                endt=l[e]
-                objn=l[n]
-                dct[desc]=dct.get(desc,[[],[],[]])
-                dct[desc][0].append(start)
-                dct[desc][1].append(endt)
-                dct[desc][2].append(objn)
+            desc=l[d]
+            start=l[s]
+            endt=l[e]
+            objn=l[n]
+            dct[desc]=dct.get(desc,[[],[],[]])
+            dct[desc][0].append(start)
+            dct[desc][1].append(endt)
+            dct[desc][2].append(objn)
     return dct
                 
 
