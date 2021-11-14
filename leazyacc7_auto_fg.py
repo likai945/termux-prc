@@ -109,7 +109,8 @@ def write_contents(sheet,hisorcrt):
         rs.append(r)
     return rs
 
-def write_lframe(sheet,rows):
+def write_lframe(sheet,rows,title):
+    sheet.write_row(1,0,title,cfmt)
     sheet.merge_range(2,0,rows[2]-1,0,date,cfmt)
     sheet.merge_range(2,1,rows[0]-1,1,'可信3',cfmt)
     sheet.merge_range(rows[0],1,rows[1]-1,1,'可信4',cfmt)
@@ -119,17 +120,15 @@ def write_lframe(sheet,rows):
 def write_his_sheet(sheet):
     sheet.merge_range(0,0,0,7,'历史告警',cfmt)
     title=['时间','资源池','告警时间','清除时间','对象名称','告警描述','数量','处理结果']
-    sheet.write_row(1,0,title,cfmt)
     hisrows=write_contents(sheet,'his')
-    write_lframe(sheet,hisrows)
+    write_lframe(sheet,hisrows,title)
 
 
 def write_crt_sheet(sheet):
     sheet.merge_range(0,0,0,9,'当前告警',cfmt)
     title=['时间','资源池','告警时间','确认恢复时间','对象名称',' 告警描述','数量','处理结果','是否清除','未确认恢复原因']
-    sheet.write_row(1,0,title,cfmt)
     crtrows=write_contents(sheet,'crt')
-    write_lframe(sheet,crtrows)
+    write_lframe(sheet,crtrows,title)
 
 
 def write_smr_sheet(sheet):
