@@ -2,6 +2,7 @@
 
 import csv
 import xlsxwriter as xw
+import pandas as pd
 import time
 import os
 
@@ -165,7 +166,7 @@ def write_smr_sheet(sheet):
 def check_files_exist():
     for i in files:
         if not os.path.exists(i):
-            print(f'File {i} does not exist or named wrong, have a check.')
+            print(f'\n\nFile {i} does not exist or named wrong, have a check.')
             print('\nIf this resource pool has no alarms,Press "OK" to continue.')
             print('If named wrong, press enter to quit and rename it then try again.')
             opt = input('Your option:')
@@ -173,6 +174,13 @@ def check_files_exist():
                 continue
             else:
                 exit(1)
+
+
+def fake_to_real():
+    for i in files[3:]:
+        if os.path.exists(i):
+            realone = pd.read_excel(i, index_col=0)
+            realone.to_csv(i, encoding='utf_8_sig')
 
 
 def do_it():
@@ -193,8 +201,8 @@ date = f'{today[0]}-{today[1]}-{today[2]}'
 fndate = f'{today[0]}{today[1]}{today[2]}'
 now = f'{date} {today[3]}:{today[4]}:{today[5]}'
 
-his3, his4, his5 = 'kx3_h.csv', 'kx4_h.csv', 'kx5_h.csv'
-crt3, crt4, crt5 = 'kx3_c.csv', 'kx4_c.csv', 'kx5_c.csv'
+his3, his4, his5 = 'h3.csv', 'h4.csv', 'h5.csv'
+crt3, crt4, crt5 = 'c3.csv', 'c4.csv', 'c5.csv'
 files = [his3, his4, his5, crt3, crt4, crt5]
 
 bookname = f'附件7：资源池告警处理情况表-中兴资源池{fndate}.xlsx'
@@ -211,5 +219,6 @@ nelst = []
 
 if __name__ == '__main__':
     check_files_exist()
+    fake_to_real()
     do_it()
     delete_files()
