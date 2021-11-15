@@ -25,7 +25,8 @@ def prd_alrm_dct(csvfile, d, s, e, n):
     else:
         dct = {'': [[], [], []]}
     if len(dct) == 1:
-        nelst.append(csvfile[-5])
+        ne = nedct[csvfile]
+        nelst.append(ne)
     return dct
 
 
@@ -121,15 +122,15 @@ def write_contents(sheet, hisorcrt):
 def write_lframe(sheet, rows, title):
     sheet.write_row(1, 0, title, cfmt)
     sheet.merge_range(2, 0, rows[2] - 1, 0, date, cfmt)
-    if '3' in nelst:
+    if 3 in nelst:
         sheet.write(2, 1, '可信3', cfmt)
     else:
         sheet.merge_range(2, 1, rows[0] - 1, 1, '可信3', cfmt)
-    if '4' in nelst:
+    if 4 in nelst:
         sheet.write(rows[0], 1, '可信4', cfmt)
     else:
         sheet.merge_range(rows[0], 1, rows[1] - 1, 1, '可信4', cfmt)
-    if '5' in nelst:
+    if 5 in nelst:
         sheet.write(rows[1], 1, '可信5', cfmt)
     else:
         sheet.merge_range(rows[1], 1, rows[2] - 1, 1, '可信5', cfmt)
@@ -214,6 +215,7 @@ sheetcrt = book.add_worksheet('当前告警处理记录')
 cfmt = book.add_format({'align': 'center', 'valign': 'vcenter', 'border': 1})
 bfmt = book.add_format({'valign': 'vcenter', 'border': 1, 'text_wrap': True})
 fmtdct = {2: bfmt, 3: bfmt, 4: bfmt, 5: bfmt, 6: cfmt, 7: bfmt, 8: cfmt, 9: bfmt}
+nedct = {his3: 3, crt3: 3, his4: 4, crt4: 4, his5: 5, crt5: 5}
 nelst = []
 
 if __name__ == '__main__':
