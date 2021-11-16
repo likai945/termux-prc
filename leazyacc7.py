@@ -227,6 +227,7 @@ bfmt = book.add_format({'valign': 'vcenter', 'border': 1, 'text_wrap': True})
 fmtdct = {2: bfmt, 3: bfmt, 4: bfmt, 5: bfmt, 6: cfmt, 7: bfmt, 8: cfmt, 9: bfmt}
 smwdth={0:11,1:7,2:13,3:13,4:17,5:13}
 hcwdth={0:11,1:8,2:20,3:20,4:45,5:20,6:8,7:20,8:8,9:15}
+
 nedesc,necnt,nelst = 'No Alarms','No Alarms',[]
 
 
