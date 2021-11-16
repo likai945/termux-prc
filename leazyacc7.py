@@ -201,8 +201,8 @@ date = f'{today[0]}-{today[1]}-{today[2]}'
 fndate = f'{today[0]}{today[1]}{today[2]}'
 now = f'{date} {today[3]}:{today[4]}:{today[5]}'
 
-his3, his4, his5 = 'h3.csv', 'h4.csv', 'h5.csv'
-crt3, crt4, crt5 = 'c3.csv', 'c4.csv', 'c5.csv'
+his3, his4, his5 = 'history_alarms_h3.csv', 'history_alarms_h4.csv', 'history_alarms_h5.csv'
+crt3, crt4, crt5 = 'current_alarms_c3.csv', 'current_alarms_c4.csv', 'current_alarms_c5.csv'
 files = [his3, his4, his5, crt3, crt4, crt5]
 
 bookname = f'附件7：资源池告警处理情况表-中兴资源池{fndate}.xlsx'
