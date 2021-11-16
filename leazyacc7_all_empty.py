@@ -23,7 +23,7 @@ def prd_alrm_dct(csvfile, d, s, e, n):
                 dct[desc][1].append(endt)
                 dct[desc][2].append(objn)
     else:
-        dct = {nedesc: [[necnt], [necnt], [necnt]]}
+        dct = {'': [[], [], []]}
     if len(dct) == 1:
         nelst.append(csvfile[-5])
     return dct
@@ -47,8 +47,6 @@ def one_line_to_write(dct):
         endt = mult_lines_to_one(dct[k][1])
         objn = mult_lines_to_one(dct[k][2])
         number = len(dct[k][0])
-        if nedesc in dct:
-            number = 0
         line.append(start)
         line.append(endt)
         line.append(objn)
@@ -110,7 +108,7 @@ def write_contents(sheet, hisorcrt):
             line = line + ['']
             if hisorcrt == 'crt':
                 line = line + ['是', '']
-                if line[3]!=nedesc:
+                if line[0]:
                     line[1] = now
             for cell in line:
                 sheet.write(r, c, cell, fmtdct[c])
@@ -227,7 +225,7 @@ bfmt = book.add_format({'valign': 'vcenter', 'border': 1, 'text_wrap': True})
 fmtdct = {2: bfmt, 3: bfmt, 4: bfmt, 5: bfmt, 6: cfmt, 7: bfmt, 8: cfmt, 9: bfmt}
 smwdth={0:11,1:7,2:13,3:13,4:17,5:13}
 hcwdth={0:11,1:8,2:20,3:20,4:45,5:20,6:8,7:20,8:8,9:15}
-nedesc,necnt,nelst = 'No Alarms','No Alarms',[]
+nelst = []
 
 
 if __name__ == '__main__':
