@@ -175,8 +175,8 @@ def check_files_exist():
     for i in files:
         if not os.path.exists(i):
             print(f'\n\nFile {i} does not exist or named wrong, have a check.')
-            print('\nIf this resource pool has no alarms,Press "OK" to continue.')
-            print('If named wrong, press enter to quit and rename it then try again.')
+            print(f'\nIf this resource pool has no {i[:7]} alarms, input "OK" to continue.')
+            print('If named wrong, press ENTER to quit and rename it to try again.')
             opt = input('Your option:')
             if opt == 'ok' or opt == 'OK':
                 continue
