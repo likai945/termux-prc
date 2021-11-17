@@ -110,7 +110,7 @@ def write_contents(sheet, hisorcrt):
             line = line + ['']
             if hisorcrt == 'crt':
                 line = line + ['是', '']
-                if line[3]!=nedesc:
+                if line[3] != nedesc:
                     line[1] = now
             for cell in line:
                 sheet.write(r, c, cell, fmtdct[c])
@@ -167,10 +167,10 @@ def write_smr_sheet(sheet):
 
 def set_columns_width():
     for cs in smwdth:
-        sheetsmr.set_column(cs,cs,smwdth[cs])
-    for s in (sheethis,sheetcrt):
+        sheetsmr.set_column(cs, cs, smwdth[cs])
+    for s in (sheethis, sheetcrt):
         for cc in hcwdth:
-            s.set_column(cc,cc,hcwdth[cc])
+            s.set_column(cc, cc, hcwdth[cc])
 
 
 def check_files_exist():
@@ -225,11 +225,10 @@ sheetcrt = book.add_worksheet('当前告警处理记录')
 cfmt = book.add_format({'align': 'center', 'valign': 'vcenter', 'border': 1})
 bfmt = book.add_format({'valign': 'vcenter', 'border': 1, 'text_wrap': True})
 fmtdct = {2: bfmt, 3: bfmt, 4: bfmt, 5: bfmt, 6: cfmt, 7: bfmt, 8: cfmt, 9: bfmt}
-smwdth={0:11,1:7,2:13,3:13,4:17,5:13}
-hcwdth={0:11,1:8,2:20,3:20,4:45,5:20,6:8,7:20,8:8,9:15}
+smwdth = {0: 11, 1: 7, 2: 13, 3: 13, 4: 17, 5: 13}
+hcwdth = {0: 11, 1: 8, 2: 20, 3: 20, 4: 45, 5: 20, 6: 8, 7: 20, 8: 8, 9: 15}
 
-nedesc,necnt,nelst = 'No Alarms','No Alarms',[]
-
+nedesc, necnt, nelst = 'No Alarms', 'No Alarms', []
 
 if __name__ == '__main__':
     check_files_exist()
