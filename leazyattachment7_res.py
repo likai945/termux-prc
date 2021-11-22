@@ -189,11 +189,12 @@ def check_files_exist():
 
 def crt_dct(resfile):
     dct={}
-    with open(resfile) as f:
-        for l in f:
-            key=l.split(',')[0]
-            val=l.split(',')[1].rstrip()
-            dct[key]=val
+    if os.path.exists(resfile):
+        with open(resfile) as f:
+            for l in f:
+                key=l.split(',')[0]
+                val=l.split(',')[1].rstrip()
+                dct[key]=val
     return dct
 
 
