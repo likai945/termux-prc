@@ -107,7 +107,7 @@ def write_contents(sheet, hisorcrt):
     for lines in alllines:
         for line in lines:
             c = 2
-            line = line + [result.get(line[3],'')]
+            line = line + [result.get(line[3], '')]
             if hisorcrt == 'crt':
                 line = line + ['是', '']
                 if line[3] != nedesc:
@@ -186,15 +186,14 @@ def check_files_exist():
                 exit(1)
 
 
-
 def crt_dct(resfile):
-    dct={}
+    dct = {}
     if os.path.exists(resfile):
         with open(resfile) as f:
             for l in f:
-                key=l.split(',')[0]
-                val=l.split(',')[1].rstrip()
-                dct[key]=val
+                key = l.split(',')[0]
+                val = l.split(',')[1].rstrip()
+                dct[key] = val
     return dct
 
 
@@ -242,7 +241,7 @@ hcwdth = {0: 11, 1: 8, 2: 20, 3: 20, 4: 45, 5: 20, 6: 8, 7: 20, 8: 8, 9: 15}
 
 nedesc, necnt, nelst = 'No Alarms', 'No Alarms', []
 
-result=crt_dct('result.csv')
+result = crt_dct('result.csv')
 
 if __name__ == '__main__':
     check_files_exist()
