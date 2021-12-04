@@ -23,7 +23,7 @@ def zhaodao_vnfname(vmn):
     else:
         psbm = vmn.split("-")[7]
         if "ZX" in psbm:
-            sbm = str(psbm[:psbm.index("ZX")] + "ZX")
+            sbm = psbm[:psbm.index("ZX") + 2]
         else:
             sbm = psbm
     vnfname = dy.get(sbm, 'novnf')
