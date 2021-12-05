@@ -1,6 +1,5 @@
-# beta9.2
-# 此版本增加虚机文档生成功能
-# 立等可取
+# beta10.0
+# 简化逻辑，提升速度
 # 用法：将导出的资料分别按照kx3.csv、kx41.csv、kx42.csv、kx5.csv命名，放置在本工具所在目录后双击稍事等待即可得到名为jzfz.csv的文件，由四列构成，分别为网元名、对应系统均值、均值、峰值和网元的虚机数量，与需填报的报表相对应。
 # 需配合dy.csv文件使用
 # by Li Kai
@@ -174,10 +173,10 @@ def main():
     hebing_wendang("kx3.csv", "kx41.csv", 0)
     hebing_wendang("kx3.csv", "kx5.csv", 0)
 
-    chuli_wendang('kx3.csv', 'jzsl.csv', 'vmjzfz', 3, 'jzslvm')
+    chuli_wendang('kx3.csv', 'jzsl.csv', 'vmjzfz.csv', 3, 'jzslvm')
     print("Average and number done.")
     print("AvgVM and MaxVM done.")
-    chuli_wendang('kx3.csv', 'fzxt.csv', 'zhanwei', 0, 'fzxt')
+    chuli_wendang('kx3.csv', 'fzxt.csv', None, 0, 'fzxt')
     print("Max and sysavg done.")
 
     shengcheng_yingshe("jzsl.csv", "jzfz.csv")
