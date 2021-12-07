@@ -61,7 +61,7 @@ def bianli(chu, dxweizhi):
                 dxzhi = line.split(",")[4]
                 wydct[vnf] = wydct.get(vnf, {})
                 wydct[vnf][duixiang] = wydct[vnf].get(duixiang, [])
-                wydct[vnf][duixiang].append(float(dxzhi.strip('%')))
+                wydct[vnf][duixiang].append(float(dxzhi.strip('%\n')))
     if 'novnf' in wydct:
         del wydct['novnf']
     return wydct
