@@ -104,7 +104,7 @@ def vmjzfz(dct):
     return jieguo
 
 
-def chuli_vmfzjz_wendang(yi,dct):
+def chuli_vmfzjz_wendang(yi, dct):
     with open(yi, "a", encoding='utf_8_sig') as yiwen:
         yiwen.write(f'大区,网元唯一标识,虚拟机名称,虚拟机IP,CPU均值利用率（%）,CPU峰值利用率（%）\n')
         for vnf in dct:
@@ -125,9 +125,7 @@ def chuli_wendang(chu, jia, yi, dxwz, pan):
                     jg = fengzhixt(dct[vnf])
                     wen.write(vnf + ',' + str(jg) + '\n')
                 return
-        chuli_vmfzjz_wendang(yi,dct)
-
-
+        chuli_vmfzjz_wendang(yi, dct)
 
 
 def zidian(chu, lstweizhi, fstweizhi):
@@ -188,7 +186,7 @@ def main():
     shengcheng_yingshe("jzsl.csv", "jzfz.csv")
     print("Done!")
 
-    lst2 = ["kx3.csv" , "kx41.csv" , "kx42.csv" , "kx5.csv" , "jzsl.csv" , "fzxt.csv"]
+    lst2 = ["kx3.csv", "kx41.csv", "kx42.csv", "kx5.csv", "jzsl.csv", "fzxt.csv"]
     for fl in lst2:
         shan_wendang(fl)
 
