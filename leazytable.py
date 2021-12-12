@@ -60,8 +60,10 @@ def walk_the_file(file):
         for line in fl:
             vmn=line[-2]
             val=line[-1].rstrip('%\n')
+            val=float(val)
+            val=val if val >= 0 else 0
             dct.setdefault(vmn,[])
-            dct[vmn].append(float(val))
+            dct[vmn].append(val)
         return dct
 
             
@@ -91,16 +93,15 @@ def write_st_e_s_cntnt(tup,row):
     return row
 
 
-def write_sheet_ech_srv(tup3,tup4,tup5):
-    title=['大区','资源池','服务器名称','物理机承载业务','所在HA','所在AZ','物理机CPU利用率']
-    sheetEchSrv.write_row(0,0,title,cfmt)
-    r3=write_st_e_s_cntnt(tup3,0)
-    r4=write_st_e_s_cntnt(tup4,r3)
-    r5=write_st_e_s_cntnt(tup5,r4)
-    sheetEchSrv.merge_range(1,1,r3,1,'可信3资源池',cfmt)
-    sheetEchSrv.merge_range(r3+1,1,r4,1,'可信4资源池',cfmt)
-    sheetEchSrv.merge_range(r4+1,1,r5,1,'可信5资源池',cfmt)
-    sheetEchSrv.merge_range(1,0,r5,0,'西南大区',cfmt)
+def write_sheet_srv(tup3,tup4,tup5,cntntFunc,sheet,title):
+    sheet.write_row(0,0,title,cfmt)
+    r3=cntntFunc(tup3,0)
+    r4=cntntFunc(tup4,r3)
+    r5=cntntFunc(tup5,r4)
+    sheet.merge_range(1,1,r3,1,'可信3资源池',cfmt)
+    sheet.merge_range(r3+1,1,r4,1,'可信4资源池',cfmt)
+    sheet.merge_range(r4+1,1,r5,1,'可信5资源池',cfmt)
+    sheet.merge_range(1,0,r5,0,'西南大区',cfmt)
 
 
 def crt_cls_srv_dct(tup):
@@ -115,6 +116,7 @@ def crt_cls_srv_dct(tup):
         val=tup[0][srv]
         dct[genre][ha].append(val)
     return dct
+
 
 def sort_the_dct(dct):
     lst=list(dct.keys())
@@ -141,27 +143,14 @@ def write_st_c_s_cntnt(tup,row):
     return row
 
 
-
-def write_sheet_cls_srv(tup3,tup4,tup5):
-    title=['大区','资源池','物理机承载业务','物理机台数','所在HA','所在AZ','各类物理机CPU利用率']
-    sheetClsSrv.write_row(0,0,title,cfmt)
-    r3=write_st_c_s_cntnt(tup3,0)
-    r4=write_st_c_s_cntnt(tup4,r3)
-    r5=write_st_c_s_cntnt(tup5,r4)
-    sheetClsSrv.merge_range(1,1,r3,1,'可信3资源池',cfmt)
-    sheetClsSrv.merge_range(r3+1,1,r4,1,'可信4资源池',cfmt)
-    sheetClsSrv.merge_range(r4+1,1,r5,1,'可信5资源池',cfmt)
-    sheetClsSrv.merge_range(1,0,r5,0,'西南大区',cfmt)
-
-
-
 def write_srv_sheets():
     tup3=fmt_the_dct('srvkx3.csv')
     tup4=fmt_the_dct('srvkx4.csv')
     tup5=fmt_the_dct('srvkx5.csv')
-    write_sheet_ech_srv(tup3,tup4,tup5)
-    write_sheet_cls_srv(tup3,tup4,tup5)
-
+    titleEch=['大区','资源池','服务器名称','物理机承载业务','所在HA','所在AZ','物理机CPU利用率']
+    titleCls=['大区','资源池','物理机承载业务','物理机台数','所在HA','所在AZ','各类物理机CPU利用率']
+    write_sheet_srv(tup3,tup4,tup5,write_st_e_s_cntnt,sheetEchSrv,titleEch)
+    write_sheet_srv(tup3,tup4,tup5,write_st_c_s_cntnt,sheetClsSrv,titleCls)
 
 
 def get_vnf(vmn):
