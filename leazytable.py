@@ -7,6 +7,8 @@ import xlsxwriter as xw
 import os
 import re
 
+
+
 def merge_files(one,two,three,cnt):
     with open(three, "a", encoding='utf_8_sig') as nf:
         for fl in [one,two]:
@@ -82,14 +84,20 @@ def fmt_the_dct(file):
 def write_st_e_s_cntnt(tup,row):
     for srv in tup[1]:
         row+=1
-        ha=srvHaDct[srv]
-        az=hazDct[ha]
+        ha=srvHaDct.get(srv,'null')
+        az=hazDct.get(ha,'null')
         preGen=ha[-5:]
         preGen=re.sub('\d','',preGen)
-        genre=genreDct[preGen]
+        genre=genreDct.get(preGen,'null')
         val=tup[0][srv]
-        cntnt=[srv,genre,ha,az,val] 
-        sheetEchSrv.write_row(row,2,cntnt,cfmt)
+        line=[srv,genre,ha,az,val] 
+        if genre == 'null':
+            notMatchLst.append(f'{sheetEchSrv}D{row}')
+        if ha == 'null':
+            notMatchLst.append(f'{sheetEchSrv}E{row}')
+        if az == 'null':
+            notMatchLst.append(f'{sheetEchSrv}F{row}')
+        sheetEchSrv.write_row(row,2,line,cfmt)
     return row
 
 
@@ -107,10 +115,10 @@ def write_sheet_srv(tup3,tup4,tup5,cntntFunc,sheet,title):
 def crt_cls_srv_dct(tup):
     dct={}
     for srv in tup[0]:
-        ha=srvHaDct[srv]
+        ha=srvHaDct.get(srv,'null')
         preGen=ha[-5:]
         preGen=re.sub('\d','',preGen)
-        genre=genreDct[preGen]
+        genre=genreDct.get(preGen,'null')
         dct.setdefault(genre,{})
         dct[genre].setdefault(ha,[])
         val=tup[0][srv]
@@ -133,7 +141,7 @@ def write_st_c_s_cntnt(tup,row):
             num=len(dct[cls][ha])
             avg=sum(dct[cls][ha])/len(dct[cls][ha])
             num=str(num)+'台'
-            az=hazDct[ha]
+            az=hazDct.get(ha,'null')
             line=[num,ha,az,avg]
             sheetClsSrv.write_row(row,3,line,cfmt)
         if len(dct[cls]) == 1:
@@ -156,15 +164,7 @@ def write_srv_sheets():
 def get_vnf(vmn):
     dy=crt_dct('dy.csv')
     others=crt_lst('vnf.csv')
-    if "-OMC-" in vmn:
-        sbm = "OMC"
-    elif "-NFVO-" in vmn:
-        sbm = "NFVO"
-    elif "-xnqVNFM3" in vmn:
-        sbm = "VNFM03"
-    elif "-VNFM-" in vmn:
-        sbm = "VNFM"
-    elif "ZTE_EMSplus_RPT" in vmn:
+    if "ZTE_EMSplus_RPT" in vmn:
         sbm = "ZTE_EMSplus_RPT"
     else:
         psbm = vmn.split("-")[7]
@@ -172,8 +172,8 @@ def get_vnf(vmn):
             sbm = psbm[:psbm.index("ZX") + 2]
         else:
             sbm = psbm
-    vnfname = dy.get(sbm, 'novnf')
-    if vnfname == 'novnf':
+    vnfname = dy.get(sbm, 'null')
+    if vnfname == 'null':
         for i in others:
             if i in vmn:
                 vnfname=i
@@ -193,6 +193,8 @@ def write_sheet_ech_vm():
         vnf=get_vnf(vm)
         avg=sum(dct[vm])/len(dct[vm])
         line=['西南大区',f'可信{vm[12]}资源池',vnf,vm,'中兴',avg]
+        if vnf == 'null':
+            notMatchLst.append(f'{sheetEchVM}C{row}')
         sheetEchVM.write_row(row,0,line,cfmt)
 
 
@@ -238,7 +240,9 @@ sheetClsVM = book.add_worksheet('网元虚机CPU利用率')
 
 hazDct=crt_dct('haz.csv')
 srvHaDct=crt_dct('srvha.csv')
-genreDct={'--':'VIM服务器','MNG':'以虚机方式部署的管理域服务器','VIC':'业务域服务器'}
+genreDct={'--':'VIM服务器','MNG':'以虚机方式部署的管理域服务器','VIC':'业务域服务器','null':'null'}
+
+notMatchLst=[]
 
 cfmt = book.add_format({'align': 'center', 'valign':'vcenter', 'border': 1})
 
