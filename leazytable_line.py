@@ -60,26 +60,14 @@ def read_numbers():
     return cntnts
 
 
-def write_cells(sheet,line,row,stColumn,sheetfmt):
-        column=stColumn
-        for cell in line:
-            sheet.write(row,column,cell,sheetfmt[column])
-            column+=1
-            if cell == 'null':
-                notMatchLst.append(f'{sheet}{chr(65+column)}{row}')
-
-
 def write_sheet_cmp_rsc():
-    sheet=sheetCmpRsc
     title=['大区','资源池','总可分配物理核','实际已分配物理核','施工图设计会审的预分配物理核','各类虚拟化应用分配物理核总量','计算资源分配率（%']
-    sheet.write_row(0,0,title,tfmt)
+    sheetCmpRsc.write_row(0,0,title,cfmt)
     cntnts=read_numbers()
     row=0
-    column=0
-    sheetfmt=sheetCmpRscFmts
     for line in cntnts:
         row+=1
-        write_cells(sheet,line,row,column,sheetfmt)
+        sheetCmpRsc.write_row(row,0,line,cfmt)
 
 
 def walk_the_file(file):
@@ -109,11 +97,8 @@ def fmt_the_dct(file):
 
 
 def write_st_e_s_cntnt(tup,row):
-    sheet=sheetEchSrv
-    sheetfmt=sheetEchSrvFmts
     for srv in tup[1]:
         row+=1
-        column=2
         ha=srvHaDct.get(srv,'null')
         az=hazDct.get(ha,'null')
         preGen=ha[-5:]
@@ -121,12 +106,18 @@ def write_st_e_s_cntnt(tup,row):
         genre=genreDct.get(preGen,'null')
         val=tup[0][srv]
         line=[srv,genre,ha,az,val] 
-        write_cells(sheet,line,row,column,sheetfmt)
+        if genre == 'null':
+            notMatchLst.append(f'{sheetEchSrv}D{row}')
+        if ha == 'null':
+            notMatchLst.append(f'{sheetEchSrv}E{row}')
+        if az == 'null':
+            notMatchLst.append(f'{sheetEchSrv}F{row}')
+        sheetEchSrv.write_row(row,2,line,cfmt)
     return row
 
 
 def write_sheet_srv(tup3,tup4,tup5,cntntFunc,sheet,title):
-    sheet.write_row(0,0,title,tfmt)
+    sheet.write_row(0,0,title,cfmt)
     r3=cntntFunc(tup3,0)
     r4=cntntFunc(tup4,r3)
     r5=cntntFunc(tup5,r4)
@@ -158,23 +149,20 @@ def sort_the_dct(dct):
 
 def write_st_c_s_cntnt(tup,row):
     dct=crt_cls_srv_dct(tup)
-    sheet=sheetClsSrv
-    sheetfmt=sheetClsSrvFmts
     for cls in sort_the_dct(dct):
         sr=row+1
         for ha in sort_the_dct(dct[cls]):
             row+=1
-            column=3
             num=len(dct[cls][ha])
             avg=sum(dct[cls][ha])/len(dct[cls][ha])
             num=str(num)+'台'
             az=hazDct.get(ha,'null')
             line=[num,ha,az,avg]
-            write_cells(sheet,line,row,column,sheetfmt)
+            sheetClsSrv.write_row(row,3,line,cfmt)
         if len(dct[cls]) == 1:
-            sheet.write(row,2,cls,cfmt)
+            sheetClsSrv.write(row,2,cls,cfmt)
         else:
-            sheet.merge_range(sr,2,row,2,cls,cfmt)
+            sheetClsSrv.merge_range(sr,2,row,2,cls,cfmt)
     return row
 
 
@@ -209,21 +197,20 @@ def get_vnf(vmn):
 
 
 def write_sheet_ech_vm():
-    sheet=sheetEchVM
-    sheetfmt=sheetEchVMFmts
     merge_files('vmkx3.csv','vmkx4.csv','vmtmp.csv',0) ##change the argument
     merge_files('vmtmp.csv','vmkx5.csv','vm.csv',0)
     title=['大区','资源池','网元名称','虚机名称','厂家','虚机vCPU 利用率']
-    sheet.write_row(0,0,title,tfmt)
+    sheetEchVM.write_row(0,0,title,cfmt)
     dct=walk_the_file('vm.csv')
     row=0
     for vm in sort_the_dct(dct):
         row+=1
-        column=0
         vnf=get_vnf(vm)
         avg=sum(dct[vm])/len(dct[vm])
         line=['西南大区',f'可信{vm[12]}资源池',vnf,vm,'中兴',avg]
-        write_cells(sheet,line,row,column,sheetfmt)
+        if vnf == 'null':
+            notMatchLst.append(f'{sheetEchVM}C{row}')
+        sheetEchVM.write_row(row,0,line,cfmt)
 
 
 
@@ -273,15 +260,6 @@ genreDct={'--':'VIM服务器','MNG':'以虚机方式部署的管理域服务器'
 notMatchLst=[]
 
 cfmt = book.add_format({'align': 'center', 'valign':'vcenter', 'border': 1})
-lfmt = book.add_format({'align': 'left', 'valign':'vcenter', 'border': 1})
-rfmt = book.add_format({'align': 'right', 'valign':'vcenter', 'border': 1})
-tfmt = book.add_format({'align': 'center', 'valign':'vcenter', 'border': 1,'bold':True})
-
-sheetCmpRscFmts={0:cfmt,1:cfmt,2:lfmt,3:lfmt,4:lfmt,5:lfmt,6:rfmt}
-sheetEchSrvFmts={2:lfmt,3:cfmt,4:cfmt,5:cfmt,6:rfmt}
-sheetClsSrvFmts={3:rfmt,4:cfmt,5:cfmt,6:rfmt}
-sheetEchVMFmts={0:cfmt,1:cfmt,2:lfmt,3:lfmt,4:cfmt,5:rfmt}
-sheetClsVMFmts={0:cfmt,1:cfmt,2:lfmt,3:cfmt,4:rfmt}
 
 if __name__ == '__main__':
     main()
