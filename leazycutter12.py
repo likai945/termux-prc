@@ -109,7 +109,8 @@ def vmjzfz(dct):
 
 def chuli_vmfzjz_wendang(yi, dct):
     with open(yi, "a", encoding='utf_8_sig') as yiwen:
-        yiwen.write(f'大区,网元唯一标识,虚拟机名称,虚拟机IP,CPU均值利用率（%）,CPU峰值利用率（%）\n')
+        title='大区,网元唯一标识,虚拟机名称,虚拟机IP,CPU均值利用率（%）,CPU峰值利用率（%）\n'
+        yiwen.write(title)
         for vnf in dct:
             for line in vmjzfz(dct[vnf]):
                 yiwen.write(f'西南大区,{vnf},{line}\n')
@@ -140,6 +141,8 @@ def zidian(chu, lstweizhi, fstweizhi):
 def shengcheng_yingshe(chu, zhong):
     if os.path.exists(chu):
         with open(zhong, "a", encoding='utf_8_sig') as wen:
+            title = '网元,系统均值,均值,峰值,虚机数量\n'
+            wen.write(title)
             sczdjz = zidian("jzsl.csv", 1, 0)
             sczdfz = zidian("fzxt.csv", 1, 0)
             sczdxt = zidian("fzxt.csv", -1, 0)
