@@ -1,5 +1,5 @@
 # beta12
-# 采用回调函数以精简逻辑
+# 将均值结果圆整为两位小数
 # 用法：将导出的资料分别按照kx3.csv、kx41.csv、kx42.csv、kx5.csv命名，放置在本工具所在目录后双击稍事等待即可得到名为jzfz.csv的文件，由四列构成，分别为网元名、对应系统均值、均值、峰值和网元的虚机数量，与需填报的报表相对应。
 # 需配合dy.csv文件使用
 # by Li Kai
@@ -74,6 +74,7 @@ def junzhisl(dct):
         yuansu = max(vmlbs)
         fengzhilb.append(yuansu)
     jzjg = sum(fengzhilb) / len(fengzhilb)
+    jzjg = round(jzjg,2)
     sljg = len(dct)
     jieguo = f'{jzjg},{sljg}'
     return jieguo
@@ -86,7 +87,9 @@ def fengzhixt(dct):
         yuansu = sum(sjlbs) / len(sjlbs)
         junzhilb.append(yuansu)
     fzjg = max(junzhilb)
+    fzjg = round(fzjg,2)
     xtjg = sum(junzhilb) / len(junzhilb)
+    xtjg = round(xtjg,2)
     jieguo = f'{fzjg},{xtjg}'
     return jieguo
 
@@ -95,6 +98,7 @@ def vmjzfz(dct):
     jieguo = []
     for vm in dct:
         vmavg = sum(dct[vm]) / len(dct[vm])
+        vmavg = round(vmavg,2)
         vmmax = max(dct[vm])
         vmavg = str(vmavg)
         vmmax = str(vmmax)
