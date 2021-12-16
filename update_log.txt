@@ -1,0 +1,18 @@
+eazycutter.py将虚机名列表输入到指定文档内，生成特征对象列表后再行粘贴
+leazycutter.py无需手动复制粘贴，自动生成包含特征码的对象表格
+leazycutter2.py新增管理类网元
+leazycutter3.py进一步自动化，直接自动生成算好均值峰值的表格
+leazycutter4.py根据新要求计算均值峰值、增加虚机数量等，并优化做法，采用嵌套字典而非之前的两次作业，极大地提高了作业效率
+leazycutter5.py增加系统均值的输出
+	leazycutter5.5.py此为版本5的等效版本，其系统均值的计算方法为初代均值计算方法，效果相同
+leazycutter6.py将一次作业的遍历次数优化为一次（增加遍历字典嵌套级数），大大减少作业时间，达到秒级
+leazycutter7.py在上一版本的基础上分两组同时计算，时间缩短为上一版本的3/5。同时优化打开文档方式。
+	leazycutter7_inside.py对应关系映射内置
+	leazycutter7_original.py未优化文档打开方式的版本7
+leazycutter8.py增加虚机维度的均值、峰值计算并生成对应表格
+	leazycutte8_original.py单独写整个虚机维度均值峰值计算函数的版本.
+leazycutter9.py不再生成sbm表格，改由遍历生成字典时直接获取vnf名称，效率较8有提升
+	leazycutter9_cmb.py系版本9的先合并后处理版本，其逻辑更为简单，但执行效率更低
+leazycutter10.py，在9_cmb.py的基础上复用遍历成果，速度较leazycutter9.py更快
+leazycutter11.py，在10的基础上更改了shengcheng函数的判断逻辑并且将vmjzfz.csv的生成代码单独写出函数
+leazycutter12.py，用回调函数简化判断逻辑，将数值圆整为两位小数，为生成的表格增加表头

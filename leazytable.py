@@ -9,24 +9,21 @@ import re
 
 
 
-def merge_files(one,two,three,cnt):
-    with open(three, "a", encoding='utf_8_sig') as nf:
-        for fl in [one,two]:
-            with open(fl, encoding='utf_8_sig') as f:
-                tmp=cnt
-                for i in f:
-                    tmp += 1
-                    if tmp > 1 and not 'VM,' in i:
-                        nf.write(i)
+def merge_files(one,two):
+    with open(one, "a", encoding='utf_8_sig') as nf:
+        with open(two, encoding='utf_8_sig') as f:
+            cnt=0
+            for i in f:
+                cnt += 1
+                if cnt > 1:
+                    nf.write(i)
 
 
 def init_files():
-#    merge_files('srvkx41m.csv','srvkx42m.csv','srvkx4m.csv',0)
-#    merge_files('srvkx41e.csv','srvkx42e.csv','srvkx4e.csv',0)
-    merge_files('srvkx4m.csv','srvkx4e.csv','srvkx4.csv',0)
-    for i in ['srv','vm']:
-        for j in range(3,6,2):
-            merge_files(f'{i}kx{j}m.csv',f'{i}kx{j}e.csv',f'{i}kx{j}.csv',0)
+    remove_files(beforeLst)
+    merge_files('vmkx41.csv','vmkx42.csv')
+    os.rename('vmkx41.csv','vmkx4.csv')
+
 
 def check_event(hint):
     while True:
@@ -63,10 +60,10 @@ def read_numbers():
 def write_cells(sheet,line,row,stColumn,sheetfmt):
         column=stColumn
         for cell in line:
+            if column-stColumn+1==len(line):
+                cell=str(round(cell,2))+'%'
             sheet.write(row,column,cell,sheetfmt[column])
             column+=1
-            if cell == 'null':
-                notMatchLst.append(f'{sheet}{chr(65+column)}{row}')
 
 
 def write_sheet_cmp_rsc():
@@ -85,14 +82,16 @@ def write_sheet_cmp_rsc():
 def walk_the_file(file):
     with open(file) as f:
         fl=csv.reader(f)
+        next(fl)
         dct={}
         for line in fl:
-            vmn=line[-2]
+            key=line[-2]
             val=line[-1].rstrip('%\n')
-            val=float(val)
-            val=val if val >= 0 else 0
-            dct.setdefault(vmn,[])
-            dct[vmn].append(val)
+            if not key.endswith('-VM'):
+                val=float(val)
+                val=val if val >= 0 else 0
+                dct.setdefault(key,[])
+                dct[key].append(val)
         return dct
 
             
@@ -122,6 +121,7 @@ def write_st_e_s_cntnt(tup,row):
         val=tup[0][srv]
         line=[srv,genre,ha,az,val] 
         write_cells(sheet,line,row,column,sheetfmt)
+        check_null(srv,ha,az,None,None)
     return row
 
 
@@ -208,15 +208,10 @@ def get_vnf(vmn):
     return vnfname
 
 
-def write_sheet_ech_vm():
-    sheet=sheetEchVM
-    sheetfmt=sheetEchVMFmts
-    merge_files('vmkx3.csv','vmkx4.csv','vmtmp.csv',0) ##change the argument
-    merge_files('vmtmp.csv','vmkx5.csv','vm.csv',0)
-    title=['大区','资源池','网元名称','虚机名称','厂家','虚机vCPU 利用率']
-    sheet.write_row(0,0,title,tfmt)
-    dct=walk_the_file('vm.csv')
-    row=0
+def write_st_e_vm(file,sheet,row,sheetfmt):
+    dct=walk_the_file(file)
+    vnfDct={}
+    row=row
     for vm in sort_the_dct(dct):
         row+=1
         column=0
@@ -225,13 +220,48 @@ def write_sheet_ech_vm():
         line=['西南大区',f'可信{vm[12]}资源池',vnf,vm,'中兴',avg]
         write_cells(sheet,line,row,column,sheetfmt)
 
+        check_null(None,None,None,vm,vnf)
+
+        vnfDct.setdefault(vnf,[])
+        vnfDct[vnf].append(avg)
+    return row,vnfDct
+
+
+def write_st_c_vm(dct,sheet,row,sheetfmt,rp):
+    for vnf in sort_the_dct(dct):
+        row+=1
+        column=0
+        avg=sum(dct[vnf])/len(dct[vnf])
+        line=['西南大区',f'可信{rp}资源池',vnf,'中兴',avg]
+        write_cells(sheet,line,row,column,sheetfmt)
+    return row
+    
+
+
+def write_sheet_vms():
+    sheetE=sheetEchVM
+    sheetfmtE=sheetEchVMFmts
+    titleE=['大区','资源池','网元名称','虚机名称','厂家','虚机vCPU 利用率']
+    sheetE.write_row(0,0,titleE,tfmt)
+    sheetC=sheetClsVM
+    sheetfmtC=sheetClsVMFmts
+    titleC=['大区','资源池','网元名称','厂家','网元虚机vCPU 利用率']
+    sheetC.write_row(0,0,titleC,tfmt)
+
+    er3=write_st_e_vm('vmkx3.csv',sheetE,0,sheetfmtE)
+    er4=write_st_e_vm('vmkx4.csv',sheetE,er3[0],sheetfmtE)
+    er5=write_st_e_vm('vmkx5.csv',sheetE,er4[0],sheetfmtE)
+
+    cr3=write_st_c_vm(er3[1],sheetC,0,sheetfmtC,3)
+    cr4=write_st_c_vm(er4[1],sheetC,cr3,sheetfmtC,4)
+    write_st_c_vm(er5[1],sheetC,cr4,sheetfmtC,5)
 
 
 def do_it():
     init_files()
     write_sheet_cmp_rsc()
     write_srv_sheets()
-    write_sheet_ech_vm()
+    write_sheet_vms()
     book.close()
 
 def crt_dct(file):
@@ -252,11 +282,45 @@ def crt_lst(file):
     return lst
 
 
+def check_null(srv,ha,az,vm,vnf):
+    if ha == 'null':
+        notMatchLsts[0].append(srv)
+    if az == 'null':
+        notMatchLsts[1].append(ha)
+    if vnf == 'null':
+        notMatchLsts[2].append(vm)
+
+
+def write_null_lists(list,file):
+    with open(file,'a',encoding='utf_8_sig') as f:
+        for line in list:
+            f.write(f'{line}\n')
+
+
+def echo_manual_op(lists):
+    if lists[0]:
+        print('\n\t\aview the srvhanull file')
+        write_null_lists(lists[0],'srvhanull.csv')
+    elif lists[1]:
+        print('\n\t\aview the haznull file')
+        write_null_lists(lists[1],'haznull.csv')
+    if lists[2]:
+        print('\n\t\aview the vnfnull file')
+        write_null_lists(lists[2],'vnfnull.csv')
+
+
+def remove_files(fileList):
+    for file in fileList:
+        if os.path.exists(file):
+            os.remove(file)
+
+
 def main():
 #    check_files()
     do_it()
 #    fmt_it()
-#    echo_manual_op()
+    echo_manual_op(notMatchLsts)
+    remove_files(afterLst)
 
 bookName = '附件2：网络云资源利用率关键指标.xlsx'
 book = xw.Workbook(bookName)
@@ -270,7 +334,9 @@ hazDct=crt_dct('haz.csv')
 srvHaDct=crt_dct('srvha.csv')
 genreDct={'--':'VIM服务器','MNG':'以虚机方式部署的管理域服务器','VIC':'业务域服务器','null':'null'}
 
-notMatchLst=[]
+notMatchLsts=[[],[],[]]
+beforeLst=('vnfnull.csv','haznull.csv','srvhanull.csv')
+afterLst=('srvkx3.csv','srvkx4.csv','srvkx5.csv','vmkx3.csv','vmkx4.csv','vmkx42.csv','vmkx5.csv')
 
 cfmt = book.add_format({'align': 'center', 'valign':'vcenter', 'border': 1})
 lfmt = book.add_format({'align': 'left', 'valign':'vcenter', 'border': 1})
