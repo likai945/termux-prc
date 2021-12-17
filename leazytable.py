@@ -189,8 +189,8 @@ def write_srv_sheets():
 
 
 def get_vnf(vmn):
-    dy=crt_dct('dy.csv')
-    others=crt_lst('vnf.csv')
+    dy=crt_dct('base/dy.csv')
+    others=crt_lst('base/vnf.csv')
     if "ZTE_EMSplus_RPT" in vmn:
         sbm = "ZTE_EMSplus_RPT"
     else:
@@ -315,8 +315,20 @@ def remove_files(fileList):
             os.remove(file)
 
 
+def check_files_exist():
+    notExstFls=[]
+    for file in fileLst:
+        file=f'{file}.csv'
+        if not os.path.exists(file):
+            notExstFls.append(file)
+    if notExstFls:
+        for file in notExstFls:
+            print(f'{file} does not exist, have a check.')
+        exit(1)
+
+
 def main():
-#    check_files()
+    check_files_exist()
     do_it()
 #    fmt_it()
     echo_manual_op(notMatchLsts)
@@ -330,13 +342,14 @@ sheetClsSrv = book.add_worksheet('资源池各类物理机CPU利用率')
 sheetEchVM = book.add_worksheet('单虚机CPU利用率')
 sheetClsVM = book.add_worksheet('网元虚机CPU利用率')
 
-hazDct=crt_dct('haz.csv')
-srvHaDct=crt_dct('srvha.csv')
+hazDct=crt_dct('base/haz.csv')
+srvHaDct=crt_dct('base/srvha.csv')
 genreDct={'--':'VIM服务器','MNG':'以虚机方式部署的管理域服务器','VIC':'业务域服务器','null':'null'}
 
 notMatchLsts=[[],[],[]]
 beforeLst=('vnfnull.csv','haznull.csv','srvhanull.csv')
 afterLst=('srvkx3.csv','srvkx4.csv','srvkx5.csv','vmkx3.csv','vmkx4.csv','vmkx42.csv','vmkx5.csv')
+fileLst=('base/srvha','base/haz','base/dy','base/vnf','srvkx3','srvkx4','srvkx5','vmkx3','vmkx41','vmkx42','vmkx5')
 
 cfmt = book.add_format({'align': 'center', 'valign':'vcenter', 'border': 1})
 lfmt = book.add_format({'align': 'left', 'valign':'vcenter', 'border': 1})
