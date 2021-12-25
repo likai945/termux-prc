@@ -107,6 +107,13 @@ def vmjzfz(dct):
     return jieguo
 
 
+def chuli_jzfz_wendang(jia,dct,func):
+    with open(jia, "a", encoding='utf_8_sig') as wen:
+        for vnf in dct:
+            jg = func(dct[vnf])
+            wen.write(vnf + ',' + str(jg) + '\n')
+
+
 def chuli_vmfzjz_wendang(yi, dct):
     with open(yi, "a", encoding='utf_8_sig') as yiwen:
         title='大区,网元唯一标识,虚拟机名称,虚拟机IP,CPU均值利用率（%）,CPU峰值利用率（%）\n'
@@ -119,10 +126,7 @@ def chuli_vmfzjz_wendang(yi, dct):
 def chuli_wendang(chu, jia, yi, dxwz, func):
     if os.path.exists(chu):
         dct = bianli(chu, dxwz)
-        with open(jia, "a", encoding='utf_8_sig') as wen:
-            for vnf in dct:
-                jg = func(dct[vnf])
-                wen.write(vnf + ',' + str(jg) + '\n')
+        chuli_jzfz_wendang(jia,dct,func)
         if func is junzhisl:
             chuli_vmfzjz_wendang(yi, dct)
 
