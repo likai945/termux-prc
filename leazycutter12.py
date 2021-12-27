@@ -114,7 +114,7 @@ def chuli_jzfz_wendang(jia,dct,func):
             wen.write(vnf + ',' + str(jg) + '\n')
 
 
-def chuli_vmfzjz_wendang(yi, dct):
+def chuli_vmjzfz_wendang(yi, dct):
     with open(yi, "a", encoding='utf_8_sig') as yiwen:
         title='大区,网元唯一标识,虚拟机名称,虚拟机IP,CPU均值利用率（%）,CPU峰值利用率（%）\n'
         yiwen.write(title)
@@ -128,7 +128,7 @@ def chuli_wendang(chu, jia, yi, dxwz, func):
         dct = bianli(chu, dxwz)
         chuli_jzfz_wendang(jia,dct,func)
         if func is junzhisl:
-            chuli_vmfzjz_wendang(yi, dct)
+            chuli_vmjzfz_wendang(yi, dct)
 
 
 def zidian(chu, lstweizhi, fstweizhi):
