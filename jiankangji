@@ -40,7 +40,6 @@ cha(){
 zc=`date +%j`
 sc=`tail -1 ${jl} | awk '{print $1}'`
 d=`expr $zc - $sc`
-[ $[`date +%Y`%4] -eq 0 ] && dy=366 || dy=365
 [ $d -lt 0 ] && d=$[dy+d]
 [ $d -eq 1 ] && echo -e "\n\033[32m$d\033[0m day no shit" || echo -e "\n\033[32m$d\033[0m days no shit"
 }
@@ -71,7 +70,6 @@ shangci=$(tail -1 ${jl} | awk '{print $1}')
 [ -z $shangci ] && delay=0 || delay=`expr $zheci - $shangci - 1`
 [ $delay -eq -1 ] &>/dev/null && zhuijia && my && dxa && gh && dxc
 [ $delay -eq -1 ] &>/dev/null && lan && exit
-[ $delay -lt -1 ] && delay=$[dy+delay]
 shi=`date +%s`
 echo -e "\033[32m\ntime recording...\ncomplete all after poop\nremark 'manual' if necessary\033[0m\n"
 read -p 'the scale(nml):' s
@@ -87,6 +85,7 @@ rl=$[`echo "$r" | wc -L`+13]
 [ $t -lt 10 ] &>/dev/null && t=0$t
 zheci=`date +%j`
 delay=`expr $zheci - $shangci - 1`
+[ $delay -lt -1 ] && delay=$[dy+delay]
 echo "`date +%j` d${delay} `date +%R` `date +%Y` `date +%b` `date +%d` `date +%a` | ${s:=nml} ${e:=eas} ${c:=brn} ${t:=08}min ${r:=null}" >> ${jl}
 cp $jl $bpath && echo -e "\033[1A\033[${rl}C\033[1m\033[32m[✓]\033[0m\n"
 }
@@ -209,6 +208,9 @@ tz=/data/data/com.termux/files/home/tz
 [ ! -f $tz ] && touch $tz
 jl=/data/data/com.termux/files/home/jl
 [ ! -f $jl ] && touch $jl
+[ $[`date +%Y`%4] -eq 0 ] && dy=366 || dy=365
+
+
 case $1 in 
 	--lac)
 		cha;
