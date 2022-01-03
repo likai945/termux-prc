@@ -208,7 +208,7 @@ tz=/data/data/com.termux/files/home/tz
 [ ! -f $tz ] && touch $tz
 jl=/data/data/com.termux/files/home/jl
 [ ! -f $jl ] && touch $jl
-[ $[`date +%Y`%4] -eq 0 ] && dy=366 || dy=365
+[ $[`date +%Y`%4] -eq 1 ] && dy=366 || dy=365
 
 
 case $1 in 
