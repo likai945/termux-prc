@@ -18,7 +18,7 @@ def prd_alrm_dct(csvfile, d, s, e, n):
                 start = l[s]
                 endt = l[e]
                 objn = l[n]
-                dct[desc] = dct.get(desc, [[], [], []])
+                dct.setdefault(desc, [[], [], []])
                 dct[desc][0].append(start)
                 dct[desc][1].append(endt)
                 dct[desc][2].append(objn)
