@@ -61,7 +61,7 @@ def one_line_to_write(dct):
 
 def prd_his_alllines(his3, his4, his5):
     dct3 = prd_alrm_dct(his3, 4, 7, 9, 6)
-    dct4 = prd_alrm_dct(his4, 2, 5, 7, 4)
+    dct4 = prd_alrm_dct(his4, 4, 7, 9, 6)
     dct5 = prd_alrm_dct(his5, 2, 5, 7, 4)
 
     lines3 = one_line_to_write(dct3)
@@ -80,7 +80,7 @@ def prd_his_alllines(his3, his4, his5):
 
 def prd_crt_alllines(crt3, crt4, crt5):
     dct3 = prd_alrm_dct(crt3, 3, 7, 10, 6)
-    dct4 = prd_alrm_dct(crt4, 1, 5, 8, 4)
+    dct4 = prd_alrm_dct(crt4, 3, 7, 9, 6)
     dct5 = prd_alrm_dct(crt5, 1, 5, 8, 4)
 
     lines3 = one_line_to_write(dct3)
@@ -189,7 +189,7 @@ def check_files_exist():
 def crt_dct(resfile):
     dct = {}
     if os.path.exists(resfile):
-        with open(resfile) as f:
+        with open(resfile,encoding='utf_8_sig') as f:
             for l in f:
                 key = l.split(',')[0]
                 val = l.split(',')[1].rstrip()
@@ -198,7 +198,7 @@ def crt_dct(resfile):
 
 
 def fake_to_real():
-    for i in files[3:]:
+    for i in [crt3,crt5]:
         if os.path.exists(i):
             realone = pd.read_excel(i, index_col=0)
             realone.to_csv(i, encoding='utf_8_sig')
