@@ -17,9 +17,7 @@ def prd_alrm_dct(csvfile, d, s, e, n):
                 desc = l[d]
                 start = l[s]
                 endt = l[e]
-                objn = l[n]
-                if csvfile in (crt4,his4):
-                    objn = f'{l[n-1]}名={objn}'
+                objn = f'{l[n-1]}名={l[n]}' if csvfile in (crt4,his4) else l[n]
                 dct.setdefault(desc, [[], [], []])
                 dct[desc][0].append(start)
                 dct[desc][1].append(endt)
