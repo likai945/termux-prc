@@ -189,7 +189,7 @@ def check_files_exist():
 def crt_dct(resfile):
     dct = {}
     if os.path.exists(resfile):
-        with open(resfile) as f:
+        with open(resfile,encoding='utf_8_sig') as f:
             for l in f:
                 key = l.split(',')[0]
                 val = l.split(',')[1].rstrip()
