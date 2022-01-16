@@ -31,8 +31,8 @@ def prd_alrm_dct(csvfile, d, s, e, n):
 
 def mult_lines_to_one(lst):
     blox = ''
-    for i in range(len(lst)):
-        blox = blox + lst[i] + '\n'
+    for i in lst:
+        blox = blox + i + '\n'
     blox = blox.rstrip()
     return blox
 
