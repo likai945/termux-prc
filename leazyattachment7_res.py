@@ -192,7 +192,7 @@ def crt_dct(resfile):
         with open(resfile,encoding='utf_8_sig') as f:
             for l in f:
                 key = l.split(',')[0]
-                val = l.split(',')[1].rstrip()
+                val = l.split(',')[-1].rstrip()
                 dct[key] = val
     return dct
 
