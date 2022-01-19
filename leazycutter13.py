@@ -22,7 +22,11 @@ def zhaodao_vnfname(vmn):
     else:
         vmlst = list(vmn.split('-'))
         vmind = vmlst.index('VM')
-        psbm = vmlst[vmind+1]
+        if vmind == len(vmlst)-1:
+            psbm = 'noSBM'
+            man.add(vmn)
+        else:
+            psbm = vmlst[vmind+1]
         if "ZX" in psbm:
             sbm = psbm[:psbm.index("ZX") + 2]
         else:
@@ -197,6 +201,18 @@ def main():
         shan_wendang(fl)
 
 
+def extra():
+    if man:
+        print('\nCheck VMs below:')
+        for i in man:
+            print(i)
+        input()
+
+
+man=set()
+
+
 if __name__ == '__main__':
     check_dy_exists()
     main()
+    extra()
