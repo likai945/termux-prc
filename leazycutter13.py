@@ -1,5 +1,5 @@
 # beta13
-# 简化
+# 适用于新的需求，同时兼容老需求。逻辑简化。
 # 用法：将导出的资料分别按照kx3.csv、kx41.csv、kx42.csv、kx5.csv命名，放置在本工具所在目录后双击稍事等待即可得到名为jzfz.csv的文件，由四列构成，分别为网元名、对应系统均值、均值、峰值和网元的虚机数量，与需填报的报表相对应。
 # 需配合dy.csv文件使用
 # by Li Kai
@@ -20,7 +20,7 @@ def zhaodao_vnfname(vmn):
     elif "ZTE_EMSplus_RPT" in vmn:
         sbm = "ZTE_EMSplus_RPT"
     else:
-        psbm = vmn.split("-")[7]
+        psbm = vmn.split("-")[-1]
         if "ZX" in psbm:
             sbm = psbm[:psbm.index("ZX") + 2]
         else:
