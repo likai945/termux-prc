@@ -16,4 +16,4 @@ leazycutter9.py不再生成sbm表格，改由遍历生成字典时直接获取vn
 leazycutter10.py，在9_cmb.py的基础上复用遍历成果，速度较leazycutter9.py更快
 leazycutter11.py，在10的基础上更改了shengcheng函数的判断逻辑并且将vmjzfz.csv的生成代码单独写出函数
 leazycutter12.py，用回调函数简化判断逻辑，将数值圆整为两位小数，为生成的表格增加表头
-leazycutter13.py，简化逻辑，不再判断是否为空行，直接在调用函数处已不同的参数实现相同效果,对getvnf函数进行调整以适用更多情况。
+leazycutter13.py，简化逻辑，不再判断是否为空行，直接在调用函数处已不同的参数实现相同效果,对getvnf函数进行调整以适用更多情况。加上特殊虚机提示功能。

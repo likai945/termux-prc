@@ -205,7 +205,8 @@ def extra():
     if man:
         print('\nCheck VMs below:')
         for i in man:
-            print(i)
+            print(f'• {i}')
+        print('\nPress <ENTER> to quit.')
         input()
 
 
