@@ -184,3 +184,4 @@
 016 d0 19:40 2022 Jan 16 Sun | nml eas brn 07min null
 017 d0 22:52 2022 Jan 17 Mon | nml eas brn 06min null
 019 d1 18:30 2022 Jan 19 Wed | lqd eas brn 10min null
+021 d1 22:45 2022 Jan 21 Fri | sft eas brn 09min null
