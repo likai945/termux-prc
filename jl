@@ -190,3 +190,4 @@
 025 d1 12:59 2022 Jan 25 Tue | sft eas brn 03min null
 027 d1 23:11 2022 Jan 27 Thu | sft eas brn 05min null
 032 d4 11:22 2022 Feb 01 Tue | dry eas brn 11min null
+035 d2 10:30 2022 Feb 04 Fri | nml eas brn 07min null
