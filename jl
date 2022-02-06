@@ -191,4 +191,4 @@
 027 d1 23:11 2022 Jan 27 Thu | sft eas brn 05min null
 032 d4 11:22 2022 Feb 01 Tue | dry eas brn 11min null
 035 d2 10:30 2022 Feb 04 Fri | nml eas brn 07min null
-037 d1 00:25 2022 Feb 06 Sun | lqd eas brn 06min (null)+2
+037 d1 00:25 2022 Feb 06 Sun | lqd eas brn 06min (cold_sausage)+3
