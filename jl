@@ -192,3 +192,4 @@
 032 d4 11:22 2022 Feb 01 Tue | dry eas brn 11min null
 035 d2 10:30 2022 Feb 04 Fri | nml eas brn 07min null
 037 d1 00:25 2022 Feb 06 Sun | lqd eas brn 06min (cold_sausage)+3
+041 d3 23:18 2022 Feb 10 Thu | nml eas brn 13min red_oil
