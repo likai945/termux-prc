@@ -203,10 +203,10 @@ cp $tz $bpath && echo -e '\t\t\033[1m\033[32m[✓]BACKUP COMPLETED\033[0m'
 
 ##########the program##########
 
-bpath=/data/data/com.termux/files/usr/backup
-tz=/data/data/com.termux/files/home/tz
+bpath=$PREFIX/backup
+tz=$HOME/tz
 [ ! -f $tz ] && touch $tz
-jl=/data/data/com.termux/files/home/jl
+jl=$HOME/jl
 [ ! -f $jl ] && touch $jl
 [ $[`date +%Y`%4] -eq 1 ] && dy=366 || dy=365
 
