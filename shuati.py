@@ -35,7 +35,7 @@ def test_one(file,point,number,color,wronglst):
     for i in chosenQ:
         num=chosenQ.index(i)+1
         show_quiz(i,num,color)
-        ans=input('Answer:')
+        ans=input('Answer:').upper()
         if ans==i[1]:
             global score
             score+=point
