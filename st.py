@@ -22,7 +22,7 @@ def show_quiz(i,n,c):
     print(f'\033[{c}m{n} {i[0]}\033[0m')
     k=0
     for j in i[2:]: 
-        print(f'{ab[k]}•{j}')
+        print(f'\033[{c-10}m{ab[k]}•\033[0m{j}')
         k+=1
 
 
