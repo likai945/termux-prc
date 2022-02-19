@@ -65,7 +65,7 @@ def show_all_wrong():
 def main():
     test_all()
     print(f'score:\033[32m{score}\033[0m')
-    review=input('\nReview all the wrong chosens?')
+    review=input('\nReview all the wrong choices?')
     if review != 'no':
         show_all_wrong()
 
