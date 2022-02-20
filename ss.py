@@ -74,6 +74,8 @@ def main():
     fmtsec=costtime%60
     print(f'score:\033[32m{score}\033[0m')
     print(f'cost:\033[32m{fmtmin}m {fmtsec}s\033[0m')
+    if not (wrongS or wrongM or wrongJ):
+        exit()
     review=input('\nReview all the wrong choices?')
     if review != 'no':
         show_all_wrong()
