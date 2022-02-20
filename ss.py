@@ -60,24 +60,28 @@ def show_wrong(wrong,color,cls):
 
 
 def show_all_wrong():
-    show_wrong(wrongS,32,'S')
-    show_wrong(wrongM,33,'M')
-    show_wrong(wrongJ,34,'J')
+    if wrongS or wrongM or wrongJ:
+        review=input('\nReview all the wrong choices?')
+        if review != 'no':
+            show_wrong(wrongS,32,'S')
+            show_wrong(wrongM,33,'M')
+            show_wrong(wrongJ,34,'J')
+
+
+def score_time(starttime):
+    endtime=time.time()
+    costtime=round(endtime-starttime)
+    fmtmin=costtime//60
+    fmtsec=costtime%60
+    print(f'\nscore:\033[32m{score}\033[0m')
+    print(f'cost:\033[32m{fmtmin}m {fmtsec}s\033[0m')
 
 
 def main():
     starttime=time.time()
     test_all()
-    endtime=time.time()
-    costtime=round(endtime-starttime)
-    fmtmin=costtime//60
-    fmtsec=costtime%60
-    print(f'score:\033[32m{score}\033[0m')
-    print(f'cost:\033[32m{fmtmin}m {fmtsec}s\033[0m')
-    if wrongS or wrongM or wrongJ:
-        review=input('\nReview all the wrong choices?')
-        if review != 'no':
-            show_all_wrong()
+    score_time(starttime)
+    show_all_wrong()
 
 
 if __name__ == '__main__':
