@@ -37,7 +37,7 @@ def test_one(file,point,number,color,wronglst,cls):
         num=chosenQ.index(i)+1
         num=f'{cls}{str(num)}'
         show_quiz(i,num,color)
-        ans=input('Answer:').upper()
+        ans=input('Answer:').upper().strip()
         if ans==i[1]:
             global score
             score+=point
