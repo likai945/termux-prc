@@ -91,7 +91,7 @@ echo -e '\033[34m>\c \033[0m'
 while [ 1 ]
 do
         current=`date +%s`
-        [ $current -eq $seconds ] && echo -e '\033[32m \n\n\t\t    time up \a\n\n \033[0m\033[?25h' && exit
+        [ $current -eq $seconds ] && echo -e '\033[32m \n\n\t\t    time's up \a\n\n \033[0m\033[?25h' && exit
         [ $current -gt $seconds ] && echo -e "\033[32m \n\n\t\t$[current-seconds] more seconds \a\n\n \033[0m\033[?25h" && exit
 done
 }
