@@ -76,7 +76,7 @@ archive=$PREFIX/share/nginx/html/cunc
 ls $archive > $list
 substance=`cat $list`
 > $list
-echo '<meta http-equiv="refresh" content="1">' > $list
+echo '<meta http-equiv="refresh" content="1" charset="utf-8">' > $list
 for sub in $substance
 do
 	echo "<font size=123><br><a href=\"cunc/${sub}\">${sub}</a></br></font>" >> $list
