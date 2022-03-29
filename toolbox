@@ -73,12 +73,8 @@ echo -en '\e[?25h'
 shengcheng(){
 list=$PREFIX/share/nginx/html/list.html
 archive=$PREFIX/share/nginx/html/cunc
-substance=`ls $archive`
 echo '<meta http-equiv="refresh" content="1" charset="utf-8">' > $list
-for sub in $substance
-do
-	echo "<font size=123><br><a href=\"cunc/${sub}\">${sub}</a></br></font>" >> $list
-done
+ls -1 $archive | sed -r 's#(.*)#<font size=123><br><a href="cunc/\1">\1</a></br></font>#' >> $list
 }
 dynamic(){
 origin=`ls $archive | md5sum | awk '{print $1}'`
