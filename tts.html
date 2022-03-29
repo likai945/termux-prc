@@ -1,0 +1,2910 @@
+<!DOCTYPE html>
+<!-- saved from url=(0045)http://tts.tmooc.cn/studentCenter/toMyttsPage -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>TTS学习中心</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" href="./TTS学习中心_files/style.css">
+</head>
+<body>
+    <div class="page-header" id="headerDiv"><script src="./TTS学习中心_files/hm.js.下载"></script><script type="text/javascript">
+$(function(){
+	
+	//百度统计
+    var _hmt = _hmt || [];
+     (function() {
+         var hm = document.createElement("script");
+         hm.src = "https://hm.baidu.com/hm.js?e997f0189b675e95bb22e0f8e2b5fa74";
+         var s = document.getElementsByTagName("script")[0]; 
+         s.parentNode.insertBefore(hm, s);
+         })();
+		
+	/* TTS_URL+ */
+	//初始化logo图片
+	$("#logoImage").attr("src","../private/ttsfront/img/logo_foot.png");
+	
+	var versionCode=$("#version").val();
+	
+	/*
+	//获取班级类型，开班时间，总课时数，项目经理，班主任
+	$.ajax({
+		type: "post", 
+		url: TTS_URL+"studentCenter/getStuBaseMsg", 
+		dataType: "json",
+		data:{"versionCode":versionCode},
+  		success: function (data) {
+  			if(data.code>0){
+  				var stuList=data.list;
+  				var stu=stuList[0];
+  				$("#studyMode").html(stu.studyModeName);
+  				$("#classStartTime").html(stu.beginDateString);
+  				$("#totalClass").html(stu.classPeriodCount);
+  				$("#pmName").html(stu.projectManager);
+  				$("#classTeacherName").html(stu.classCharge);
+  			}
+    	}, 
+   		error: function (XMLHttpRequest, textStatus, errorThrown) { 
+   			console.debug("取出学员信息错误");
+		}
+	});
+	*/
+	/* //获取教历下拉列表
+	$.ajax({
+		type: "post", 
+		url: TTS_URL+"studentCenter/getAllversion", 
+		dataType: "json",
+		data:{},
+  		success: function (data) {
+  			if(data.code>0){
+  				var stuList=data.list;
+  				var defVersion=data.localCode;
+  				var versionHtml="";
+  				for(var i=0;i<stuList.length;i++){
+  					if(defVersion==stuList[i].courseVersion){
+  						versionHtml+='<li class="active"  style="overflow-x:hidden"><a href="'+TTS_URL+'studentCenter/toMyttsPage?isCenter=yes&versionCode='+stuList[i].courseVersion+'">'+stuList[i].courseVersion+'</a></li>';
+  					}else{
+  						versionHtml+='<li style="overflow-x:hidden"><a href="'+TTS_URL+'studentCenter/toMyttsPage?isCenter=yes&versionCode='+stuList[i].courseVersion+'" >'+stuList[i].courseVersion+'</a></li>';
+  					}
+  				}
+  				$("#versionListUl").html(versionHtml);
+  			}
+    	}, 
+   		error: function (XMLHttpRequest, textStatus, errorThrown) { 
+   			console.debug("取出版本列表失败");
+		}
+	}); */
+	
+	$('#out_login').click(function(evt){
+		evt.stopPropagation();
+		window.location.href=tmooc_path;
+	});
+	
+	/*导航条下拉菜单*/
+    /* $('li.more-lty').bind('mouseover',function () {
+        $(this).children('.dropdownlist-lty').show();
+    }).bind('mouseout',function () {
+        $(this).children('.dropdownlist-lty').hide();
+    }) */
+	
+
+    var isCenterCookie = $.cookie("isCenterCookie");//yes/no
+
+   /*   var versionStr = $.cookie("versionListCookie");
+    var versions = new Array();
+    if(versionStr != null) {
+	    versionStr = versionStr.replace("\"","");
+	    versionStr = versionStr.replace("\"","");
+	    versions = versionStr.split(",,");
+    }
+    
+
+    if(versions.length != ($('#versionListUl').length-1)){
+	    for(var i=0;i<versions.length;i++) {
+	    	var version = versions[i];
+	    	var defaultVersionCookie = $.cookie('defaultVersionCookie');
+	    	if(version == defaultVersionCookie) {
+	    		$('#versionListUl').append("<li class='active' style='overflow-x:hidden'><p class='con-lty'><a href='"+TTS_URL+"studentCenter/toMyttsPage?versionCode="+version+"' title='"+version+"'>"+version+"</a></p></li>");
+	    	}else{
+	    		$('#versionListUl').append("<li style='overflow-x:hidden'><p class='con-lty'><a href='"+TTS_URL+"studentCenter/toMyttsPage?versionCode="+version+"' title='"+version+"'>"+version+"</a></p></li>");
+	    	}	    	
+	    }
+
+    }  */
+    	
+  
+    //获取教历下拉列表
+    var versionAndNameStr = $.cookie("versionAndNamesListCookie");
+    versionAndNameStr = decodeURI(decodeURI(versionAndNameStr,"utf-8"),"utf-8");//解码
+    var versionAndNames = new Array();
+    if(versionAndNameStr!=null){
+        versionAndNameStr = versionAndNameStr.replace("\"","");
+        versionAndNameStr = versionAndNameStr.replace("\"","");
+        versionAndNames = versionAndNameStr.split("M11M");
+       
+    }
+    
+    var vns = new Array();
+    if(versionAndNames.length != ($('#versionListUl').length-1)){
+	    for(var i=0;i<versionAndNames.length;i++) {
+	    	vns = versionAndNames[i].split("N22N");
+	    	var version=vns[0];
+	    	var versionName = vns[1];
+	    	var stuClassId='';
+	    	if(vns.length==3){
+	    		stuClassId=vns[2];
+	    	}
+	    	var defaultVersionCookie = $.cookie('defaultVersionCookie');
+	    	if(version == defaultVersionCookie) {
+	    		$('#versionListUl').append("<li class='active' style='overflow-x:hidden'><p class='con-lty'><a href='"+TTS_URL+"studentCenter/toMyttsPage?versionCode="+version+"&stuClassId="+stuClassId+"' title='"+versionName+"'>"+versionName+"</a></p></li>");
+	    	}else{
+	    		$('#versionListUl').append("<li style='overflow-x:hidden'><p class='con-lty'><a href='"+TTS_URL+"studentCenter/toMyttsPage?versionCode="+version+"&stuClassId="+stuClassId+"' title='"+versionName+"'>"+versionName+"</a></p></li>");
+	    	}	    	
+	    }
+
+    } 
+    
+    
+ /**------------发ajax获取在家还是在中心-------------*/   
+    $.ajax({
+    	type: "get", 
+    	url: tts_video_url+"isCenter.html", 
+    	dataType: "html",
+    	data:{},
+    		success: function (data) {
+    		/* 	alert("有文件"); */
+    			$.cookie("isCenterCookie","yes",{path:"/"});  
+    			 var courseName = $.cookie("courseCookie");
+    			   if(courseName == "JAVA"){
+    			       if($('#hmenuicon_3').length>0){
+    			           $('#hmenuicon_3').remove();
+    			       }
+    			       if($('#hmenuicon_2').length==0){
+    			            $('.dropdownlist-lty').append("<li id='hmenuicon_2'><a href='javascript:;' onclick='dowload()'>资料下载</a></li>");
+    			       }
+    			   }else if(courseName == "ACC"){
+    			       if($('#hmenuicon_2').length>0){
+    			           $('#hmenuicon_2').remove();
+    			       }
+    			       if($('#hmenuicon_3').length==0){
+    			        $('.dropdownlist-lty').append("<li id='hmenuicon_3'><a href='javascript:;' onclick='dowloadKuaiji()'>资料下载</a></li>");
+    			       }
+    			   }
+    	}, 
+    		error: function (XMLHttpRequest) { 
+    			//alert("没有文件");
+    			$.cookie("isCenterCookie","no");
+    			//if(XMLHttpRequest.readyState == 4 && XMLHttpRequest.status == 404){
+    			//	
+    			//}
+    			 if($('#hmenuicon_1').length>0){
+                     $('#hmenuicon_1').remove();
+                 }
+    			 if($('#hmenuicon_2').length>0){
+                     $('#hmenuicon_2').remove();
+                 }
+                 if($('#hmenuicon_3').length>0){
+                     $('#hmenuicon_3').remove();
+                 }
+    	}
+    });
+ 
+ 
+ /**-----2020年1月26日添加脱产学员保利威视直播入口开始--------*/
+    $.get(TTS_URL+'seriesClassVideo/getVideoInfo', function (d) {
+        if(d.status !='F'){
+            d=d.data;
+            if (d) {
+            	if (d.checkTime == 'F') {
+                }else{
+                	 var url=d.liveUrl;
+                     /**--2019年12月24日添加，由于保利威视获取摄像头和麦克需要走https协议，故把http替换成https开始-------*/
+                     if(url!=null&&url!=''&&url!='###'&&url.indexOf('seriesClassVideo')!=-1){
+                     	url=TTS_URL+url;
+                     	url=url.replace("http:","https:").replace('//seriesClassVideo','/seriesClassVideo');
+                     }
+                     /**--2019年12月24日添加，由于保利威视获取摄像头和麦克需要走https协议，故把http替换成https结束-------*/
+                     $("#dhlimore").before('<li><a href="javascript:;" onclick="gotoliveroom(\''+url+'\')">进入教室</a></li>');
+                }
+               
+            }
+        }else {
+            //无直播,不显示直播入口
+        }
+        
+    })
+ 
+ /**-----2020年1月26日添加脱产学员保利威视直播入口结束--------*/
+});
+
+function gotoliveroom(obj){
+    if(obj!='###'){
+        window.open(obj);
+    }
+}
+
+/*拆分session*/
+function main_getLoginUserFromCookie() {
+    var sessionid = $.cookie("sessionid");
+    sessionid=sessionid.replace("\"","");
+    if (sessionid == null || sessionid.length < 1) return null;
+    var user = new Object();
+    var str = new Array();
+    str = sessionid.split("|");
+    /**
+     * sessionid|studentCode
+     **/
+    user.sessionid = str[0];
+    user.loginname = str[1];
+    user.name = str[2];
+    user.istts = str[3];
+    user.outdays = str[4];
+    user.sex = str[5];
+    user.img = str[6];
+    user.vip = str[7];
+    user.graduatetime = parseInt(str[8]) + 185 * 24 * 60 * 60 * 1000;
+    user.isupdatepwd = str[9];
+    if (user.outdays > 0 && user.vip == 0) {
+        updateVIPIMG(user);
+    }
+    return user;
+}
+
+var sessObj = main_getLoginUserFromCookie();
+var sessionId = sessObj.sessionid;
+//去投诉页面 
+function toSuggest(){
+	//window.location.href=TTS_URL+"frontSuggest/getMySuggest?link=toSuggest";
+	window.open(TTS_URL+"frontSuggest/getMySuggest?link=toSuggest");
+}
+
+//去用户中心的界面
+function toUserCenter(){
+	//window.location.href=TTS_URL+"user/userCenter";
+	window.open(TTS_URL+"user/userCenter");
+}
+//去我的问题页面
+function toUserProblemPage() {
+    //window.location.href = TTS_URL + 'ttsOnlineFaq/toUserProblemPage';
+    window.open(TTS_URL + "ttsOnlineFaq/toUserProblemPage");
+}
+// 去在线问答页面
+function toOnlineQuestion() {
+	//window.location.href = TTS_URL + 'ttsOnlineFaq/toOnlineFaqPage';
+	window.open(TTS_URL + "ttsOnlineFaq/toOnlineFaqPage");
+}
+//学习中心
+function studyCenter(){
+	//window.location.href=TTS_URL+"studentCenter/toMyttsPage";
+	window.open(TTS_URL+"studentCenter/toMyttsPage");
+}
+//在线考试
+function toqs() {
+	var defaultVersionCookie = $.cookie('defaultVersionCookie');
+	 if (defaultVersionCookie != null) {
+	    var str = new Array();
+	    str = defaultVersionCookie.split("_");
+	    var type = str[0];
+	    if(type == "VIP") {
+	    	//window.location.href=qw_tm_exam+"?sessionId="+sessionId;
+	    	window.open(qw_tm_exam +"?sessionId="+sessionId);
+	    }else{
+	        //window.location.href=qs_kao_path+"?sessionId="+sessionId;
+	        window.open(qs_kao_path +"?sessionId="+sessionId);
+	    }
+	 }
+	 return  null;
+}
+//问卷调查
+function questiond() {
+	//window.location.href=will_vote_list + ";jsessionid="+sessionId;
+	window.open(TTS_URL+"studentCenter/toVote");
+}
+//JAVA方向资料下载
+function dowload() {
+	//window.location.href=TTS_URL+"dowload/dow?link=dowload";
+	window.open(TTS_URL+"dowload/dow?link=dowload");
+}
+//会计方向资料下载
+function dowloadKuaiji() {
+	//window.location.href=TTS_URL+"dowload/kuaiji?link=dowloadKuaiji";
+	window.open(TTS_URL+"dowload/kuaiji?link=dowloadKuaiji");
+}
+//有奖征文
+function onbbs(){
+	window.open(TTS_URL+"bbs/toIndex");
+}
+//云主机
+function toCloud(){
+	window.location.href=TTS_URL+"cloudHost/index?link=toCloud";
+}
+//题海
+function questinSea(){
+    //window.location.href=qw_tm_exam+"?sessionId="+sessionId;
+    window.open(qw_tm_exam+"?sessionId="+sessionId);
+}
+//我的课程
+function toMyCourse(){
+	window.location.href=TTS_URL+"myCourse/toMyCourse?link=toMyCourse";
+}
+//T币商城
+function toGoodsMall(){
+ // iframe 切换
+   //window.location.href=TTS_URL+"score/toVipIntegralPage?str=goods";
+   window.open(TTS_URL+"score/toVipIntegralPage?str=goods");
+    
+}
+</script>
+
+<div class="md2017082401lty">
+            <div class="container">
+                <!--logo-->
+                <div class="sclogo-lty">
+                </div>
+                <!--导航条-->
+                <ul class="scnav-lty clearfix">
+                   <!--  <li><a href="javascript:;" onclick="onbbs()">有奖征文</a></li> -->
+                        <ul class="dropdownlist-lty">
+                        </ul>
+                    </li>
+                </ul>
+                <!--课程切换-->
+                <div class="scjl-lty clearfix">
+                    <ul class="toggle-link pull-left">
+                        <li class="payed-course">
+                            <ul id="versionListUl">
+                                
+                            <li class="active" style="overflow-x:hidden"><p class="con-lty"><a href="http://tts.tmooc.cn/studentCenter/toMyttsPage?versionCode=NSDTN201904&amp;stuClassId=728755" title="Linux云计算全日制课程V07">Linux云计算全日制课程V07</a></p></li></ul>
+                        </li>
+                    </ul>
+                    <div class="tx-lty pull-right" onclick="toUserCenter()">
+                    	<a href="http://tts.tmooc.cn/studentCenter/toMyttsPage#">
+	                    	<div style="width:50px;height:50px;border-radius:50%;overflow:hidden;position:absolute;top:5px;">
+	                    	</div>
+                    	</a>
+                        <div class="loginout-lty">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div></div>
+    <div class="page-body">
+        <div class="md2017082402lty">
+            <nav class="banner-top-lty">
+                <div class="container">
+                    <div class="begin-study-lty pull-left">
+                    </div>
+                    <ul class="class-info-lty pull-left clearfix" id="studyMsgUl">
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="container wipper-960-190">
+            <input type="hidden" id="version" value="NSDTN201904">
+                <div class="col-960 md2017110202lty">
+                <!-- 循环各个阶段 -->
+                <!-- 开始循环 ,bigStage是大阶段开始-->
+                    	<!-- courseStage是小阶段 -->
+                    	
+                    	<h2 class="headline-1">
+                       <a class="anchor-1" name="11"></a>
+                       <span class="headline-content">ADMIN</span>
+                    	</h2>
+                    	
+                    <div id="stage719458" class="course-list">
+                        <div class="course-menu">
+                            <ul>
+                            	<!-- 循环day开始 -->
+                                	<li class="opened">
+                                   		<p>01：
+                                   				云网络基础
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ADMIN/DAY01/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ADMIN/DAY01/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ADMIN/DAY01/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=672815&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>02：
+                                   				Linux系统简介
+                                   					、
+                                   				安装Linux系统
+                                   					、
+                                   				Linux基本操作
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ADMIN/DAY02/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ADMIN/DAY02/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ADMIN/DAY02/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=672814&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>03：
+                                   				命令行基础
+                                   					、
+                                   				目录和文件管理
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ADMIN/DAY03/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ADMIN/DAY03/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ADMIN/DAY03/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=672813&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>04：
+                                   				管理用户和组
+                                   					、
+                                   				tar备份与恢复
+                                   					、
+                                   				cron计划任务
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ADMIN/DAY04/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ADMIN/DAY04/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ADMIN/DAY04/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=672812&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>05：
+                                   				教学环境介绍
+                                   					、
+                                   				权限和归属
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ADMIN/DAY05/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ADMIN/DAY05/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ADMIN/DAY05/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=672811&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>06：
+                                   				软件包管理
+                                   					、
+                                   				分区规划及使用
+                                   					、
+                                   				NTP时间同步
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ADMIN/DAY06/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ADMIN/DAY06/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ADMIN/DAY06/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=672810&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>07：
+                                   				LVM逻辑卷
+                                   					、
+                                   				综合串讲
+                                   					、
+                                   				综合练习
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ADMIN/DAY07/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ADMIN/DAY07/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=672809&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                            </ul>
+                        </div>
+                    </div>
+                    	<!--循环 courseStage小阶段结束 -->
+                    	
+                    	<h2 class="headline-1">
+                       <a class="anchor-1" name="12"></a>
+                       <span class="headline-content">ENGINEER</span>
+                    	</h2>
+                    	
+                    <div id="stage719489" class="course-list">
+                        <div class="course-menu">
+                            <ul>
+                            	<!-- 循环day开始 -->
+                                	<li class="opened">
+                                   		<p>01：
+                                   				Shell脚本基础
+                                   					、
+                                   				使用变量
+                                   					、
+                                   				条件测试及选择
+                                   					、
+                                   				列表式循环
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ENGINEER/DAY01/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ENGINEER/DAY01/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ENGINEER/DAY01/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=672808&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>02：
+                                   				系统安全保护
+                                   					、
+                                   				配置用户环境
+                                   					、
+                                   				条件测试及选择
+                                   					、
+                                   				列表式循环
+                                   					、
+                                   				防火墙策略管理
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ENGINEER/DAY02/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ENGINEER/DAY02/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ENGINEER/DAY02/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=672807&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>03：
+                                   				iSCSI技术应用
+                                   					、
+                                   				数据库服务基础
+                                   					、
+                                   				管理表数据
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ENGINEER/DAY03/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ENGINEER/DAY03/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ENGINEER/DAY03/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=672806&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>04：
+                                   				配置NFS共享
+                                   					、
+                                   				HTTP服务基础
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ENGINEER/DAY04/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ENGINEER/DAY04/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ENGINEER/DAY04/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=672805&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>05：
+                                   				网页内容访问
+                                   					、
+                                   				部署动态网站
+                                   					、
+                                   				安全Web服务
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ENGINEER/DAY05/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ENGINEER/DAY05/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ENGINEER/DAY05/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=672804&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>06：
+                                   				综合串讲
+                                   					、
+                                   				综合练习
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ENGINEER/DAY06/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ENGINEER/DAY06/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ENGINEER/DAY06/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=672803&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                            </ul>
+                        </div>
+                    </div>
+                    	<!--循环 courseStage小阶段结束 -->
+                    	
+                    	<h2 class="headline-1">
+                       <a class="anchor-1" name="13"></a>
+                       <span class="headline-content">SERVICES</span>
+                    	</h2>
+                    	
+                    <div id="stage719519" class="course-list">
+                        <div class="course-menu">
+                            <ul>
+                            	<!-- 循环day开始 -->
+                                	<li class="opened">
+                                   		<p>01：
+                                   				扩展的几个应用
+                                   					、
+                                   				发布网络YUM源
+                                   					、
+                                   				vim编辑技巧
+                                   					、
+                                   				源码编译安装
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SERVICES/DAY01/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SERVICES/DAY01/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SERVICES/DAY01/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=672802&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>02：
+                                   				KVM构建及管理
+                                   					、
+                                   				virsh控制工具
+                                   					、
+                                   				镜像管理
+                                   					、
+                                   				虚拟机快建技术
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SERVICES/DAY02/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SERVICES/DAY02/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SERVICES/DAY02/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=672801&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>03：
+                                   				DNS服务基础
+                                   					、
+                                   				缓存DNS
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SERVICES/DAY03/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SERVICES/DAY03/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SERVICES/DAY03/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=672800&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>04：
+                                   				Split分离解析
+                                   					、
+                                   				RAID磁盘阵列
+                                   					、
+                                   				进程管理
+                                   					、
+                                   				日志管理
+                                   					、
+                                   				systemctl控制
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SERVICES/DAY04/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SERVICES/DAY04/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SERVICES/DAY04/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=672799&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>05：
+                                   				批量装机环境
+                                   					、
+                                   				配置PXE引导
+                                   					、
+                                   				kickstart自动应答
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SERVICES/DAY05/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SERVICES/DAY05/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SERVICES/DAY05/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=672798&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>06：
+                                   				rsync同步操作
+                                   					、
+                                   				inotify实时同步
+                                   					、
+                                   				Cobbler装机平台
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SERVICES/DAY06/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SERVICES/DAY06/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SERVICES/DAY06/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=672797&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                            </ul>
+                        </div>
+                    </div>
+                    	<!--循环 courseStage小阶段结束 -->
+                    	
+                    	<h2 class="headline-1">
+                       <a class="anchor-1" name="14"></a>
+                       <span class="headline-content">NETWORK</span>
+                    	</h2>
+                    	
+                    <div id="stage719553" class="course-list">
+                        <div class="course-menu">
+                            <ul>
+                            	<!-- 循环day开始 -->
+                                	<li class="opened">
+                                   		<p>01：
+                                   				计算机网络
+                                   					、
+                                   				网络通信参考模型
+                                   					、
+                                   				交换机命令行
+                                   					、
+                                   				交换机命令行配置
+                                   					、
+                                   				数据链路层解析
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/NETWORK/DAY01/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/NETWORK/DAY01/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/NETWORK/DAY01/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=672796&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>02：
+                                   				VLAN技术及应用
+                                   					、
+                                   				TRUNK
+                                   					、
+                                   				网络层解析
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/NETWORK/DAY02/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/NETWORK/DAY02/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/NETWORK/DAY02/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=672795&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>03：
+                                   				OSPF
+                                   					、
+                                   				传输层
+                                   					、
+                                   				ACL
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/NETWORK/DAY03/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/NETWORK/DAY03/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/NETWORK/DAY03/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=672794&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>04：
+                                   				NAT
+                                   					、
+                                   				VRRP
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/NETWORK/DAY04/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/NETWORK/DAY04/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/NETWORK/DAY04/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=672793&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>05：
+                                   				综合项目
+                                   					、
+                                   				网络升级
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/NETWORK/DAY05/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/NETWORK/DAY05/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=672792&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                            </ul>
+                        </div>
+                    </div>
+                    	<!--循环 courseStage小阶段结束 -->
+                    	<!-- 开始循环 ,bigStage大阶段结束-->
+                    	<!-- courseStage是小阶段 -->
+                    	
+                    	<h2 class="headline-1">
+                       <a class="anchor-1" name="21"></a>
+                       <span class="headline-content">SHELL</span>
+                    	</h2>
+                    	
+                    <div id="stage719575" class="course-list">
+                        <div class="course-menu">
+                            <ul>
+                            	<!-- 循环day开始 -->
+                                	<li class="opened">
+                                   		<p>01：
+                                   				Shell概述
+                                   					、
+                                   				编写及执行脚本
+                                   					、
+                                   				Shell变量
+                                   					、
+                                   				数值运算
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SHELL/DAY01/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SHELL/DAY01/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SHELL/DAY01/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=672791&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>02：
+                                   				条件测试
+                                   					、
+                                   				if选择结构
+                                   					、
+                                   				循环结构
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SHELL/DAY02/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SHELL/DAY02/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SHELL/DAY02/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=672790&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>03：
+                                   				case语句
+                                   					、
+                                   				函数及中断控制
+                                   					、
+                                   				字符串处理
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SHELL/DAY03/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SHELL/DAY03/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SHELL/DAY03/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=672789&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>04：
+                                   				正则表达式
+                                   					、
+                                   				sed基本用法
+                                   					、
+                                   				sed文本块处理
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SHELL/DAY04/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SHELL/DAY04/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SHELL/DAY04/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=672788&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>05：
+                                   				sed高级应用
+                                   					、
+                                   				awk基本用法
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SHELL/DAY05/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SHELL/DAY05/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SHELL/DAY05/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=672787&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>06：
+                                   				awk高级应用
+                                   					、
+                                   				综合案例
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SHELL/DAY06/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SHELL/DAY06/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=672786&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                            </ul>
+                        </div>
+                    </div>
+                    	<!--循环 courseStage小阶段结束 -->
+                    	
+                    	<h2 class="headline-1">
+                       <a class="anchor-1" name="22"></a>
+                       <span class="headline-content">OPERATION</span>
+                    	</h2>
+                    	
+                    <div id="stage719604" class="course-list">
+                        <div class="course-menu">
+                            <ul>
+                            	<!-- 循环day开始 -->
+                                	<li class="opened">
+                                   		<p>01：
+                                   				Nginx安装
+                                   					、
+                                   				用户认证
+                                   					、
+                                   				Nginx虚拟主机
+                                   					、
+                                   				HTTPS加密网站
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/OPERATION/DAY01/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/OPERATION/DAY01/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/OPERATION/DAY01/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=672785&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>02：
+                                   				部署LNMP
+                                   					、
+                                   				Nginx+FastCGI
+                                   					、
+                                   				Nginx高级技术
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/OPERATION/DAY02/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/OPERATION/DAY02/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/OPERATION/DAY02/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=672784&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>03：
+                                   				Nginx调度器
+                                   					、
+                                   				Nginx优化
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/OPERATION/DAY03/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/OPERATION/DAY03/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/OPERATION/DAY03/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=672783&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>04：
+                                   				Session与Cookie
+                                   					、
+                                   				部署memcached
+                                   					、
+                                   				Session共享
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/OPERATION/DAY04/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/OPERATION/DAY04/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/OPERATION/DAY04/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=672782&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>05：
+                                   				Tomcat服务器
+                                   					、
+                                   				Tomcat应用案例
+                                   					、
+                                   				Varnish代理服务器
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/OPERATION/DAY05/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/OPERATION/DAY05/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/OPERATION/DAY05/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=672781&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>06：
+                                   				版本控制
+                                   					、
+                                   				Git基础
+                                   					、
+                                   				Git进阶
+                                   					、
+                                   				RPM打包
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/OPERATION/DAY06/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/OPERATION/DAY06/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/OPERATION/DAY06/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=672780&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>07：
+                                   				VPN服务器
+                                   					、
+                                   				NTP时间同步
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/OPERATION/DAY07/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/OPERATION/DAY07/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/OPERATION/DAY07/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=672779&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                            </ul>
+                        </div>
+                    </div>
+                    	<!--循环 courseStage小阶段结束 -->
+                    	
+                    	<h2 class="headline-1">
+                       <a class="anchor-1" name="23"></a>
+                       <span class="headline-content">CLUSTER</span>
+                    	</h2>
+                    	
+                    <div id="stage719640" class="course-list">
+                        <div class="course-menu">
+                            <ul>
+                            	<!-- 循环day开始 -->
+                                	<li class="opened">
+                                   		<p>01：
+                                   				集群及LVS简介
+                                   					、
+                                   				LVS-NAT集群
+                                   					、
+                                   				LVS-DR集群
+                                   					、
+                                   				总结与答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/CLUSTER/DAY01/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/CLUSTER/DAY01/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/CLUSTER/DAY01/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=672778&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>02：
+                                   				Keepalived热备
+                                   					、
+                                   				Keepalived+LVS
+                                   					、
+                                   				HAProxy服务器
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/CLUSTER/DAY02/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/CLUSTER/DAY02/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/CLUSTER/DAY02/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=672777&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>03：
+                                   				Ceph概述
+                                   					、
+                                   				部署Ceph集群
+                                   					、
+                                   				Ceph块存储
+                                   					、
+                                   				总结与答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/CLUSTER/DAY03/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/CLUSTER/DAY03/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/CLUSTER/DAY03/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=672776&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>04：
+                                   				块存储应用案例
+                                   					、
+                                   				分布式文件系统
+                                   					、
+                                   				对象存储
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/CLUSTER/DAY04/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/CLUSTER/DAY04/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/CLUSTER/DAY04/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=672775&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                            </ul>
+                        </div>
+                    </div>
+                    	<!--循环 courseStage小阶段结束 -->
+                    	
+                    	<h2 class="headline-1">
+                       <a class="anchor-1" name="24"></a>
+                       <span class="headline-content">PROJECT1</span>
+                    	</h2>
+                    	
+                    <div id="stage726559" class="course-list">
+                        <div class="course-menu">
+                            <ul>
+                            	<!-- 循环day开始 -->
+                                	<li class="opened">
+                                   		<p>01：
+                                   				服务器硬件、部署LNMP动态网站、总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/PROJECT1/DAY01/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/PROJECT1/DAY01/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=679950&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>02：
+                                   				网站架构演变、LNP+Mariadb数据库分离、Web服务器集群、总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/PROJECT1/DAY02/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/PROJECT1/DAY02/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=679949&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>03：
+                                   				Keepalived高可用、部署Ceph分布式存储、总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/PROJECT1/DAY03/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/PROJECT1/DAY03/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=679948&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>04：
+                                   				部署Git版本控制系统、优化Web服务器、总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/PROJECT1/DAY04/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/PROJECT1/DAY04/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=679947&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                            </ul>
+                        </div>
+                    </div>
+                    	<!--循环 courseStage小阶段结束 -->
+                    	<!-- 开始循环 ,bigStage大阶段结束-->
+                    	<!-- courseStage是小阶段 -->
+                    	
+                    	<h2 class="headline-1">
+                       <a class="anchor-1" name="31"></a>
+                       <span class="headline-content">RDBMS1</span>
+                    	</h2>
+                    	
+                    <div id="stage726568" class="course-list">
+                        <div class="course-menu">
+                            <ul>
+                            	<!-- 循环day开始 -->
+                                	<li class="opened">
+                                   		<p>01：
+                                   				数据库服务概述
+                                   					、
+                                   				构建MySQL服务
+                                   					、
+                                   				数据库基本管理
+                                   					、
+                                   				MySQL数据类型
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/RDBMS1/DAY01/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/RDBMS1/DAY01/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/RDBMS1/DAY01/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=679946&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>02：
+                                   				表结构
+                                   					、
+                                   				MySQL键值
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/RDBMS1/DAY02/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/RDBMS1/DAY02/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/RDBMS1/DAY02/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=679945&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>03：
+                                   				数据导入导出
+                                   					、
+                                   				管理表记录
+                                   					、
+                                   				匹配条件
+                                   					、
+                                   				MySQL管理工具
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/RDBMS1/DAY03/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/RDBMS1/DAY03/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/RDBMS1/DAY03/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=679944&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>04：
+                                   				用户授权
+                                   					、
+                                   				完全备份
+                                   					、
+                                   				增量备份
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/RDBMS1/DAY04/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/RDBMS1/DAY04/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/RDBMS1/DAY04/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=679943&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>05：
+                                   				percona软件介绍
+                                   					、
+                                   				innobackupex备份与恢复
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/RDBMS1/DAY05/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/RDBMS1/DAY05/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/RDBMS1/DAY05/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=679942&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                            </ul>
+                        </div>
+                    </div>
+                    	<!--循环 courseStage小阶段结束 -->
+                    	
+                    	<h2 class="headline-1">
+                       <a class="anchor-1" name="32"></a>
+                       <span class="headline-content">RDBMS2</span>
+                    	</h2>
+                    	
+                    <div id="stage726594" class="course-list">
+                        <div class="course-menu">
+                            <ul>
+                            	<!-- 循环day开始 -->
+                                	<li class="opened">
+                                   		<p>01：
+                                   				MySQL主从同步
+                                   					、
+                                   				主从同步模式
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/RDBMS2/DAY01/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/RDBMS2/DAY01/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/RDBMS2/DAY01/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=679941&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>02：
+                                   				数据读写分离
+                                   					、
+                                   				MySQL多实例
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/RDBMS2/DAY02/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/RDBMS2/DAY02/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/RDBMS2/DAY02/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=679940&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>03：
+                                   				数据分片概述
+                                   					、
+                                   				部署MyCAT服务
+                                   					、
+                                   				测试配置
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/RDBMS2/DAY03/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/RDBMS2/DAY03/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/RDBMS2/DAY03/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=679939&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>04：
+                                   				MHA集群概述
+                                   					、
+                                   				部署MHA集群
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/RDBMS2/DAY04/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/RDBMS2/DAY04/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/RDBMS2/DAY04/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=679938&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>05：
+                                   				PXC
+                                   					、
+                                   				MySQL存储引擎
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/RDBMS2/DAY05/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/RDBMS2/DAY05/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/RDBMS2/DAY05/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=679937&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                            </ul>
+                        </div>
+                    </div>
+                    	<!--循环 courseStage小阶段结束 -->
+                    	
+                    	<h2 class="headline-1">
+                       <a class="anchor-1" name="33"></a>
+                       <span class="headline-content">NOSQL</span>
+                    	</h2>
+                    	
+                    <div id="stage726615" class="course-list">
+                        <div class="course-menu">
+                            <ul>
+                            	<!-- 循环day开始 -->
+                                	<li class="opened">
+                                   		<p>01：
+                                   				NOSQL概述
+                                   					、
+                                   				部署Redis服务
+                                   					、
+                                   				部署LNMP+Redis
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/NOSQL/DAY01/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/NOSQL/DAY01/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/NOSQL/DAY01/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=679936&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>02：
+                                   				创建集群
+                                   					、
+                                   				管理集群
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/NOSQL/DAY02/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/NOSQL/DAY02/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/NOSQL/DAY02/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=679935&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>03：
+                                   				主从复制
+                                   					、
+                                   				持久化
+                                   					、
+                                   				数据类型
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/NOSQL/DAY03/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/NOSQL/DAY03/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/NOSQL/DAY03/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=679934&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                            </ul>
+                        </div>
+                    </div>
+                    	<!--循环 courseStage小阶段结束 -->
+                    	<!-- 开始循环 ,bigStage大阶段结束-->
+                    	<!-- courseStage是小阶段 -->
+                    	
+                    	<h2 class="headline-1">
+                       <a class="anchor-1" name="41"></a>
+                       <span class="headline-content">SECURITY</span>
+                    	</h2>
+                    	
+                    <div id="stage735244" class="course-list">
+                        <div class="course-menu">
+                            <ul>
+                            	<!-- 循环day开始 -->
+                                	<li class="opened">
+                                   		<p>01：
+                                   				监控概述
+                                   					、
+                                   				Zabbix基础
+                                   					、
+                                   				Zabbix监控服
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SECURITY/DAY01/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SECURITY/DAY01/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SECURITY/DAY01/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=688375&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>02：
+                                   				Zabbix报警机制
+                                   					、
+                                   				Zabbix进阶操作
+                                   					、
+                                   				监控案例
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SECURITY/DAY02/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SECURITY/DAY02/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SECURITY/DAY02/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=688374&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>03：
+                                   				Linux基本防护
+                                   					、
+                                   				用户切换与提权
+                                   					、
+                                   				SSH访问控制
+                                   					、
+                                   				Selinux安全防护
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SECURITY/DAY03/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SECURITY/DAY03/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SECURITY/DAY03/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=688373&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>04：
+                                   				加密与解密
+                                   					、
+                                   				AIDE入侵检测系统
+                                   					、
+                                   				扫描与抓包
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SECURITY/DAY04/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SECURITY/DAY04/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SECURITY/DAY04/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=688372&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>05：
+                                   				系统审计
+                                   					、
+                                   				服务安全
+                                   					、
+                                   				服务安全
+                                   					、
+                                   				Linux安全之打补丁
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SECURITY/DAY05/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SECURITY/DAY05/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SECURITY/DAY05/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=688371&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>06：
+                                   				iptables防火墙
+                                   					、
+                                   				filter表控制
+                                   					、
+                                   				扩展匹配
+                                   					、
+                                   				nat表典型应用
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SECURITY/DAY06/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SECURITY/DAY06/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/SECURITY/DAY06/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=688370&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                            </ul>
+                        </div>
+                    </div>
+                    	<!--循环 courseStage小阶段结束 -->
+                    	
+                    	<h2 class="headline-1">
+                       <a class="anchor-1" name="42"></a>
+                       <span class="headline-content">PROJECT2</span>
+                    	</h2>
+                    	
+                    <div id="stage735278" class="course-list">
+                        <div class="course-menu">
+                            <ul>
+                            	<!-- 循环day开始 -->
+                                	<li class="opened">
+                                   		<p>01：
+                                   				项目概述
+                                   					、
+                                   				部署数据库服务mysql
+                                   					、
+                                   				部署共享存储服务NFS
+                                   					、
+                                   				配置网站服务
+                                   					、
+                                   				测试配置
+                                   					、
+                                   				部署监控服务Zabbix
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/PROJECT2/DAY01/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/PROJECT2/DAY01/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=688369&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>02：
+                                   				项目概述、升级网站运行平台、部署缓存服务、数据迁移、部署集群、总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/PROJECT2/DAY02/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/PROJECT2/DAY02/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=698978&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                            </ul>
+                        </div>
+                    </div>
+                    	<!--循环 courseStage小阶段结束 -->
+                    	
+                    	<h2 class="headline-1">
+                       <a class="anchor-1" name="43"></a>
+                       <span class="headline-content">CLOUD</span>
+                    	</h2>
+                    	
+                    <div id="stage735286" class="course-list">
+                        <div class="course-menu">
+                            <ul>
+                            	<!-- 循环day开始 -->
+                                	<li class="opened">
+                                   		<p>01：
+                                   				虚拟化
+                                   					、
+                                   				Virsh管理
+                                   					、
+                                   				云平台
+                                   					、
+                                   				华为云
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/CLOUD/DAY01/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/CLOUD/DAY01/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/CLOUD/DAY01/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=688368&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>02：
+                                   				Openstack概述
+                                   					、
+                                   				部署安装环境
+                                   					、
+                                   				部署Openstack
+                                   					、
+                                   				Openstack操作基础
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/CLOUD/DAY02/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/CLOUD/DAY02/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/CLOUD/DAY02/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=688367&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>03：
+                                   				用户、配额管理
+                                   					、
+                                   				云主机类型管理
+                                   					、
+                                   				镜像管理
+                                   					、
+                                   				网络管理
+                                   					、
+                                   				安全和实例管理
+                                   					、
+                                   				计算节点扩容
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/CLOUD/DAY03/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/CLOUD/DAY03/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/CLOUD/DAY03/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=688366&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>04：
+                                   				Docker概述
+                                   					、
+                                   				部署Docker
+                                   					、
+                                   				Docker镜像
+                                   					、
+                                   				Docker基本命令
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/CLOUD/DAY04/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/CLOUD/DAY04/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/CLOUD/DAY04/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=688365&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>05：
+                                   				自定义镜像与仓库
+                                   					、
+                                   				持久化存储
+                                   					、
+                                   				Docker网络架构
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/CLOUD/DAY05/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/CLOUD/DAY05/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/CLOUD/DAY05/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=688364&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                            </ul>
+                        </div>
+                    </div>
+                    	<!--循环 courseStage小阶段结束 -->
+                    	
+                    	<h2 class="headline-1">
+                       <a class="anchor-1" name="44"></a>
+                       <span class="headline-content">ARCHITECTURE</span>
+                    	</h2>
+                    	
+                    <div id="stage735318" class="course-list">
+                        <div class="course-menu">
+                            <ul>
+                            	<!-- 循环day开始 -->
+                                	<li class="opened">
+                                   		<p>01：
+                                   				ansible基础 
+                                   					、
+                                   				ad-hoc
+                                   					、
+                                   				批量配置管理
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ARCHITECTURE/DAY01/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ARCHITECTURE/DAY01/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ARCHITECTURE/DAY01/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=688363&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>02：
+                                   				playbook基础
+                                   					、
+                                   				playbook进阶
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ARCHITECTURE/DAY02/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ARCHITECTURE/DAY02/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ARCHITECTURE/DAY02/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=688362&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>03：
+                                   				分布式ELK平台
+                                   					、
+                                   				ES集群安装
+                                   					、
+                                   				扩展插件
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ARCHITECTURE/DAY03/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ARCHITECTURE/DAY03/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ARCHITECTURE/DAY03/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=688361&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>04：
+                                   				Kibana安装与使用
+                                   					、
+                                   				Logstash配置扩展插件
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ARCHITECTURE/DAY04/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ARCHITECTURE/DAY04/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ARCHITECTURE/DAY04/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=688360&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>05：
+                                   				大数据
+                                   					、
+                                   				Hadoop
+                                   					、
+                                   				Hadoop安装与配置
+                                   					、
+                                   				HDFS
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ARCHITECTURE/DAY05/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ARCHITECTURE/DAY05/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ARCHITECTURE/DAY05/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=688359&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>06：
+                                   				完全分布式
+                                   					、
+                                   				节点管理
+                                   					、
+                                   				NFS网关
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ARCHITECTURE/DAY06/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ARCHITECTURE/DAY06/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ARCHITECTURE/DAY06/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=688358&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>07：
+                                   				常用组件
+                                   					、
+                                   				Kafka集群
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ARCHITECTURE/DAY07/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ARCHITECTURE/DAY07/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/ARCHITECTURE/DAY07/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=688357&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                            </ul>
+                        </div>
+                    </div>
+                    	<!--循环 courseStage小阶段结束 -->
+                    	
+                    	<h2 class="headline-1">
+                       <a class="anchor-1" name="45"></a>
+                       <span class="headline-content">PROJECT3</span>
+                    	</h2>
+                    	
+                    <div id="stage738952" class="course-list">
+                        <div class="course-menu">
+                            <ul>
+                            	<!-- 循环day开始 -->
+                                	<li class="opened">
+                                   		<p>01：
+                                   				kubernetes概述
+                                   					、
+                                   				kubernetes架构
+                                   					、
+                                   				kubernetes集群
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<!--PPT  -->
+                                        	<!--作业  -->
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=691880&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>02：
+                                   				kubernetes实战案例
+                                   					、
+                                   				dashboard配置
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<!--PPT  -->
+                                        	<!--作业  -->
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=691879&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>03：
+                                   				项目说明
+                                   					、
+                                   				项目讲解
+                                   					、
+                                   				Web服务器集群
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<!--PPT  -->
+                                        	<!--作业  -->
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=691878&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>04：
+                                   				压力测试
+                                   					、
+                                   				架构调优
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<!--PPT  -->
+                                        	<!--作业  -->
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=691877&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>05：
+                                   				MySQL集群
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<!--PPT  -->
+                                        	<!--作业  -->
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=691876&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>06：
+                                   				Web集群
+                                   					、
+                                   				Session共享
+                                   					、
+                                   				Redis集群
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<!--PPT  -->
+                                        	<!--作业  -->
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=691875&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>07：
+                                   				项目答辩1
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<!--PPT  -->
+                                        	<!--作业  -->
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=691874&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>08：
+                                   				项目答辩2
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<!--PPT  -->
+                                        	<!--作业  -->
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=691873&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                            </ul>
+                        </div>
+                    </div>
+                    	<!--循环 courseStage小阶段结束 -->
+                    	<!-- 开始循环 ,bigStage大阶段结束-->
+                    	<!-- courseStage是小阶段 -->
+                    	
+                    	<h2 class="headline-1">
+                       <a class="anchor-1" name="51"></a>
+                       <span class="headline-content">PYTHON1</span>
+                    	</h2>
+                    	
+                    <div id="stage738977" class="course-list">
+                        <div class="course-menu">
+                            <ul>
+                            	<!-- 循环day开始 -->
+                                	<li class="opened">
+                                   		<p>01：
+                                   				Python概述
+                                   					、
+                                   				环境准备
+                                   					、
+                                   				Python起步
+                                   					、
+                                   				数据类型概述
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/PYTHON1/DAY01/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/PYTHON1/DAY01/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/PYTHON1/DAY01/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=691872&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>02：
+                                   				判断语句
+                                   					、
+                                   				while循环
+                                   					、
+                                   				for循环
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/PYTHON1/DAY02/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/PYTHON1/DAY02/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/PYTHON1/DAY02/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=691871&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>03：
+                                   				文件对象
+                                   					、
+                                   				函数基础
+                                   					、
+                                   				模块基础
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/PYTHON1/DAY03/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/PYTHON1/DAY03/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/PYTHON1/DAY03/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=691870&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>04：
+                                   				系统管理模块
+                                   					、
+                                   				语法风格及布局
+                                   					、
+                                   				字符串详解
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/PYTHON1/DAY04/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/PYTHON1/DAY04/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/PYTHON1/DAY04/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=691869&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>05：
+                                   				列表和元组
+                                   					、
+                                   				字典
+                                   					、
+                                   				集合
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/PYTHON1/DAY05/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/PYTHON1/DAY05/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/PYTHON1/DAY05/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=691868&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                            </ul>
+                        </div>
+                    </div>
+                    	<!--循环 courseStage小阶段结束 -->
+                    	
+                    	<h2 class="headline-1">
+                       <a class="anchor-1" name="52"></a>
+                       <span class="headline-content">PYTHON2</span>
+                    	</h2>
+                    	
+                    <div id="stage739004" class="course-list">
+                        <div class="course-menu">
+                            <ul>
+                            	<!-- 循环day开始 -->
+                                	<li class="opened">
+                                   		<p>01：
+                                   				时间方法
+                                   					、
+                                   				异常处理
+                                   					、
+                                   				文件系统相关模块
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/PYTHON2/DAY01/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/PYTHON2/DAY01/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/PYTHON2/DAY01/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=691867&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>02：
+                                   				函数基础
+                                   					、
+                                   				函数高级应用
+                                   					、
+                                   				模块
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/PYTHON2/DAY02/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/PYTHON2/DAY02/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/PYTHON2/DAY02/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=691866&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>03：
+                                   				OOP基础
+                                   					、
+                                   				OOP进阶
+                                   					、
+                                   				re模块
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/PYTHON2/DAY03/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/PYTHON2/DAY03/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/PYTHON2/DAY03/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=691865&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>04：
+                                   				PyMySQL模块
+                                   					、
+                                   				SQLAlchemy基础
+                                   					、
+                                   				SQLAlchemy进阶
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/PYTHON2/DAY04/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/PYTHON2/DAY04/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/PYTHON2/DAY04/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=691864&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                            </ul>
+                        </div>
+                    </div>
+                    	<!--循环 courseStage小阶段结束 -->
+                    	
+                    	<h2 class="headline-1">
+                       <a class="anchor-1" name="53"></a>
+                       <span class="headline-content">DEVOPS</span>
+                    	</h2>
+                    	
+                    <div id="stage739025" class="course-list">
+                        <div class="course-menu">
+                            <ul>
+                            	<!-- 循环day开始 -->
+                                	<li class="opened">
+                                   		<p>01：
+                                   				多进程编程
+                                   					、
+                                   				多线程编程
+                                   					、
+                                   				urllib模块
+                                   					、
+                                   				paramiko模块
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/DEVOPS/DAY01/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/DEVOPS/DAY01/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=691863&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>02：
+                                   				邮件和JSON
+                                   					、
+                                   				requests模块
+                                   					、
+                                   				zabbix编程
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/DEVOPS/DAY02/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/DEVOPS/DAY02/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/DEVOPS/DAY02/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=691862&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>03：
+                                   				Ansible基础
+                                   					、
+                                   				Ansible编程
+                                   					、
+                                   				编写ansible模块
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/DEVOPS/DAY03/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/DEVOPS/DAY03/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/DEVOPS/DAY03/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=691861&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>04：
+                                   				本地使用git
+                                   					、
+                                   				git服务器应用
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/DEVOPS/DAY04/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/DEVOPS/DAY04/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/DEVOPS/DAY04/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=691860&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>05：
+                                   				Jenkins基础
+                                   					、
+                                   				准备git仓库
+                                   					、
+                                   				应用jenkins
+                                   					、
+                                   				管理应用服务器
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/DEVOPS/DAY05/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/DEVOPS/DAY05/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/DEVOPS/DAY05/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=691859&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                            </ul>
+                        </div>
+                    </div>
+                    	<!--循环 courseStage小阶段结束 -->
+                    	
+                    	<h2 class="headline-1">
+                       <a class="anchor-1" name="54"></a>
+                       <span class="headline-content">DEVWEB</span>
+                    	</h2>
+                    	
+                    <div id="stage739052" class="course-list">
+                        <div class="course-menu">
+                            <ul>
+                            	<!-- 循环day开始 -->
+                                	<li class="opened">
+                                   		<p>01：
+                                   				HTML快速入门
+                                   					、
+                                   				基本标签用法
+                                   					、
+                                   				Form标点及控件
+                                   					、
+                                   				CSS 概述
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/DEVWEB/DAY01/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/DEVWEB/DAY01/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/DEVWEB/DAY01/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=691858&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>02：
+                                   				CSS 基础语法
+                                   					、
+                                   				尺寸与框模型
+                                   					、
+                                   				常用样式属性
+                                   					、
+                                   				Bootstrap起步
+                                   					、
+                                   				全局 CSS 样式和组件
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/DEVWEB/DAY02/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/DEVWEB/DAY02/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/DEVWEB/DAY02/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=691857&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>03：
+                                   				部署django
+                                   					、
+                                   				Django应用基础
+                                   					、
+                                   				Django模型
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/DEVWEB/DAY03/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/DEVWEB/DAY03/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/DEVWEB/DAY03/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=691856&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                                	<li class="opened">
+                                   		<p>04：
+                                   				Django API
+                                   					、
+                                   				视图和模板
+                                   					、
+                                   				使用表单
+                                   					、
+                                   				总结和答疑
+                                   		</p>
+                                    	<ul class="course-link">
+                                    		<!--案例  -->
+                                        	<li class="al"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/DEVWEB/DAY04/CASE/01/index.html">案例</a></li>
+                                        	<!--PPT  -->
+                                        	<li class="ppt"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/DEVWEB/DAY04/COURSE/ppt.html">PPT</a></li>
+                                        	<!--作业  -->
+                                        	<li class="zy"><a target="_blank" href="http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201904/DEVWEB/DAY04/EXERCISE/01/index.html">作业</a></li>
+                                        	<!--视频  -->
+                                        	<li class="sp"><a target="_blank" href="http://tts.tmooc.cn/video/showVideo?menuId=691855&amp;version=NSDTN201904">视频</a></li>
+                                    	</ul>
+                                	</li>
+                                <!-- 循环day结束 -->
+                            </ul>
+                        </div>
+                    </div>
+                    	<!--循环 courseStage小阶段结束 -->
+                    	<!-- 开始循环 ,bigStage大阶段结束-->
+                </div>
+                <div class="col-190 md2017111501lty" style="position: static; top: auto; left: auto;">
+                    <div class="md2017110201lty">
+                    <div class="slide" style="">
+                     <div id="sideToolbar" style="">
+                     <div id="sideCatalog" class="sideCatalogBg" style="visibility: visible;">
+                     <div id="sideCatalog-sidebar">
+                        <div class="sideCatalog-sidebar-top"></div>
+                        <div class="sideCatalog-sidebar-bottom"></div>
+                     </div>
+                    <div id="sideCatalog-updown" style="visibility: visible;">
+                        <div id="sideCatalog-up" class="sideCatalog-up-disable" title="向上翻页"></div>
+                        <div id="sideCatalog-down" class="sideCatalog-down-enable" title="向下翻页"></div>
+                    </div>
+                    <div id="sideCatalog-catalog">
+                        <dl style="width: 175px; zoom: 1; top: 0px;"><dd id="sideToolbar-item-0-11" class="sideCatalog-item1 highlight"><span class="sideCatalog-index1">11</span><a class="nslog:1026" onclick="return false;" title="part11" href="http://tts.tmooc.cn/studentCenter/toMyttsPage#11">ADMIN</a><span class="sideCatalog-dot"></span></dd><dd id="sideToolbar-item-0-12" class="sideCatalog-item1"><span class="sideCatalog-index1">12</span><a class="nslog:1026" onclick="return false;" title="part12" href="http://tts.tmooc.cn/studentCenter/toMyttsPage#12">ENGINEER</a><span class="sideCatalog-dot"></span></dd><dd id="sideToolbar-item-0-13" class="sideCatalog-item1"><span class="sideCatalog-index1">13</span><a class="nslog:1026" onclick="return false;" title="part13" href="http://tts.tmooc.cn/studentCenter/toMyttsPage#13">SERVICES</a><span class="sideCatalog-dot"></span></dd><dd id="sideToolbar-item-0-14" class="sideCatalog-item1"><span class="sideCatalog-index1">14</span><a class="nslog:1026" onclick="return false;" title="part14" href="http://tts.tmooc.cn/studentCenter/toMyttsPage#14">NETWORK</a><span class="sideCatalog-dot"></span></dd><dd id="sideToolbar-item-0-21" class="sideCatalog-item1"><span class="sideCatalog-index1">21</span><a class="nslog:1026" onclick="return false;" title="part21" href="http://tts.tmooc.cn/studentCenter/toMyttsPage#21">SHELL</a><span class="sideCatalog-dot"></span></dd><dd id="sideToolbar-item-0-22" class="sideCatalog-item1"><span class="sideCatalog-index1">22</span><a class="nslog:1026" onclick="return false;" title="part22" href="http://tts.tmooc.cn/studentCenter/toMyttsPage#22">OPERATION</a><span class="sideCatalog-dot"></span></dd><dd id="sideToolbar-item-0-23" class="sideCatalog-item1"><span class="sideCatalog-index1">23</span><a class="nslog:1026" onclick="return false;" title="part23" href="http://tts.tmooc.cn/studentCenter/toMyttsPage#23">CLUSTER</a><span class="sideCatalog-dot"></span></dd><dd id="sideToolbar-item-0-24" class="sideCatalog-item1"><span class="sideCatalog-index1">24</span><a class="nslog:1026" onclick="return false;" title="part24" href="http://tts.tmooc.cn/studentCenter/toMyttsPage#24">PROJECT1</a><span class="sideCatalog-dot"></span></dd><dd id="sideToolbar-item-0-31" class="sideCatalog-item1"><span class="sideCatalog-index1">31</span><a class="nslog:1026" onclick="return false;" title="part31" href="http://tts.tmooc.cn/studentCenter/toMyttsPage#31">RDBMS1</a><span class="sideCatalog-dot"></span></dd><dd id="sideToolbar-item-0-32" class="sideCatalog-item1"><span class="sideCatalog-index1">32</span><a class="nslog:1026" onclick="return false;" title="part32" href="http://tts.tmooc.cn/studentCenter/toMyttsPage#32">RDBMS2</a><span class="sideCatalog-dot"></span></dd><dd id="sideToolbar-item-0-33" class="sideCatalog-item1"><span class="sideCatalog-index1">33</span><a class="nslog:1026" onclick="return false;" title="part33" href="http://tts.tmooc.cn/studentCenter/toMyttsPage#33">NOSQL</a><span class="sideCatalog-dot"></span></dd><dd id="sideToolbar-item-0-41" class="sideCatalog-item1"><span class="sideCatalog-index1">41</span><a class="nslog:1026" onclick="return false;" title="part41" href="http://tts.tmooc.cn/studentCenter/toMyttsPage#41">SECURITY</a><span class="sideCatalog-dot"></span></dd><dd id="sideToolbar-item-0-42" class="sideCatalog-item1"><span class="sideCatalog-index1">42</span><a class="nslog:1026" onclick="return false;" title="part42" href="http://tts.tmooc.cn/studentCenter/toMyttsPage#42">PROJECT2</a><span class="sideCatalog-dot"></span></dd><dd id="sideToolbar-item-0-43" class="sideCatalog-item1"><span class="sideCatalog-index1">43</span><a class="nslog:1026" onclick="return false;" title="part43" href="http://tts.tmooc.cn/studentCenter/toMyttsPage#43">CLOUD</a><span class="sideCatalog-dot"></span></dd><dd id="sideToolbar-item-0-44" class="sideCatalog-item1"><span class="sideCatalog-index1">44</span><a class="nslog:1026" onclick="return false;" title="part44" href="http://tts.tmooc.cn/studentCenter/toMyttsPage#44">ARCHITECTURE</a><span class="sideCatalog-dot"></span></dd><dd id="sideToolbar-item-0-45" class="sideCatalog-item1"><span class="sideCatalog-index1">45</span><a class="nslog:1026" onclick="return false;" title="part45" href="http://tts.tmooc.cn/studentCenter/toMyttsPage#45">PROJECT3</a><span class="sideCatalog-dot"></span></dd><dd id="sideToolbar-item-0-51" class="sideCatalog-item1"><span class="sideCatalog-index1">51</span><a class="nslog:1026" onclick="return false;" title="part51" href="http://tts.tmooc.cn/studentCenter/toMyttsPage#51">PYTHON1</a><span class="sideCatalog-dot"></span></dd><dd id="sideToolbar-item-0-52" class="sideCatalog-item1"><span class="sideCatalog-index1">52</span><a class="nslog:1026" onclick="return false;" title="part52" href="http://tts.tmooc.cn/studentCenter/toMyttsPage#52">PYTHON2</a><span class="sideCatalog-dot"></span></dd><dd id="sideToolbar-item-0-53" class="sideCatalog-item1"><span class="sideCatalog-index1">53</span><a class="nslog:1026" onclick="return false;" title="part53" href="http://tts.tmooc.cn/studentCenter/toMyttsPage#53">DEVOPS</a><span class="sideCatalog-dot"></span></dd><dd id="sideToolbar-item-0-54" class="sideCatalog-item1"><span class="sideCatalog-index1">54</span><a class="nslog:1026" onclick="return false;" title="part54" href="http://tts.tmooc.cn/studentCenter/toMyttsPage#54">DEVWEB</a><span class="sideCatalog-dot"></span></dd></dl>
+                    </div>
+                </div>
+                <a id="sideCatalogBtn" class="" style="visibility: visible;" href="javascript:void(0);"></a>
+                <a id="sideToolbar-up" style="visibility: visible;" title="返回顶部" href="javascript:void(0)"></a>
+            </div>
+            </div>
+             </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-footer" id="footerDiv"><div class="md2017082403lty">
+            <div class="container">
+                <div class="foot-logo-lty">
+                    <h3></h3>
+                </div>
+            </div>
+        </div></div>
+     <script src="./TTS学习中心_files/jquery-2.1.1.js.下载"></script>
+    <script src="./TTS学习中心_files/jquery-cookie.js.下载"></script>
+     <script src="./TTS学习中心_files/rightNav.min.js.下载"></script>
+    <script src="./TTS学习中心_files/main.js.下载"></script>
+    <script src="./TTS学习中心_files/mytts.js.下载"></script><script src="./TTS学习中心_files/jquery.eBox.js.下载"></script>
+    <script> 
+    	$("#headerDiv").load("http://tts.tmooc.cn/ttsPage/main/header.html");
+		$("#footerDiv").load("http://tts.tmooc.cn/ttsPage/main/footer.html");
+    </script>
+
+<div id="model1" style="display:none" class="md-2019031302-xxw text-center"><div class="cont text-center"><img src="./TTS学习中心_files/img_19031306_x.png"><img class="close-btn-0313 js-close-0313" src="./TTS学习中心_files/img_19031307_x.png"></div></div><div class="md-2019031302-xxw" id="model2" style="display:none;"><div class="md-2018040423-ll cus-win-model" id="md_2018040423_ll"><div class="tit">支付完成</div><p style="text-align: center;"><img src="./TTS学习中心_files/img2018042301_ll.png"></p><div style="text-align: center; padding-top: 10px;"><p class="color-red" id="js_error_tips" style="margin: 5px 0;opacity: 0;color:#fd573f;"><i class="cusfont cusfont-warning "></i>未支付成功，请在支付页面继续完成支付！</p><button style="width: 300px;" class="form-btn form-btn-blue" type="button" id="js_pay_btn">已支付完成</button></div><span class="cus-win-modelclose js-close-0313">×</span></div></div></body></html>
