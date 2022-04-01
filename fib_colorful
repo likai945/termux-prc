@@ -2,11 +2,11 @@
 read -p 'jihe:' j
 a=0
 b=1
-[ $j -lt 1 ] || [ $j -gt 328 ]
+[ ${j:=55} -lt 1 ] || [ ${j:=55} -gt 328 ]
 [ $? -eq 0 ] && echo "out of range,1-328 is okay" && exit
 j=$[j-1]
 echo -n  "1 "
-for i in `seq ${j:=55}`
+for i in `seq $j`
 do
 	c=`echo $a+$b | bc`
 	a=$b
