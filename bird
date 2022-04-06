@@ -118,7 +118,7 @@ case $1 in
 		if [ "$con" == "random" ];then
 			rcon='hash $[RANDOM%4]'
 		elif [ "$con" == "datehash" ];then
-			rcon='hash $[`date +%j`%4]'
+			rcon='hash $(expr `date +%j` \* 1 % 4)'
 		elif [ "$con" == "roundrobin" ];then
 			rcon='roundrobin $1'
 	else
