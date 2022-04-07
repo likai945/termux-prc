@@ -35,7 +35,7 @@ done
 echo -e "\e[32m---------------\ncopied $e files\e[0m"
 read -p "git push them all? " y
 [[ "$y" =~ "no" ]] && exit
-[[ "${y:=yes}" =~ "yes" ]] && rsync -r ${bpath}/ $1 && cd $1 && git add . && read -p "any remarks? " rm && git commit -m "${rm:=}`date +%Y%b%e•%X`" && git push && echo -e "$2" || echo -e "$3"
+[[ "${y:=yes}" =~ "yes" ]] && rsync -r ${bpath}/ $1 && cd $1 && git add . && read -p "any remarks? " rm && git commit -m "${rm:=}•`date +%Y%b%e•%X`" && git push && echo -e "$2" || echo -e "$3"
 cd
 }
 ghl='\n\t\t\e[1m\e[37m(×)\n\t\t/|\\\e[0m\n'
