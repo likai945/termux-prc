@@ -5,7 +5,7 @@ echo -en "\e[1A\e[$2C\e[42m"
 for i in `seq ${#1}`
 do
 	echo -n "${1:$[i-1]:1}"
-	sleep 0.01
+	sleep 0.001
 done
 echo -e '\e[0m'
 }
