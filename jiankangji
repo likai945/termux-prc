@@ -1,10 +1,20 @@
 #/bin/bash
+huixian(){
+#echo -e "\e[1A\e[$2C\e[32m$1\e[0m"
+echo -en "\e[1A\e[$2C\e[42m"
+for i in `seq ${#1}`
+do
+	echo -n "${1:$[i-1]:1}"
+	sleep 0.01
+done
+echo -e '\e[0m'
+}
 zhuijia(){
 echo -e '\e[32m\nshit again?\nenter "yes" to plus one\nenter "no" to quit\n\e[0m'
 while :
 do
 	read -p "yes or no:" opt
-	echo -e "\e[1A\e[10C\e[32m${opt:=yes}\e[0m"
+	huixian "${opt:=yes}" 10
 	rl=$[10+${#opt}]
 	[[ $opt =~ yes ]] && break
 	[[ $opt =~ no ]] && exit
@@ -74,19 +84,19 @@ shangci=$(tail -1 ${jl} | awk '{print $1}')
 shi=`date +%s`
 echo -e "\033[32m\ntime recording...\ncomplete all after poop\nremark 'manual' if necessary\033[0m\n"
 read -p 'the scale(nml):' s
-echo -e "\e[1A\e[15C\e[42m${s:=nml}\e[0m"
+huixian "${s:=nml}" 15
 bi=`date +%s`
 [[ $s =~ quit ]] && exit
 read -p 'easy or difficult(eas):' e
-echo -e "\e[1A\e[23C\e[42m${e:=eas}\e[0m"
+huixian "${e:=eas}" 23
 read -p 'color(brn):' c
-echo -e "\e[1A\e[11C\e[42m${c:=brn}\e[0m"
+huixian "${c:=brn}" 11
 read -p 'remark(null):' r
-echo -e "\e[1A\e[13C\e[42m${r:=null}\e[0m"
+huixian "${r:=null}" 13
 t=$[(bi-shi)/60]
 [ $[(bi-shi)%60/6] -ge 5 ] && let t++
 rl=$[`echo "$r" | wc -L`+13]
-[[ $r == manual* ]] &>/dev/null && read -p 'duration(8min):' t && echo -e "\e[1A\e[15C\e[42m${r:=8}\e[0m" && r=`echo ${r:6} | sed 's/ //g'` && rl=$[`echo "$t" | wc -L`+15]
+[[ $r == manual* ]] &>/dev/null && read -p 'duration(8min):' t && huixian "${t:=8}" 15 && r=`echo ${r:6} | sed 's/ //g'` && rl=$[`echo "$t" | wc -L`+15]
 [ $t -lt 10 ] &>/dev/null && t=0$t
 zheci=`date +%j`
 delay=`expr $zheci - $shangci - 1`
@@ -154,7 +164,7 @@ echo
 while [ 1 ]
 do
 	read -p 'weight:' w
-	echo -e "\e[1A\e[7C\e[42m${w}\e[0m"
+	huixian "$w" 7
 	[ $w -ge 100 ] &> /dev/null && [ $w -le 150 ] &> /dev/null && echo "${zheci} $w" >> ${tz} && cp $tz $bpath && echo -e '\033[1A\033[10C\033[1m\033[32m[✓]\033[0m\n' && rl=10 && break
 	[ $? -ne 0 ] && echo -e "\t\t\033[31mBETWEEN 100 AND 150\033[0m"
 done
