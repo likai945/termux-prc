@@ -199,9 +199,7 @@ for jntq in `seq $jntchang`;do
 	echo -n "-"
 done
 echo
-[ $jntd == '-' ] && echo -e "\033[32mLC $jntd ${jntb}d ${jntc}jn | REBOUNDED \033[31m$jntj \033[32mRR \033[31m$jnttjj%\033[0m"
-[ $jntd == '\' ] && echo -e "\033[32mLC $jntd ${jntb}d ${jntc}jn | REBOUNDED \033[31m$jntj \033[32mRR \033[31m$jnttjj%\033[0m"
-[ $jntd == '/' ] && echo -e "\033[32mLC \033[31m$jntd \033[32m${jntb}d ${jntc}jn | REBOUNDED \033[31m$jntj \033[32mRR \033[31m$jnttjj%\033[0m"
+[ $jntd == '/' ] && echo -e "\033[32mLC \033[31m$jntd \033[32m${jntb}d ${jntc}jn | REBOUNDED \033[31m$jntj \033[32mRR \033[31m$jnttjj%\033[0m" || echo -e "\033[32mLC $jntd ${jntb}d ${jntc}jn | REBOUNDED \033[31m$jntj \033[32mRR \033[31m$jnttjj%\033[0m"
 echo -en "NW $jnti KP ${jntk}d"
 jntg=$(expr $jntchang - 28 - `echo "$jntk" | wc -L`)
 for jntgi in `seq $jntg`;do
