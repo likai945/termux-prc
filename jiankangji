@@ -182,13 +182,12 @@ jntl=`awk '{print $NF}' $tz`
 jntj=0
 jntd='-'
 jntb=$jntt
+jntc=0
 jntn=`awk 'NR==1{print $2}' $tz`
 for jnti in $jntl;do
-	[ $jnti -gt $jntn ] && jntb=$jntk && jntk=1 && jntd='/' && let jntj++
-	[ $jnti -lt $jntn ] && jntb=$jntk && jntk=1 && jntd='\'
+	[ $jnti -gt $jntn ] && jntb=$jntk && jntk=1 && jntc=$[jnti-jntn] && jntd='/' && let jntj++
+	[ $jnti -lt $jntn ] && jntb=$jntk && jntk=1 && jntc=$[jntn-jnti] && jntd='\'
 	[ $jnti -eq $jntn ] && let jntk++
-	jntc=$[jntn-jnti]
-	jntc=${jntc#-}
 	jntn=$jnti
 done
 jnttj=`echo "scale=4;$jntj/$jntt" | bc`
