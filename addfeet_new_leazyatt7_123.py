@@ -167,9 +167,9 @@ def write_smr_sheet(sheet):
     title = ['时间', '资源池', '历史告警数量', '当前告警数量', '当前告警清除数量', '当前告警剩余']
     sheet.write_row(0, 0, title, cfmt)
     sheet.merge_range(1, 0, 4, 0, date, cfmt)
-    linekx3 = ['可信三', htotal3, ctotal3, ctotal3, 0]
-    linekx4 = ['可信四', htotal4, ctotal4, ctotal4, 0]
-    linekx5 = ['可信五', htotal5, ctotal5, ctotal5, 0]
+    linekx3 = ['可信3', htotal3, ctotal3, ctotal3, 0]
+    linekx4 = ['可信4', htotal4, ctotal4, ctotal4, 0]
+    linekx5 = ['可信5', htotal5, ctotal5, ctotal5, 0]
     linedmz9 = ['DMZ9', htotal9, ctotal9, ctotal9, 0]
     sheet.write_row(1, 1, linekx3, cfmt)
     sheet.write_row(2, 1, linekx4, cfmt)
