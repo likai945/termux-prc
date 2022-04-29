@@ -17,7 +17,7 @@ def prd_alrm_dct(csvfile, d, s, e, n):
                 desc = l[d]
                 start = l[s]
                 endt = l[e]
-                objn = f'{l[n-1]}名={l[n]}' if csvfile in (crt4,his4,crt9,his9) else l[n]
+                objn = f'{l[n - 1]}名={l[n]}' if csvfile in (crt4, his4, crt9, his9) else l[n]
                 dct.setdefault(desc, [[], [], []])
                 dct[desc][0].append(start)
                 dct[desc][1].append(endt)
@@ -59,7 +59,7 @@ def one_line_to_write(dct):
     return lines, total
 
 
-def prd_his_alllines(his3, his4, his5,his9):
+def prd_his_alllines(his3, his4, his5, his9):
     dct3 = prd_alrm_dct(his3, 4, 7, 9, 6)
     dct4 = prd_alrm_dct(his4, 4, 7, 9, 6)
     dct5 = prd_alrm_dct(his5, 2, 5, 7, 4)
@@ -81,7 +81,7 @@ def prd_his_alllines(his3, his4, his5,his9):
     return alllines
 
 
-def prd_crt_alllines(crt3, crt4, crt5,crt9):
+def prd_crt_alllines(crt3, crt4, crt5, crt9):
     dct3 = prd_alrm_dct(crt3, 3, 7, 10, 6)
     dct4 = prd_alrm_dct(crt4, 3, 7, 9, 6)
     dct5 = prd_alrm_dct(crt5, 1, 5, 8, 4)
@@ -105,9 +105,9 @@ def prd_crt_alllines(crt3, crt4, crt5,crt9):
 
 def write_contents(sheet, hisorcrt):
     if hisorcrt == 'his':
-        alllines = prd_his_alllines(his3, his4, his5,his9)
+        alllines = prd_his_alllines(his3, his4, his5, his9)
     elif hisorcrt == 'crt':
-        alllines = prd_crt_alllines(crt3, crt4, crt5,crt9)
+        alllines = prd_crt_alllines(crt3, crt4, crt5, crt9)
     r = 2
     rs = []
     for lines in alllines:
@@ -201,7 +201,7 @@ def check_files_exist():
 def crt_dct(resfile):
     dct = {}
     if os.path.exists(resfile):
-        with open(resfile,encoding='utf_8_sig') as f:
+        with open(resfile, encoding='utf_8_sig') as f:
             for l in f:
                 key = l.split(',')[0]
                 val = l.split(',')[1].rstrip()
@@ -210,7 +210,7 @@ def crt_dct(resfile):
 
 
 def fake_to_real():
-    for i in [crt3,crt5]:
+    for i in [crt3, crt5]:
         if os.path.exists(i):
             realone = pd.read_excel(i, index_col=0)
             realone.to_csv(i, encoding='utf_8_sig')
@@ -238,9 +238,9 @@ date = f'{year}-{month}-{day}'
 fndate = f'{year}{month}{day}'
 now = f'{date} {today[3]}:{today[4]}:{today[5]}'
 
-his3, his4, his5, his9 = 'history_alarms_h3.csv', 'history_alarms_h4.csv', 'history_alarms_h5.csv','history_alarms_h9.csv'
-crt3, crt4, crt5, crt9 = 'current_alarms_c3.csv', 'current_alarms_c4.csv', 'current_alarms_c5.csv','current_alarms_c9.csv'
-files = [his3, his4, his5,his9, crt3, crt4, crt5,crt9]
+his3, his4, his5, his9 = 'history_alarms_h3.csv', 'history_alarms_h4.csv', 'history_alarms_h5.csv', 'history_alarms_h9.csv'
+crt3, crt4, crt5, crt9 = 'current_alarms_c3.csv', 'current_alarms_c4.csv', 'current_alarms_c5.csv', 'current_alarms_c9.csv'
+files = [his3, his4, his5, his9, crt3, crt4, crt5, crt9]
 
 bookname = f'附件7：资源池告警处理情况表-中兴资源池{fndate}.xlsx'
 book = xw.Workbook(bookname)
