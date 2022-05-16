@@ -1,5 +1,3 @@
-
-
 import pygame, sys, random,copy
 from pygame.locals import *
 
@@ -84,8 +82,7 @@ def main():
         for event in pygame.event.get():
             # 判断是否为退出事件
             if event.type == QUIT:
-                pygame.quit()
-                sys.exit()
+                gameover()
             # 按键事件
             elif event.type == KEYDOWN:
                 # 如果是右键头或者是d，蛇向右移动
@@ -103,13 +100,8 @@ def main():
                     pygame.event.post(pygame.event.Event(QUIT))
 
         # 确认方向，判断是否输入了反方向运动
-        if changeDirection == 'right' and not direction == 'left':
-            direction = changeDirection
-        if changeDirection == 'left' and not direction == 'right':
-            direction = changeDirection
-        if changeDirection == 'up' and not direction == 'down':
-            direction = changeDirection
-        if changeDirection == 'down' and not direction == 'up':
+        opposite=({'right','left'},{'up','down'})
+        if {changeDirection,direction} not in opposite:
             direction = changeDirection
 
         # 根据方向移动蛇头
