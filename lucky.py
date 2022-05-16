@@ -22,9 +22,9 @@ def fruit(snk):
     while True:
         x = random.randint(1, 31)
         y = random.randint(1, 23)
-        foodPostion = [x*20,y*20]
-        if foodPostion not in snk:
-            return foodPostion,isDiamond
+        foodPosition = [x*20,y*20]
+        if foodPosition not in snk:
+            return foodPosition,isDiamond
 
 def init_snake():
     isVertical=random.randint(0,1)
@@ -57,7 +57,7 @@ def main():
     time_clock = pygame.time.Clock()
 
     # 创建窗口，定义标题
-    screen = pygame.display.set_mode((640, 480))
+    screen = pygame.display.set_mode((640, 640))
     pygame.display.set_caption("贪吃蛇")
 
     # 定义蛇的初始化变量
@@ -69,7 +69,7 @@ def main():
     oscore=0
     # 初始化食物位置
     food=fruit(snakeSegments)
-    foodPostion=food[0]
+    foodPosition=food[0]
     foodLucky=0
     # 食物数量，1是没被吃，0是被吃了
     foodTotal = 1
@@ -125,7 +125,7 @@ def main():
         # 增加蛇的长度
         snakeSegments.insert(0, list(snakePosition))
         # 判断是否吃到食物
-        if snakePosition == foodPostion:
+        if snakePosition == foodPosition:
             foodTotal = 0
             if foodLucky == 9:
                 snakeSegments.append(last)
@@ -136,7 +136,7 @@ def main():
         if foodTotal == 0:
             foodTotal=1
             food=fruit(snakeSegments)
-            foodPostion=food[0]
+            foodPosition=food[0]
             foodLucky=food[1]
 
 
@@ -149,9 +149,9 @@ def main():
             pygame.draw.rect(screen, headColor, Rect(snakePosition[0], snakePosition[1], 20, 20))
             pygame.draw.rect(screen, pinkColor, Rect(position[0], position[1], 20, 20))
             if foodLucky==9:
-                pygame.draw.rect(screen, luckyColor, Rect(foodPostion[0], foodPostion[1], 20, 20))
+                pygame.draw.rect(screen, luckyColor, Rect(foodPosition[0], foodPosition[1], 20, 20))
             else:
-                pygame.draw.rect(screen, whiteColor, Rect(foodPostion[0], foodPostion[1], 20, 20))
+                pygame.draw.rect(screen, whiteColor, Rect(foodPosition[0], foodPosition[1], 20, 20))
 
         # 更新显示到屏幕表面
         pygame.display.flip()
@@ -159,14 +159,14 @@ def main():
         # 判断游戏是否结束
         if snakePosition[0] > 620 or snakePosition[0] < 0:
             gameover()
-        elif snakePosition[1] > 460 or snakePosition[1] < 0:
+        elif snakePosition[1] > 620 or snakePosition[1] < 0:
             gameover()
         # 如果碰到自己的身体
         if snakePosition in snakeSegments[1:]:
             gameover()
 
         # 控制游戏速度
-        time_clock.tick(10)
+        time_clock.tick(8)
         cscore=len(snakeSegments)-4
         if cscore>oscore:
             print(cscore)
