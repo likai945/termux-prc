@@ -63,7 +63,6 @@ def main():
     snake=init_snake()
     snakePosition = copy.deepcopy(snake[0][0])  # 蛇头位置
     snakeSegments = snake[0]
-    last = copy.deepcopy(snake[0][-1])  
     oscore=0
     # 初始化食物位置
     food=fruit(snakeSegments)
