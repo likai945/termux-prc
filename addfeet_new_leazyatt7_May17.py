@@ -17,7 +17,7 @@ def prd_alrm_dct(csvfile, d, s, e, n):
                 desc = l[d]
                 start = l[s]
                 endt = l[e]
-                objn = f'{l[n - 1]}名={l[n]}' if csvfile not in (crt3, his3) else l[n]
+                objn = f'{l[n-1]}名={l[n]}' if csvfile not in (crt3,his3) else l[n]
                 dct.setdefault(desc, [[], [], []])
                 dct[desc][0].append(start)
                 dct[desc][1].append(endt)
@@ -189,10 +189,10 @@ def check_files_exist():
 def crt_dct(resfile):
     dct = {}
     if os.path.exists(resfile):
-        with open(resfile, encoding='utf_8_sig') as f:
+        with open(resfile,encoding='utf_8_sig') as f:
             for l in f:
                 key = l.split(',')[0]
-                val = l.split(',')[1].rstrip()
+                val = l.split(',')[-1].rstrip()
                 dct[key] = val
     return dct
 
