@@ -18,3 +18,4 @@ leazycutter11.py，在10的基础上更改了shengcheng函数的判断逻辑并�
 leazycutter12.py，用回调函数简化判断逻辑，将数值圆整为两位小数，为生成的表格增加表头
 leazycutter13.py，简化逻辑，不再判断是否为空行，直接在调用函数处已不同的参数实现相同效果,对getvnf函数进行调整以适用更多情况。加上特殊虚机提示功能。
 leazycutter14.py，部分不同资源池虚机存在相同识别码，需搭配新版dy.csv使用。
+leazycutter15.py，使用*args精简代码。
