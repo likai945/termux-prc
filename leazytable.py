@@ -32,7 +32,7 @@ def check_event(hint):
             if num % 2 == 1:
                 print('\t\athis is an odd number.')
             elif num < 0:
-                print('\t\athis is an negative number.')
+                print('\t\athis is a negative number.')
             else:
                 return num
         except ValueError:
