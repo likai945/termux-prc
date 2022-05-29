@@ -241,3 +241,4 @@
 145 d0 15:06 2022 May 25 Wed | nml eas brn 10min (paper_wiped)+1
 147 d1 08:11 2022 May 27 Fri | nml eas brn 05min null
 148 d0 15:21 2022 May 28 Sat | nml eas brn 06min null
+149 d0 20:21 2022 May 29 Sun | nml eas brn 07min null
