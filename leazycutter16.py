@@ -112,7 +112,6 @@ def chuli_jzfz_wendang(dct,func):
         zd[vnf]=zd.get(vnf,[])
         jg = func(dct[vnf])
         zd[vnf]+=jg
-    return zd
 
 
 def chuli_vmjzfz_wendang(yi, dct):
