@@ -76,7 +76,7 @@ def junzhisl(dct):
     jzjg = sum(fengzhilb) / len(fengzhilb)
     jzjg = round(jzjg,2)
     sljg = len(dct)
-    jieguo = [jzjg,sljg]
+    jieguo = f'{jzjg},{sljg}'
     return jieguo
 
 
@@ -90,7 +90,7 @@ def fengzhixt(dct):
     fzjg = round(fzjg,2)
     xtjg = sum(junzhilb) / len(junzhilb)
     xtjg = round(xtjg,2)
-    jieguo = [fzjg,xtjg]
+    jieguo = f'{fzjg},{xtjg}'
     return jieguo
 
 
@@ -107,12 +107,11 @@ def vmjzfz(dct):
     return jieguo
 
 
-def chuli_jzfz_wendang(dct,func):
-    for vnf in dct:
-        zd[vnf]=zd.get(vnf,[])
-        jg = func(dct[vnf])
-        zd[vnf]+=jg
-    return zd
+def chuli_jzfz_wendang(jia,dct,func):
+    with open(jia, "a", encoding='utf_8_sig') as wen:
+        for vnf in dct:
+            jg = func(dct[vnf])
+            wen.write(vnf + ',' + str(jg) + '\n')
 
 
 def chuli_vmjzfz_wendang(yi, dct):
@@ -124,16 +123,11 @@ def chuli_vmjzfz_wendang(yi, dct):
                 yiwen.write(f'西南大区,{vnf},{line}\n')
 
 
-def chuli_wendang(yi,*chu):
-    dct = bianli(3,*chu)
-    chuli_jzfz_wendang(dct,junzhisl)
-    print("Average and number done.")
-    if dct:
+def chuli_wendang(jia, yi, dxwz, func,*chu):
+    dct = bianli(dxwz,*chu)
+    chuli_jzfz_wendang(jia,dct,func)
+    if func is junzhisl:
         chuli_vmjzfz_wendang(yi, dct)
-        print("AvgVM and MaxVM done.")
-    dct = bianli(0,*chu)
-    chuli_jzfz_wendang(dct,fengzhixt)
-    print("Max and sysavg done.")
 
 
 def zidian(chu, lstweizhi, fstweizhi):
@@ -146,18 +140,24 @@ def zidian(chu, lstweizhi, fstweizhi):
     return shengchengzd
 
 
-def shengcheng_biaoge(biao):
-    with open(biao, "a", encoding='utf_8_sig') as wen:
-        title = '网元,系统均值,均值,峰值,虚机数量\n'
-        wen.write(title)
-        for vnf in zd: 
-            vnfname=vnf
-            xtjunzhi=zd[vnf][3]
-            junzhi=zd[vnf][0]
-            fengzhi=zd[vnf][2]
-            shuliang=zd[vnf][1]
-            line = f'{vnfname},{xtjunzhi},{junzhi},{fengzhi},{shuliang}'
-            wen.write(str(line) + "\n")
+def shengcheng_yingshe(chu, zhong):
+    if os.path.exists(chu):
+        with open(zhong, "a", encoding='utf_8_sig') as wen:
+            title = '网元,系统均值,均值,峰值,虚机数量\n'
+            wen.write(title)
+            sczdjz = zidian("jzsl.csv", 1, 0)
+            sczdfz = zidian("fzxt.csv", 1, 0)
+            sczdxt = zidian("fzxt.csv", -1, 0)
+            sczdsl = zidian("jzsl.csv", -1, 0)
+            with open(chu, encoding='utf_8_sig') as nwen:
+                for i in nwen:
+                    vnfname = i.split(",")[0].rstrip()
+                    xtjunzhi = sczdxt[vnfname].rstrip()
+                    junzhi = sczdjz[vnfname].rstrip()
+                    fengzhi = sczdfz[vnfname].rstrip()
+                    shuliang = sczdsl[vnfname].rstrip()
+                    line = f'{vnfname},{xtjunzhi},{junzhi},{fengzhi},{shuliang}'
+                    wen.write(str(line) + "\n")
 
 
 def check_dy_exists():
@@ -171,15 +171,19 @@ def check_dy_exists():
 
 
 def main():
-    shan_wendang("jzfz.csv", "vmjzfz.csv")
+    shan_wendang("jzfz.csv", "jzsl.csv", "fzxt.csv", "vmjzfz.csv")
     print("Old files removed yet.")
 
-    chuli_wendang('vmjzfz.csv', 'kx3.csv','kx41.csv','kx42.csv','kx5.csv')
-    if zd:
-        shengcheng_biaoge("jzfz.csv")
-        print("Done!")
+    chuli_wendang('jzsl.csv', 'vmjzfz.csv', 3, junzhisl,'kx3.csv','kx41.csv','kx42.csv','kx5.csv')
+    print("Average and number done.")
+    print("AvgVM and MaxVM done.")
+    chuli_wendang('fzxt.csv', None, 0, fengzhixt,'kx3.csv','kx41.csv','kx42.csv','kx5.csv')
+    print("Max and sysavg done.")
 
-    shan_wendang("kx3.csv", "kx41.csv", "kx42.csv", "kx5.csv")
+    shengcheng_yingshe("jzsl.csv", "jzfz.csv")
+    print("Done!")
+
+    shan_wendang("kx3.csv", "kx41.csv", "kx42.csv", "kx5.csv", "jzsl.csv", "fzxt.csv")
 
 
 def extra():
@@ -192,7 +196,6 @@ def extra():
 
 
 man=set()
-zd={}
 
 
 if __name__ == '__main__':
