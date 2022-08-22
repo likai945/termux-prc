@@ -130,7 +130,7 @@ echo -e "\033[32mRP:$ltrd% RN:$ltrn% RE:$ltre%\033[0m"
 echo -e "-----------------------------\n"
 }
 bei(){
-cp $jl $bpath && echo -e '\t\t\033[1m\033[32m[✓]BACKUP COMPLETED\033[0m'
+cp $jl $bpath && echo -e '\t\t\033[1m[✓]\033[32mBACKUP COMPLETED\033[0m'
 }
 huitu(){
 [ `cat $tz | wc -l` -eq 0 ] && echo -e "\t\t\033[31mNO DATA\033[0m" && exit 
