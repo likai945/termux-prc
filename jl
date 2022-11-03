@@ -348,3 +348,4 @@
 303 d3 16:40 2022 Oct 30 Sun | nml eas brn 09min null
 304 d0 23:15 2022 Oct 31 Mon | nml eas brn 13min null
 305 d0 23:19 2022 Nov 01 Tue | nml eas brn 13min null
+307 d1 23:22 2022 Nov 03 Thu | nml eas brn 11min null
