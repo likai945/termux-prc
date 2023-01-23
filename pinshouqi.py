@@ -3,7 +3,8 @@ import random
 def split(money,quantity):
     intM=float(money)*100
     splQ=int(quantity)-1
-    lmtM=intM//4*3//int(quantity)
+    divQ=1 if splQ==0 else splQ
+    lmtM=intM//4*3//divQ
     lmtM=1 if lmtM==0 else lmtM
     lowM=lmtM//3
     lowM=1 if lowM==0 else lowM
