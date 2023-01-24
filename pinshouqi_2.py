@@ -7,7 +7,7 @@ def split(money,quantity):
     lowM=lmtM//3
     lowM=1 if lowM==0 else lowM
 
-    if intM//(splQ+1)==0:
+    if intM//int(quantity)==0:
         print("low to earth!")
         return 2
 
