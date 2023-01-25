@@ -394,4 +394,5 @@
 017 d2 21:07 2023 Jan 17 Tue | nml eas brn 13min null
 019 d1 22:08 2023 Jan 19 Thu | nml eas brn 08min bled
 020 d0 22:52 2023 Jan 20 Fri | nml eas brn 10min bled
-023 d2 23:37 2023 Jan 23 Mon | dr eas brn 13min null
+023 d2 23:37 2023 Jan 23 Mon | dry eas brn 13min null
+026 d2 01:11 2023 Jan 26 Thu | nml eas brn 10min null
