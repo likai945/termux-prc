@@ -398,3 +398,4 @@
 026 d2 01:11 2023 Jan 26 Thu | nml eas brn 10min null
 027 d0 23:03 2023 Jan 27 Fri | nml eas brn 10min null
 029 d1 16:35 2023 Jan 29 Sun | sft eas brn 08min null
+030 d0 13:45 2023 Jan 30 Mon | sft eas brn 06min null
