@@ -8,7 +8,7 @@ do
 	then
 		unset j
 		line=$l
-		echo $line >> new_$1
+		echo -e "\t$line" >> new_$1
 	elif [[ $l =~ ^[[:space:]]*$ ]]
 	then
 		echo > /dev/null
