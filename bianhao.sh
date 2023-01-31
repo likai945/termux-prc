@@ -1,4 +1,5 @@
 #!/bin/bash
+dos2unix $1 &> /dev/null
 >new_$1
 for i in `seq $(cat $1 | wc -l)`
 do
