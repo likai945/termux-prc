@@ -269,5 +269,5 @@ case $1 in
 		echo -e "\033[32mlac•laj•laq•lat•lab\njnh•jnj•jnq•jnt•jnb\033[0m"
 esac
 
-[ -s $tz ] || rm $tz
-[ -s $jl ] || rm $jl
+[ -s $tz ] || rm -rf $tz
+[ -s $jl ] || rm -rf $jl
