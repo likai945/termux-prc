@@ -459,4 +459,4 @@
 121 d0 08:56 2023 May 01 Mon | nml eas brn 09min (null)+1
 122 d0 23:18 2023 May 02 Tue | nml eas brn 09min null
 123 d0 06:27 2023 May 03 Wed | sft eas brn 08min stomachache
-124 d0 15:06 2023 May 04 Thu | nml eas brn 11min paper_wiped
+124 d0 15:06 2023 May 04 Thu | nml eas brn 11min (paper_wiped)+1
