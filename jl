@@ -473,4 +473,4 @@
 136 d0 00:26 2023 May 16 Tue | nml eas brn 06min (null)+1
 137 d0 02:43 2023 May 17 Wed | sft eas brn 09min (null)+1
 138 d0 22:23 2023 May 18 Thu | nml eas brn 06min null
-139 d0 15:26 2023 May 19 Fri | nml eas brn 08min paper_wiped
+139 d0 15:26 2023 May 19 Fri | nml eas brn 08min (paper_wiped)+1
