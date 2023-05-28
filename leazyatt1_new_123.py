@@ -17,7 +17,7 @@ def prd_alrm_dct(csvfile, d, s, e, n):
                 desc = l[d]
                 start = l[s]
                 endt = l[e]
-                objn = f'{l[n-1]}名={l[n]}' if csvfile not in (crt3,his3) else l[n]
+                objn = f'{l[n - 1]}名={l[n]}' if csvfile not in (crt3,his3) else l[n]
                 dct.setdefault(desc, [[], [], []])
                 dct[desc][0].append(start)
                 dct[desc][1].append(endt)
@@ -59,49 +59,55 @@ def one_line_to_write(dct):
     return lines, total
 
 
-def prd_his_alllines(his3, his4, his5):
+def prd_his_alllines(his3, his4, his5, his9):
     dct3 = prd_alrm_dct(his3, 4, 7, 9, 6)
     dct4 = prd_alrm_dct(his4, 4, 7, 9, 6)
     dct5 = prd_alrm_dct(his5, 4, 7, 9, 6)
+    dct9 = prd_alrm_dct(his9, 4, 7, 9, 6)
 
     lines3 = one_line_to_write(dct3)
     lines4 = one_line_to_write(dct4)
     lines5 = one_line_to_write(dct5)
-    alllines = [lines3[0], lines4[0], lines5[0]]
+    lines9 = one_line_to_write(dct9)
+    alllines = [lines3[0], lines4[0], lines5[0], lines9[0]]
 
-    global htotal3, htotal4, htotal5
+    global htotal3, htotal4, htotal5, htotal9
 
     htotal3 = lines3[1]
     htotal4 = lines4[1]
     htotal5 = lines5[1]
+    htotal9 = lines9[1]
 
     return alllines
 
 
-def prd_crt_alllines(crt3, crt4, crt5):
+def prd_crt_alllines(crt3, crt4, crt5, crt9):
     dct3 = prd_alrm_dct(crt3, 3, 7, 10, 6)
     dct4 = prd_alrm_dct(crt4, 3, 7, 9, 6)
     dct5 = prd_alrm_dct(crt5, 3, 7, 9, 6)
+    dct9 = prd_alrm_dct(crt9, 3, 7, 9, 6)
 
     lines3 = one_line_to_write(dct3)
     lines4 = one_line_to_write(dct4)
     lines5 = one_line_to_write(dct5)
-    alllines = [lines3[0], lines4[0], lines5[0]]
+    lines9 = one_line_to_write(dct9)
+    alllines = [lines3[0], lines4[0], lines5[0], lines9[0]]
 
-    global ctotal3, ctotal4, ctotal5
+    global ctotal3, ctotal4, ctotal5, ctotal9
 
     ctotal3 = lines3[1]
     ctotal4 = lines4[1]
     ctotal5 = lines5[1]
+    ctotal9 = lines9[1]
 
     return alllines
 
 
 def write_contents(sheet, hisorcrt):
     if hisorcrt == 'his':
-        alllines = prd_his_alllines(his3, his4, his5)
+        alllines = prd_his_alllines(his3, his4, his5, his9)
     elif hisorcrt == 'crt':
-        alllines = prd_crt_alllines(crt3, crt4, crt5)
+        alllines = prd_crt_alllines(crt3, crt4, crt5, crt9)
     r = 2
     rs = []
     for lines in alllines:
@@ -122,7 +128,7 @@ def write_contents(sheet, hisorcrt):
 
 def write_lframe(sheet, rows, title):
     sheet.write_row(1, 0, title, cfmt)
-    sheet.merge_range(2, 0, rows[2] - 1, 0, date, cfmt)
+    sheet.merge_range(2, 0, rows[-1] - 1, 0, date, cfmt)
     if '3' in nelst:
         sheet.write(2, 1, '可信3', cfmt)
     else:
@@ -135,6 +141,10 @@ def write_lframe(sheet, rows, title):
         sheet.write(rows[1], 1, '可信5', cfmt)
     else:
         sheet.merge_range(rows[1], 1, rows[2] - 1, 1, '可信5', cfmt)
+    if '9' in nelst:
+        sheet.write(rows[2], 1, 'DMZ9', cfmt)
+    else:
+        sheet.merge_range(rows[2], 1, rows[3] - 1, 1, 'DMZ9', cfmt)
 
 
 def write_his_sheet(sheet):
@@ -156,13 +166,15 @@ def write_crt_sheet(sheet):
 def write_smr_sheet(sheet):
     title = ['时间', '资源池', '历史告警数量', '当前告警数量', '当前告警清除数量', '当前告警剩余']
     sheet.write_row(0, 0, title, cfmt)
-    sheet.merge_range(1, 0, 3, 0, date, cfmt)
-    linekx3 = ['可信三', htotal3, ctotal3, ctotal3, 0]
-    linekx4 = ['可信四', htotal4, ctotal4, ctotal4, 0]
-    linekx5 = ['可信五', htotal5, ctotal5, ctotal5, 0]
+    sheet.merge_range(1, 0, 4, 0, date, cfmt)
+    linekx3 = ['可信3', htotal3, ctotal3, ctotal3, 0]
+    linekx4 = ['可信4', htotal4, ctotal4, ctotal4, 0]
+    linekx5 = ['可信5', htotal5, ctotal5, ctotal5, 0]
+    linedmz9 = ['DMZ9', htotal9, ctotal9, ctotal9, 0]
     sheet.write_row(1, 1, linekx3, cfmt)
     sheet.write_row(2, 1, linekx4, cfmt)
     sheet.write_row(3, 1, linekx5, cfmt)
+    sheet.write_row(4, 1, linedmz9, cfmt)
 
 
 def set_columns_width():
@@ -189,7 +201,7 @@ def check_files_exist():
 def crt_dct(resfile):
     dct = {}
     if os.path.exists(resfile):
-        with open(resfile,encoding='utf_8_sig') as f:
+        with open(resfile, encoding='utf_8_sig') as f:
             for l in f:
                 key = l.split(',')[0]
                 val = l.split(',')[-1].rstrip()
@@ -226,9 +238,9 @@ date = f'{year}-{month}-{day}'
 fndate = f'{year}{month}{day}'
 now = f'{date} {today[3]}:{today[4]}:{today[5]}'
 
-his3, his4, his5 = 'history_alarms_h3.csv', 'history_alarms_h4.csv', 'history_alarms_h5.csv'
-crt3, crt4, crt5 = 'current_alarms_c3.csv', 'current_alarms_c4.csv', 'current_alarms_c5.csv'
-files = [his3, his4, his5, crt3, crt4, crt5]
+his3, his4, his5, his9 = 'history_alarms_h3.csv', 'history_alarms_h4.csv', 'history_alarms_h5.csv', 'history_alarms_h9.csv'
+crt3, crt4, crt5, crt9 = 'current_alarms_c3.csv', 'current_alarms_c4.csv', 'current_alarms_c5.csv', 'current_alarms_c9.csv'
+files = [his3, his4, his5, his9, crt3, crt4, crt5, crt9]
 
 bookname = f'附件1：告警分析-中兴资源池{fndate}.xlsx'
 book = xw.Workbook(bookname)
