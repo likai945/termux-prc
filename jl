@@ -480,4 +480,4 @@
 146 d1 01:29 2023 May 26 Fri | nml eas brn 10min (null)+1
 147 d0 17:39 2023 May 27 Sat | nml eas brn 07min null
 148 d0 10:43 2023 May 28 Sun | nml eas brn 06min (null)+1
-149 d0 04:00 2023 May 29 Mon | lqd eas brn 06min null
+149 d0 04:00 2023 May 29 Mon | lqd eas brn 06min (null)+1
