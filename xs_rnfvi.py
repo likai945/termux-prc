@@ -43,6 +43,17 @@ def new_ans(markedOps):
     return ans
 
 
+def sort_ans(ans):
+    lsAns=[]
+    sortedAns=''
+    for i in ans:
+        lsAns.append(i)
+    lsAns.sort()
+    for j in lsAns:
+        sortedAns+=j
+    return sortedAns
+
+
 def test_one(file,point,number,color,wronglst,cls):
     quizs=read_quiz(file)
     random.shuffle(quizs)
@@ -60,6 +71,7 @@ def test_one(file,point,number,color,wronglst,cls):
 
         show_quiz(i,num,color)
         ans=input('Answer:').upper().replace(' ','')
+        ans=sort_ans(ans)
         if ans==i[1]:
             global score
             score+=point
