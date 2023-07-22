@@ -24,7 +24,7 @@ def show_quiz(i,n,c):
     print(f'\033[{c}m{n} {i[0]}\033[0m')
     k=0
     for j in i[2:]: 
-        j=j.replace('•','')
+        j=j.replace('•','🎯')
         print(f'\033[{c-10}m{chr(65+k)}•\033[0m{j}')
         k+=1
 
@@ -46,7 +46,7 @@ def new_ans(markedOps):
 def test_one(file,point,number,color,wronglst,cls):
     quizs=read_quiz(file)
     random.shuffle(quizs)
-    chosenQ=quizs[:number]
+    chosenQ=quizs
     for i in chosenQ:
         num=chosenQ.index(i)+1
         num=f'{cls}{str(num)}'
