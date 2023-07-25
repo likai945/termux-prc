@@ -100,8 +100,8 @@ def show_all_wrong():
         review=input('\nReview all the wrong choices?')
         if review != 'no':
             show_wrong(wrongS,32,'S')
-            show_wrong(wrongM,33,'M')
-            show_wrong(wrongJ,34,'J')
+            show_wrong(wrongM,35,'M')
+            show_wrong(wrongJ,36,'J')
 
 
 def score_time(starttime):
