@@ -1,6 +1,7 @@
 import random
 import csv
 import time
+import re
 
 score=0
 wrongS=[]
@@ -47,7 +48,8 @@ def sort_ans(ans):
     lsAns=[]
     sortedAns=''
     for i in ans:
-        lsAns.append(i)
+        if re.match(r'[A-Z]',i):
+            lsAns.append(i)
     lsAns.sort()
     for j in lsAns:
         sortedAns+=j
@@ -70,7 +72,7 @@ def test_one(file,point,number,color,wronglst,cls):
             i[1]=rightAns
 
         show_quiz(i,num,color)
-        ans=input('Answer:').upper().replace(' ','')
+        ans=input('Answer:').upper()
         ans=sort_ans(ans)
         if ans==i[1]:
             global score
