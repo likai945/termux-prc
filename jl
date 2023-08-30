@@ -558,4 +558,4 @@
 235 d0 15:03 2023 Aug 23 Wed | lqd eas brn 07min paper_wiped
 239 d3 01:57 2023 Aug 27 Sun | sld dff brn 10min null
 240 d0 20:49 2023 Aug 28 Mon | nml dff brn 05min null
-242 d1 00:00 2023 Aug 30 Wed | nml eas brn 07min null
+242 d1 00:00 2023 Aug 30 Wed | sld eas brn 07min (null)+1
