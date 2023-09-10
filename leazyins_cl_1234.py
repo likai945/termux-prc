@@ -45,9 +45,9 @@ def fmt_print():
         print(fmttmp)
 
 def print_avg_tmp():
-    print(f'\033[32m================================\033[0m')
+    print(f'\033[32m=\033[0m'*34)
     fmt_print()
-    print(f'\033[32m================================\033[0m')
+    print(f'\033[32m=\033[0m'*34)
     print(f'based on {runlog}\n')
 
 today=time.localtime(time.time())[1:3]
