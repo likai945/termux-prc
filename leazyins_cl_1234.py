@@ -6,8 +6,6 @@ import time
 import re
 runlogs=glob.glob('*.runlog')
 runlogs.sort()
-if runlogs:
-    runlog=runlogs[-1]
 def walk_the_file(wz):
     i=0
     with open(runlog) as f:
@@ -127,6 +125,7 @@ def print_stuffs(opt):
 
 
 if runlogs:
+    runlog=runlogs[-1]
     print_avg_tmp()
 else:
     print_stuffs('of')
