@@ -15,8 +15,8 @@ def walk_the_file(wz):
         for line in f:
             i+=1
             if i >1:
-                preitem=line.split('|')[0]
-                item=preitem.split('-')[3]+preitem.split('-')[7]
+                preitem=line.split('|')[0].split('-')
+                item=preitem[3]+preitem[7].replace('H','')
                 if line.split('|')[2].isdigit():
                     ivalue=int(line.split('|')[wz])
                     dct[item]=dct.get(item,[])
