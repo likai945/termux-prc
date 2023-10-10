@@ -580,3 +580,4 @@
 276 d0 23:36 2023 Oct 03 Tue | nml eas brn 12min null
 278 d1 23:02 2023 Oct 05 Thu | nml eas brn 08min null
 279 d0 21:39 2023 Oct 06 Fri | sft eas brn 06min null
+283 d3 21:24 2023 Oct 10 Tue | dry eas blk 09min null
