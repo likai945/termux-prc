@@ -592,3 +592,4 @@
 299 d0 22:35 2023 Oct 26 Thu | dry eas brn 07min null
 301 d1 23:18 2023 Oct 28 Sat | dry dff brn 12min null
 302 d0 23:33 2023 Oct 29 Sun | dry eas brn 07min null
+303 d0 22:50 2023 Oct 30 Mon | nml dff brn 06min null
