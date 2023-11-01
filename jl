@@ -585,7 +585,7 @@
 288 d3 19:57 2023 Oct 15 Sun | nml eas brn 08min null
 289 d0 00:11 2023 Oct 16 Mon | lqd eas brn 04min milk
 291 d1 00:28 2023 Oct 18 Wed | dry eas brn 08min null
-294 d2 09:42 2023 Oct 21 Sat | sld dff brn 32min null
+294 d2 09:42 2023 Oct 21 Sat | sld dff brn 32min constipation
 296 d1 21:46 2023 Oct 23 Mon | dry eas brn 08min null
 297 d0 23:09 2023 Oct 24 Tue | dry eas brn 06min null
 298 d0 22:41 2023 Oct 25 Wed | dry eas brn 05min null
@@ -593,3 +593,4 @@
 301 d1 23:18 2023 Oct 28 Sat | dry dff brn 12min null
 302 d0 23:33 2023 Oct 29 Sun | dry eas brn 07min null
 303 d0 22:50 2023 Oct 30 Mon | nml dff brn 06min null
+305 d1 14:09 2023 Nov 01 Wed | nml eas brn 07min null
