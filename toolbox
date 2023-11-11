@@ -111,7 +111,7 @@ case $1 in
 		dynamic;;
 	--gw)
 		kill_scrpt;
-		nginx -s quit;
+		kill_svc nginx;
 		kill_svc mysqld;
 		kill_svc php-fpm;
 		cl_rbs;
