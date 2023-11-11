@@ -47,8 +47,8 @@ ghp=$HOME/termux-prc
 gtp=$HOME/termux-app
 startService(){
 nginx
-#php-fpm  
-#nohup mysqld &> /dev/null &
+php-fpm  
+nohup mysqld &> /dev/null &
 sleep 1
 clear
 }
@@ -111,9 +111,9 @@ case $1 in
 		dynamic;;
 	--gw)
 		kill_scrpt;
-		kill_svc nginx;
-		#kill_svc mysqld;
-		#kill_svc php-fpm;
+		nginx -s quit;
+		kill_svc mysqld;
+		kill_svc php-fpm;
 		cl_rbs;
 		show "web service is down" 34;;
 	--github)
