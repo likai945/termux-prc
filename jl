@@ -606,3 +606,4 @@
 324 d0 21:14 2023 Nov 20 Mon | dry eas brn 07min bled
 325 d0 21:52 2023 Nov 21 Tue | dry eas brn 09min bled
 326 d0 21:18 2023 Nov 22 Wed | dry eas brn 06min null
+327 d0 20:31 2023 Nov 23 Thu | nml eas brn 05min null
