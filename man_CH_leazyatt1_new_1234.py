@@ -159,8 +159,6 @@ def write_his_sheet(sheet):
     title = ['时间', '资源池', '告警时间', '清除时间', '对象名称', '告警描述', '数量', '处理结果']
     hisrows = write_contents(sheet, 'his')
     write_lframe(sheet, hisrows, title)
-    global nelst
-    nelst = []
 
 
 def write_crt_sheet(sheet):
@@ -235,6 +233,8 @@ def crt_dct(resfile):
 
 def do_it():
     write_his_sheet(sheethis)
+    global nelst
+    nelst.clear()
     write_crt_sheet(sheetcrt)
     write_smr_sheet(sheetsmr)
     set_columns_width()
