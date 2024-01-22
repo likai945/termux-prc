@@ -63,7 +63,7 @@ def prd_his_alllines(his3, his4, his5, his9, his11):
     dct4 = prd_alrm_dct(his4, 4, 7, 9, 6)
     dct5 = prd_alrm_dct(his5, 4, 7, 9, 6)
     dct9 = prd_alrm_dct(his9, 4, 7, 9, 6)
-    dct11 = prd_alrm_dct(his11, 4, 7, 9, 6)
+    dct11 = prd_alrm_dct(his11, 5, 8, 10, 7)
 
     lines3 = one_line_to_write(dct3)
     lines4 = one_line_to_write(dct4)
@@ -88,7 +88,7 @@ def prd_crt_alllines(crt3, crt4, crt5, crt9, crt11):
     dct4 = prd_alrm_dct(crt4, 3, 7, 9, 6)
     dct5 = prd_alrm_dct(crt5, 3, 7, 9, 6)
     dct9 = prd_alrm_dct(crt9, 3, 7, 9, 6)
-    dct11 = prd_alrm_dct(crt11, 3, 7, 9, 6)
+    dct11 = prd_alrm_dct(crt11, 4, 8, 10, 7)
 
     lines3 = one_line_to_write(dct3)
     lines4 = one_line_to_write(dct4)
