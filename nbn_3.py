@@ -3,14 +3,14 @@ import os
 
 def check_file():
   if not os.path.exists('names'):
-    file = open("names", "w")
+    file=open("names", "w")
     file.close()
 
 def last_one():
   with open('names', 'r') as f:
-    lastone = None
+    lastone=None
     for line in f:
-      lastone = line.strip()
+      lastone=line.strip()
     return lastone
 
 def crt_ranges(pos):
