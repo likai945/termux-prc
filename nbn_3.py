@@ -61,16 +61,18 @@ def write_names():
         Kr=letters
 
 
-check_file()
-letters=list('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
-lastone=last_one()
-Ir=crt_ranges(0)
-Jr=crt_ranges(1)
-Kr=crt_ranges(2)
-Lr=crt_ranges(3)
-Mr=crt_ranges(4)
-Nr=crt_ranges(5)
-Or=crt_ranges(6)
-Pr=crt_ranges(7)
-Qr=crt_ranges(8)
-write_names()
+
+if __name__=='__main__':
+  check_file()
+  letters=list('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
+  lastone=last_one()
+  Ir=crt_ranges(0)
+  Jr=crt_ranges(1)
+  Kr=crt_ranges(2)
+  Lr=crt_ranges(3)
+  Mr=crt_ranges(4)
+  Nr=crt_ranges(5)
+  Or=crt_ranges(6)
+  Pr=crt_ranges(7)
+  Qr=crt_ranges(8)
+  write_names()
