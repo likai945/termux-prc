@@ -296,7 +296,7 @@
 213 d1 17:27 2022 Aug 01 Mon | nml eas brn 09min paper_wiped
 214 d0 22:35 2022 Aug 02 Tue | sft eas brn 10min null
 216 d1 23:17 2022 Aug 04 Thu | nml eas brn 15min null
-219 d2 11:30 2022 Aug 07 Sun | nml eas brn 08min paper_wiped@home
+219 d2 11:30 2022 Aug 07 Sun | nml eas brn 08min paper_wiped@hli
 220 d0 19:15 2022 Aug 08 Mon | sft eas brn 05min null
 221 d0 19:20 2022 Aug 09 Tue | nml eas brn 08min paper_wiped
 223 d1 14:40 2022 Aug 11 Thu | sft eas brn 06min paper_wiped
@@ -657,3 +657,4 @@
 051 d0 20:34 2024 Feb 20 Tue | nml eas brn 05min (null)+1
 053 d1 20:41 2024 Feb 22 Thu | dry eas brn 06min null
 056 d2 16:34 2024 Feb 25 Sun | dry eas brn 11min null
+057 d0 22:58 2024 Feb 26 Mon | dry eas brn 08min null
