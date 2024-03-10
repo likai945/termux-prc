@@ -667,3 +667,4 @@
 066 d0 23:05 2024 Mar 06 Wed | nml dff brn 05min null
 067 d0 23:33 2024 Mar 07 Thu | nml eas brn 08min null
 068 d0 22:34 2024 Mar 08 Fri | nml eas brn 08min null
+070 d1 23:19 2024 Mar 10 Sun | dry dff brn 05min null
