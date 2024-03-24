@@ -55,9 +55,11 @@ def write_group(hostFile):
     groupName=hostFile[:-4]
     groupList=do_it(hostFile)
     longName=f'{groupName}:'
+
+    for element in groupList:
+        longName+=f'{element},'
+
     with open('groups.txt','a',encoding='utf_8_sig') as f:
-        for element in groupList:
-            longName+=f'{element},'
 
         longName=longName.rstrip(',')+'\n'
         f.write(longName) 
