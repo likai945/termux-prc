@@ -1,4 +1,5 @@
 #by LiKai
+#March 24, 2024
 #将主机列表按组分别以每行一个贴入txt或csv文件，文件名为组名，执行脚本将生成完整的groups.txt文件，贴入clushshell组配置文件即可。
 
 import os
@@ -69,7 +70,7 @@ if __name__=='__main__':
     if os.path.exists('groups.txt'):
             os.remove('groups.txt')
 
-    groups=glob.glob('*.txt')
+    groups=glob.glob('*.txt')+glob.glob('*.csv')
     groups.sort()
     for group in groups:
         write_group(group)
