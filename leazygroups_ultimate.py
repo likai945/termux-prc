@@ -77,7 +77,10 @@ def do_it(file):
 
     for host in dList:
         numList=hostDict[host]
-        fmtHName=fmt_string(host,numList)
+        if len(numList)==1:
+            fmtHName=host+numList[0]
+        else:
+            fmtHName=fmt_string(host,numList)
         groupList.append(fmtHName)
 
     return groupList
