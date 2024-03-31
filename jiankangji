@@ -29,7 +29,7 @@ sed -i "\$s/).*/)+$nnb/" $jl
 cp $jl $bpath && echo -e "\033[1A\033[${rl}C\033[1m\033[37m[✓]\033[0m\n"
 }
 my(){
-rsync -r ${bpath}/ $HOME/termux-app && cd $HOME/termux-app && git add . && git commit -m "daily_sync•`date +%Y%b%e•%X`" &> /dev/null && git push &> /dev/null && return 0
+rsync -r ${bpath}/ $HOME/termux-app && cd $HOME/termux-app && git pull && git add . && git commit -m "daily_sync•`date +%Y%b%e•%X`" &> /dev/null && git push &> /dev/null && return 0
 }
 dxa(){
 [ $? -eq 0 ] && echo -e "\e[2A\e[$[rl+3]C\e[1m\e[31m(\e[37mG\e[31m)\e[0m\n"
@@ -38,7 +38,7 @@ dxb(){
 [ $? -eq 0 ] && echo -e "\t\t\e[1m\e[31m(\e[37mG\e[31m)\e[32mGITEE PUSHED\e[0m"
 }
 gh(){
-rsync -r ${bpath}/ $HOME/termux-prc && cd $HOME/termux-prc && git add . && git commit -m "daily_sync•`date +%Y%b%e•%X`" &> /dev/null && git push &> /dev/null && return 0
+rsync -r ${bpath}/ $HOME/termux-prc && cd $HOME/termux-prc && git pull && git add . && git commit -m "daily_sync•`date +%Y%b%e•%X`" &> /dev/null && git push &> /dev/null && return 0
 }
 dxc(){
 [ $? -eq 0 ] && echo -e "\e[2A\e[$[rl+6]C\e[1m\e[37mGHP\e[0m\n"
