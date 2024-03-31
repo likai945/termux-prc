@@ -1,7 +1,7 @@
 #!/bin/bash
 sc=091
 jt=`date +%j`
-i=31
+i=78
 count(){
 	while [ 1 ];do
 		read -p "count? " c
