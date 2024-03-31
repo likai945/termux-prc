@@ -1,3 +1,3 @@
-  git config --global user.email "you@example.com"
-  git config --global user.name "Your Name"
+  git config --global user.email "likai945@foxmail.com"
+  git config --global user.name "likai945"
   git config --global credential.helper
