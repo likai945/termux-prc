@@ -74,7 +74,8 @@ def predo_it(lst,pI,sI,m):
         if len(numList)==1:
             fmtHName=host[0]+numList[0]+host[1]
         else:
-            fmtHName=f'{host[0]}[{fmt_string(numList)}]{host[1]}'
+            batchHName=f'[{fmt_string(numList)}]'
+            fmtHName=f'{host[0]}{batchHName}{host[1]}'
         groupList.append(fmtHName)
 
     return groupList
