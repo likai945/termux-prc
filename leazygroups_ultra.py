@@ -81,21 +81,16 @@ def predo_it(lst,pI,sI,m):
     return groupList
 
 
-def do_first(file):
+def do_it(file):
     prdList=prdc_file(file)
     fstList=predo_it(prdList,4,6,1)
-    return fstList
-
-
-def do_second(file):
-    fstList=do_first(file)
     scnList=predo_it(fstList,22,24,0)
     return scnList
 
 
 def pre_write(file):
     groupName=file[:-4]
-    gList=do_second(file)
+    gList=do_it(file)
     longName=f'{groupName}:'
 
     for element in gList:
@@ -120,5 +115,3 @@ if __name__=='__main__':
     for group in groups:
         write_group(group)
         os.remove(group)
-
-
