@@ -53,7 +53,7 @@ def fmt_string(lst):
 def init_list(hList,pI,sI,m):
     dct={}
     for host in hList:
-        mI=host.index('-',30,31) if m==1 else 0
+        mI=host.index('-',30,32) if m==1 else 0
         prefix=host[:mI+pI]
         root=host[mI+pI:mI+sI]
         suffix=host[sI+mI:]
