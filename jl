@@ -696,4 +696,4 @@
 107 d0 21:44 2024 Apr 16 Tue | sft eas brn 05min null
 109 d1 22:17 2024 Apr 18 Thu | nml eas brn 08min null
 111 d1 22:42 2024 Apr 20 Sat | dry eas brn 11min null
-113 d1 10:35 2024 Apr 22 Mon | nml eas brn 09min paper_wiped
+113 d1 10:35 2024 Apr 22 Mon | nml eas brn 09min (paper_wiped)+1
