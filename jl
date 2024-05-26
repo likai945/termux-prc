@@ -717,3 +717,4 @@
 142 d1 00:00 2024 May 21 Tue | sft eas brn 08min (null)+1
 143 d0 17:45 2024 May 22 Wed | nml eas brn 07min (null)+1
 146 d2 17:32 2024 May 25 Sat | nml eas brn 04min (null)+2
+147 d0 23:27 2024 May 26 Sun | nml eas brn 06min null
