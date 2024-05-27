@@ -718,3 +718,4 @@
 143 d0 17:45 2024 May 22 Wed | nml eas brn 07min (null)+1
 146 d2 17:32 2024 May 25 Sat | nml eas brn 04min (null)+2
 147 d0 23:27 2024 May 26 Sun | nml eas brn 06min null
+148 d0 23:27 2024 May 27 Mon | dry eas brn 05min null
