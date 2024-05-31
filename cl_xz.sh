@@ -3,6 +3,8 @@
 #May 30, 2024
 
 > tiku
+dos2unix $1 &> /dev/null
+echo -e '\n\n' >> $1
 sed -i 's/,/，/' $1
 line=`cat $1 | wc -l`
 
@@ -32,7 +34,6 @@ done
 
 sed -ri 's/^答案://' tiku
 
-dos2unix newtiku &> /dev/null
 sed -i 's/ *,/,/g' tiku
 sed -i 's/,$//' tiku
 
