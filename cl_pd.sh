@@ -3,7 +3,7 @@
 #May 30, 2024
 > tiku
 dos2unix $1 &> /dev/null
-echp -e '\n\n' >> $1
+echo -e '\n\n' >> $1
 sed -i 's/,/，/' $1
 line=`cat $1 | wc -l`
 
