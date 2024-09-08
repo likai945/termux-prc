@@ -790,4 +790,4 @@
 245 d2 10:31 2024 Sep 01 Sun | nml eas brn 10min paper_wiped
 248 d2 15:47 2024 Sep 04 Wed | dry eas brn 11min (paper_wiped)+1
 249 d0 23:15 2024 Sep 05 Thu | nml eas brn 06min null
-252 d2 08:11 2024 Sep 08 Sun | dry eas brn 12min null
+252 d2 08:11 2024 Sep 08 Sun | dry eas brn 12min (null)+1
