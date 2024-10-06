@@ -808,3 +808,4 @@
 275 d2 15:25 2024 Oct 01 Tue | dry eas brn 06min (null)+1
 277 d1 08:41 2024 Oct 03 Thu | lqd eas brn 08min (paper_wiped@longmen)+1
 279 d1 10:10 2024 Oct 05 Sat | nml eas brn 08min paper_wiped@longmen
+280 d0 10:24 2024 Oct 06 Sun | nml eas brn 07min paper_wiped@longmen
