@@ -820,3 +820,4 @@
 291 d0 21:13 2024 Oct 17 Thu | nml eas brn 03min null
 293 d1 20:33 2024 Oct 19 Sat | dry eas brn 12min null
 294 d0 22:21 2024 Oct 20 Sun | nml eas brn 03min null
+295 d0 22:15 2024 Oct 21 Mon | sft eas brn 03min null
