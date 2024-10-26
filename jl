@@ -823,3 +823,4 @@
 295 d0 22:15 2024 Oct 21 Mon | sft eas brn 03min null
 297 d1 15:42 2024 Oct 23 Wed | nml eas brn 09min (paper_wiped)+1
 299 d1 15:40 2024 Oct 25 Fri | dry eas brn 10min paper_wiped
+300 d0 23:00 2024 Oct 26 Sat | dry eas brn 08min null
