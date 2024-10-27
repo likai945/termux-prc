@@ -52,12 +52,8 @@ func trsDic() map[string][]int {
 		device := i[0]
 		tempr := i[2]
 
-		devsli := []rune(device)
-		lendev := len(devsli)
-		num := string(devsli[11:14])
-		maj := string(devsli[27 : lendev-3])
-		//		num := string([]rune(device)[11:14])
-		//		maj := string([]rune(device)[27:30])
+		num := string([]rune(device)[11:14])
+		maj := string([]rune(device)[27:30])
 		pool := num + "-" + maj
 		g_tempr, err := strconv.Atoi(tempr)
 
@@ -108,7 +104,7 @@ func main() {
 	fmt.Printf("04A-SRV/04A-DBS\t\t%s/%s\n", checkExis(res, "04A-SRV"), checkExis(res, "04A-DBS"))
 	fmt.Printf("05A-SRV/05A-DBS\t\t%s/%s\n", checkExis(res, "05A-SRV"), checkExis(res, "05A-DBS"))
 	fmt.Printf("09A-SRV/09A-DBS\t\t%s/%s\n", checkExis(res, "09A-SRV"), checkExis(res, "09A-DBS"))
-	fmt.Printf("11A-SRV/11A-DBS\t\t%s/%s\n", checkExis(res, "11A-HSRV"), checkExis(res, "11A-DBS"))
+	fmt.Printf("11A-SRV/11A-DBS\t\t%s/%s\n", checkExis(res, "11A-HSR"), checkExis(res, "11A-DBS"))
 	fmt.Printf("===============\n\n")
 
 }
