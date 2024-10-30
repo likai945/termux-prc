@@ -10,6 +10,7 @@ import (
 	"os"
 	"path/filepath"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -94,18 +95,19 @@ func checkExis(res map[string]float64, key string) string {
 	if exis == true {
 		return fmt.Sprintf("%.2f°C", val)
 	} else {
-		return "no_data"
+		return "NO_DATA"
 	}
 }
 
 func main() {
 	res := compute()
-	fmt.Printf("\n===============\n")
+	border := strings.Repeat("=", 39)
+	fmt.Printf("\n\033[32m%s\033[0m\n", border)
 	fmt.Printf("03A-SRV/03A-DBS\t\t%s/%s\n", checkExis(res, "03A-SRV"), checkExis(res, "03A-DBS"))
 	fmt.Printf("04A-SRV/04A-DBS\t\t%s/%s\n", checkExis(res, "04A-SRV"), checkExis(res, "04A-DBS"))
 	fmt.Printf("05A-SRV/05A-DBS\t\t%s/%s\n", checkExis(res, "05A-SRV"), checkExis(res, "05A-DBS"))
 	fmt.Printf("09A-SRV/09A-DBS\t\t%s/%s\n", checkExis(res, "09A-SRV"), checkExis(res, "09A-DBS"))
 	fmt.Printf("11A-SRV/11A-DBS\t\t%s/%s\n", checkExis(res, "11A-HSR"), checkExis(res, "11A-DBS"))
-	fmt.Printf("===============\n\n")
+	fmt.Printf("\033[32m%s\033[0m\n\n", border)
 	fmt.Printf("calculated %s\n\n", fname)
 }
