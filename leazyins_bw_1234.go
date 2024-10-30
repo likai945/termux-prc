@@ -13,21 +13,22 @@ import (
 	"time"
 )
 
+var fname string
+
 func getFile() string {
 	currentTime := time.Now()
 	fmtime := currentTime.Format("20060102")
 	pattern := fmt.Sprintf("%s_*.runlog", fmtime)
 	files, _ := filepath.Glob(pattern)
 	if len(files) == 0 {
-		fmt.Println("no todays runlog files")
+		fmt.Println("no today's runlog files")
 		os.Exit(2)
 	}
 	return files[0]
 }
 
 func readFile() [][]string {
-	fname := getFile()
-	fmt.Printf("\ncalculated %s\n", fname)
+	fname = getFile()
 	file, _ := os.Open(fname)
 	defer file.Close()
 
@@ -106,5 +107,5 @@ func main() {
 	fmt.Printf("09A-SRV/09A-DBS\t\t%s/%s\n", checkExis(res, "09A-SRV"), checkExis(res, "09A-DBS"))
 	fmt.Printf("11A-SRV/11A-DBS\t\t%s/%s\n", checkExis(res, "11A-HSR"), checkExis(res, "11A-DBS"))
 	fmt.Printf("===============\n\n")
-
+	fmt.Printf("calculated %s\n\n", fname)
 }
