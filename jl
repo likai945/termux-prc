@@ -827,3 +827,4 @@
 301 d0 22:23 2024 Oct 27 Sun | nml eas brn 07min null
 302 d0 16:35 2024 Oct 28 Mon | nml eas brn 09min (paper_wiped)+1
 303 d0 21:34 2024 Oct 29 Tue | sld eas brn 08min bled
+306 d2 10:26 2024 Nov 01 Fri | dry eas drk 08min null
