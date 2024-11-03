@@ -8,7 +8,8 @@ import (
 	"fmt"
 	"io"
 	"os"
-	//	"path/filepath"
+	"path/filepath"
+	"regexp"
 	"strconv"
 	"strings"
 	//	"time"
@@ -154,25 +155,38 @@ func writeSheet(sheet, pool string, ruler int, lines [][]string) {
 
 }
 
+func checkExist(file, pool string, hc int) [][]string {
+	hcmap := map[int][][]string{
+		4: [][]string{{"无告警，不涉及", "无告警，不涉及", "无告警，不涉及", "无告警，不涉及", "0", "无告警，不涉及"}},
+		3: [][]string{{"无告警，不涉及", "无告警，不涉及", "无告警，不涉及", "无告警，不涉及", "0", "无告警，不涉及", "无告警，不涉及"}},
+	}
+	hcchmap := map[int]string{4: "历史", 3: "当前"}
+	//magic num 4 is his, 3 is crt
+	fexist, _ := filepath.Glob(file)
+	var command string
+	if len(fexist) == 0 {
+		fmt.Printf("%s不存在,%s若无%s告警，请输入OK\n", file, pool, hcchmap[hc])
+		fmt.Scanf("%s", &command)
+		if command == "ok" || command == "OK" {
+			return hcmap[hc]
+		} else {
+			os.Exit(2)
+		}
+	}
+	return toWall(file, hc)
+}
+
 func main() {
-	//	pools:=readFile("config")[0]
-	writeSheet("Sheet2", "可信3", hisr, toWall("h3.csv", 4))
-	writeSheet("Sheet2", "可信4", hisr, toWall("h4.csv", 4))
-	writeSheet("Sheet2", "可信5", hisr, toWall("h5.csv", 4))
-	writeSheet("Sheet2", "DMZ9", hisr, toWall("h9.csv", 4))
-	writeSheet("Sheet2", "可信11", hisr, toWall("h11.csv", 4))
-
-	writeSheet("Sheet3", "可信3", crtr, toWall("c3.csv", 3))
-	writeSheet("Sheet3", "可信4", crtr, toWall("c4.csv", 3))
-	writeSheet("Sheet3", "可信5", crtr, toWall("c5.csv", 3))
-	writeSheet("Sheet3", "DMZ9", crtr, toWall("c9.csv", 3))
-	writeSheet("Sheet3", "可信11", crtr, toWall("c11.csv", 3))
-
-	writeSheet("Sheet1", "可信3", smrr, getKey("3"))
-	writeSheet("Sheet1", "可信4", smrr, getKey("4"))
-	writeSheet("Sheet1", "可信5", smrr, getKey("5"))
-	writeSheet("Sheet1", "DMZ9", smrr, getKey("9"))
-	writeSheet("Sheet1", "可信11", smrr, getKey("11"))
+	pools := readFile("config")[0]
+	for _, pool := range pools {
+		re := regexp.MustCompile("[0-9]+")
+		nums := re.FindAllString(pool, -1)
+		cfile := fmt.Sprintf("c%s.csv", nums[0])
+		hfile := fmt.Sprintf("h%s.csv", nums[0])
+		writeSheet("Sheet2", pool, hisr, checkExist(hfile, pool, 4))
+		writeSheet("Sheet3", pool, crtr, checkExist(cfile, pool, 3))
+		writeSheet("Sheet1", pool, smrr, getKey(nums[0]))
+	}
 	after()
 	//    err = f.MergeCell("Sheet1", "B2", "C5")
 	//    f.SetActiveSheet(index)
