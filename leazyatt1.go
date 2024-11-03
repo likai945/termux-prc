@@ -12,14 +12,17 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
-	//	"time"
+	"time"
 	"github.com/xuri/excelize/v2"
 )
 
 var f = excelize.NewFile()
 var smrr, hisr, crtr int
 var totalmap = map[string]string{}
-var date string = "2024-11-03"
+var currentTime = time.Now()
+var date string = currentTime.Format("2006-01-02")
+var namedate string = currentTime.Format("20060102")
+var bookname string = fmt.Sprintf("附件1：告警分析-中兴资源池%s.xlsx",namedate)
 
 func readFile(fl string) [][]string {
 	file, _ := os.Open(fl)
@@ -78,9 +81,6 @@ func toWall(file string, indx int) [][]string {
 	return lines
 }
 
-//	func checkFile(file){
-//		if if
-//	}
 func writeFrm(sheet string, line []string) {
 	for fld, cell := range line {
 		field := int(rune('A')) + fld
@@ -89,7 +89,7 @@ func writeFrm(sheet string, line []string) {
 	}
 }
 
-func init() {
+func before() {
 	defer func() {
 		if err := f.Close(); err != nil {
 			fmt.Println(err)
@@ -117,7 +117,6 @@ func isNumberic(str string) bool {
 }
 
 func writeSheet(sheet, pool string, ruler int, lines [][]string) {
-	//	datest:="A"+strconv.Itoa(ruler+1)
 	poolst := "B" + strconv.Itoa(ruler+1)
 
 	f.SetCellValue(sheet, "A2", date)
@@ -177,6 +176,7 @@ func checkExist(file, pool string, hc int) [][]string {
 }
 
 func main() {
+	before()
 	pools := readFile("config")[0]
 	for _, pool := range pools {
 		re := regexp.MustCompile("[0-9]+")
@@ -188,8 +188,6 @@ func main() {
 		writeSheet("Sheet1", pool, smrr, getKey(nums[0]))
 	}
 	after()
-	//    err = f.MergeCell("Sheet1", "B2", "C5")
-	//    f.SetActiveSheet(index)
 }
 
 func toDict() map[string]string {
@@ -213,9 +211,7 @@ func after() {
 	f.SetSheetName("Sheet2", "历史告警处理记录")
 	f.SetSheetName("Sheet3", "当前告警处理记录")
 
-	if err := f.SaveAs("Book1.xlsx"); err != nil {
-		fmt.Println(err)
-	}
+	f.SaveAs(bookname)
 }
 
 func defaultKey(key, defkey string, anymap map[string]string) string {
