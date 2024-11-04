@@ -6,6 +6,7 @@ package main
 import (
 	"encoding/csv"
 	"fmt"
+	"github.com/xuri/excelize/v2"
 	"io"
 	"os"
 	"path/filepath"
@@ -13,7 +14,6 @@ import (
 	"strconv"
 	"strings"
 	"time"
-	"github.com/xuri/excelize/v2"
 )
 
 var f = excelize.NewFile()
@@ -22,7 +22,7 @@ var totalmap = map[string]string{}
 var currentTime = time.Now()
 var date string = currentTime.Format("2006-01-02")
 var namedate string = currentTime.Format("20060102")
-var bookname string = fmt.Sprintf("附件1：告警分析-中兴资源池%s.xlsx",namedate)
+var bookname string = fmt.Sprintf("附件1：告警分析-中兴资源池%s.xlsx", namedate)
 
 func readFile(fl string) [][]string {
 	file, _ := os.Open(fl)
@@ -165,7 +165,7 @@ func checkExist(file, pool string, hc int) [][]string {
 	var command string
 	if len(fexist) == 0 {
 		fmt.Printf("%s不存在,%s若无%s告警，请输入OK\n", file, pool, hcchmap[hc])
-		fmt.Scanf("%s", &command)
+		fmt.Scanln(&command)
 		if command == "ok" || command == "OK" {
 			return hcmap[hc]
 		} else {
