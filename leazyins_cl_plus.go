@@ -29,7 +29,7 @@ func getFiles() []string {
 	files := append(cfiles, rfiles...)
 
 	if len(files) == 0 {
-		fmt.Println("未找到温度文件，请检查。")
+		fmt.Println("未找到今日温度文件，请检查。")
 		os.Exit(2)
 	}
 	return files
