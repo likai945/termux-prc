@@ -59,16 +59,15 @@ func readFile(fname string, sep rune, devi, tmpr int) [][]string {
 
 func toSlice() [][]string {
 	fnames = getFiles()
-	var sli [][]string
+	var sli,slipiece [][]string
 	for _, file := range fnames {
 		switch true {
 		case strings.HasSuffix(file, "runlog"):
-			slipiece := readFile(file, '|', 0, 2)
-			sli = append(sli, slipiece...)
+			slipiece = readFile(file, '|', 0, 2)
 		case strings.HasSuffix(file, "csv"):
-			slipiece := readFile(file, ',', 3, 4)
-			sli = append(sli, slipiece...)
+			slipiece = readFile(file, ',', 3, 4)
 		}
+		sli = append(sli, slipiece...)
 	}
 	return sli
 }
