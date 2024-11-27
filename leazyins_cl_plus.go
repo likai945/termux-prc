@@ -10,6 +10,7 @@ import (
 	"io"
 	"os"
 	"path/filepath"
+	"runtime"
 	"strconv"
 	"strings"
 	"time"
@@ -19,8 +20,11 @@ var fnames []string
 
 func getFiles() []string {
 	currentTime := time.Now()
-	cstSh, _ := time.LoadLocation("Asia/Shanghai")
-	fmtime := currentTime.In(cstSh).Format("20060102")
+	cstSh, err := time.LoadLocation("Asia/Shanghai")
+	if err == nil {
+		currentTime = currentTime.In(cstSh)
+	}
+	fmtime := currentTime.Format("20060102")
 
 	patternr := fmt.Sprintf("%s_*.runlog", fmtime)
 	patternc := fmt.Sprintf("*%s*.csv", fmtime)
@@ -30,6 +34,7 @@ func getFiles() []string {
 
 	if len(files) == 0 {
 		fmt.Println("未找到今日温度文件，请检查。")
+		forWin()
 		os.Exit(2)
 	}
 	return files
@@ -59,7 +64,7 @@ func readFile(fname string, sep rune, devi, tmpr int) [][]string {
 
 func toSlice() [][]string {
 	fnames = getFiles()
-	var sli,slipiece [][]string
+	var sli, slipiece [][]string
 	for _, file := range fnames {
 		switch true {
 		case strings.HasSuffix(file, "runlog"):
@@ -124,6 +129,12 @@ func checkExis(res map[string]float64, key string) string {
 	}
 }
 
+func forWin() {
+	if strings.EqualFold(runtime.GOOS, "windows") {
+		fmt.Scanf("keep on")
+	}
+}
+
 func main() {
 	res := compute()
 	border := strings.Repeat("=", 39)
@@ -138,4 +149,5 @@ func main() {
 		fmt.Printf("\033[32mcalculated:\033[0m %s\n", fname)
 	}
 	fmt.Println()
+	forWin()
 }
