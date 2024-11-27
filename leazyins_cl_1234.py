@@ -77,9 +77,9 @@ def sub_clct(pre,loop):
     for i in loop:
         if '.' in i:
             j=i.split('.')[-2]
-            nbs=re.findall('\d+',j)
+            nbs=re.findall(r'\d+',j)
         else:
-            nbs=re.findall('\d+',i)
+            nbs=re.findall(r'\d+',i)
         if nbs:
             nb=nbs[-1][0:8]
             if len(nb)==8 and nb != fmttoday:
