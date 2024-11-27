@@ -79,7 +79,7 @@ func toSlice() [][]string {
 
 func trsDic() map[string][]float64 {
 	fobj := toSlice()
-	res := map[string][]float64{}
+	res := make(map[string][]float64)
 	for _, i := range fobj {
 		device := i[0]
 		tempr := i[1]
@@ -112,7 +112,7 @@ func compAvg(sli []float64) float64 {
 
 func compute() map[string]float64 {
 	dict := trsDic()
-	computed := map[string]float64{}
+	computed := make(map[string]float64)
 	for key, val := range dict {
 		avg := compAvg(val)
 		computed[key] = avg
