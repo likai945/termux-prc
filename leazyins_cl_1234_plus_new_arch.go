@@ -1,5 +1,5 @@
-//Nov 26, 2024
-//v1.2
+//Nov 27, 2024
+//v2.0
 //by LiKai
 
 package main
