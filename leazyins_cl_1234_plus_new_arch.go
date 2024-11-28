@@ -91,7 +91,7 @@ func countAll() {
 func getVal(key string) string {
 	val, exis := res[key]
 	if exis == true {
-		disptmp:=val[1]/val[0]
+		disptmp := val[1] / val[0]
 		return fmt.Sprintf("%.2f°C", disptmp)
 	} else {
 		return "NO_DATA"
@@ -104,7 +104,7 @@ func forWin() {
 	}
 }
 
-func display(){
+func display() {
 	border := strings.Repeat("=", 39)
 	fmt.Printf("\n\033[32m%s\033[0m\n", border)
 	fmt.Printf("03A-SRV/03A-DBS\t\t%s/%s\n", getVal("03A-SRV"), getVal("03A-DBS"))
