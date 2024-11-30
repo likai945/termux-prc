@@ -1,5 +1,5 @@
 //Nov 27, 2024
-//v2.0
+//v2.1
 //by LiKai
 
 package main
@@ -131,6 +131,6 @@ func mvFiles() {
 func main() {
 	getFiles()
 	countAll()
-	display()
 	mvFiles()
+	display()
 }
