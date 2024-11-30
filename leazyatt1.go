@@ -1,4 +1,4 @@
-//Nov 2, 2024
+//Dec 1, 2024
 //by LiKai
 
 package main
@@ -6,7 +6,6 @@ package main
 import (
 	"encoding/csv"
 	"fmt"
-	"github.com/xuri/excelize/v2"
 	"io"
 	"os"
 	"path/filepath"
@@ -14,15 +13,31 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/xuri/excelize/v2"
 )
 
-var f = excelize.NewFile()
-var smrr, hisr, crtr int
-var totalmap = map[string]string{}
-var currentTime = time.Now()
-var date string = currentTime.Format("2006-01-02")
-var namedate string = currentTime.Format("20060102")
-var bookname string = fmt.Sprintf("附件1：告警分析-中兴资源池%s.xlsx", namedate)
+var (
+	f                = excelize.NewFile()
+	smrr, hisr, crtr int
+	totalmap                = map[string]string{}
+	currentTime             = getTime()
+	date             string = currentTime.Format("2006-01-02")
+	namedate         string = currentTime.Format("20060102")
+	bookname         string = fmt.Sprintf("附件1：告警分析-中兴资源池%s.xlsx", namedate)
+	pools                   = []string{"可信3", "可信4", "可信5", "DMZ9"}
+	timedict                = map[string]string{}
+	yorn             string = "yes"
+)
+
+func getTime() time.Time {
+	var ctime = time.Now()
+	cstSh, err := time.LoadLocation("Asia/Shanghai")
+	if err == nil {
+		ctime = ctime.In(cstSh)
+	}
+	return ctime
+}
 
 func readFile(fl string) [][]string {
 	file, _ := os.Open(fl)
@@ -48,7 +63,8 @@ func toDisc(file string, indx int) map[string][3][]string {
 		desc := row[indx]
 		rowval := amap[desc]
 		sttt := append(rowval[0], row[7])
-		endt := append(rowval[1], row[9])
+		et := defaultKey(file, row[9], timedict)
+		endt := append(rowval[1], et)
 		devi := append(rowval[2], row[5]+"名="+row[6])
 		amap[desc] = [3][]string{sttt, endt, devi}
 	}
@@ -157,27 +173,38 @@ func writeSheet(sheet, pool string, ruler int, lines [][]string) {
 func checkExist(file, pool string, hc int) [][]string {
 	hcmap := map[int][][]string{
 		4: [][]string{{"无告警，不涉及", "无告警，不涉及", "无告警，不涉及", "无告警，不涉及", "0", "无告警，不涉及"}},
-		3: [][]string{{"无告警，不涉及", "无告警，不涉及", "无告警，不涉及", "无告警，不涉及", "0", "无告警，不涉及", "无告警，不涉及"}},
+		3: [][]string{{"无告警，不涉及", "无告警，不涉及", "无告警，不涉及", "无告警，不涉及", "0", "无告警，不涉及", "是"}},
 	}
 	hcchmap := map[int]string{4: "历史", 3: "当前"}
 	//magic num 4 is his, 3 is crt
 	fexist, _ := filepath.Glob(file)
 	var command string
+	if fileExist("config") {
+		yorn = readFile("config")[2][0]
+	}
 	if len(fexist) == 0 {
-		fmt.Printf("%s不存在,%s若无%s告警，请输入OK\n", file, pool, hcchmap[hc])
+		fmt.Printf("\033[32m%s\033[0m不存在,若\033[32m%s\033[0m无\033[32m%s\033[0m告警，请输入OK\n", file, pool, hcchmap[hc])
 		fmt.Scanln(&command)
-		if command == "ok" || command == "OK" {
+		if strings.EqualFold(command, "OK") {
 			return hcmap[hc]
 		} else {
 			os.Exit(2)
 		}
+	} else if hc == 3 && yorn == "yes" {
+		timedict[file] = currentTime.Format("2006-01-02 03:04:05")
+	} else if hc == 3 && yorn == "no" {
+		fmt.Printf("%s当前告警清除时间：", pool)
+		var deltime string
+		fmt.Scanln(&deltime)
+		timedict[file] = deltime
 	}
 	return toWall(file, hc)
 }
-
 func main() {
 	before()
-	pools := readFile("config")[0]
+	if fileExist("config") {
+		pools = readFile("config")[0]
+	}
 	for _, pool := range pools {
 		re := regexp.MustCompile("[0-9]+")
 		nums := re.FindAllString(pool, -1)
@@ -191,8 +218,13 @@ func main() {
 }
 
 func toDict() map[string]string {
-	resarr := readFile("result.csv")
+	var resarr [][]string
 	amap := map[string]string{}
+	if fileExist("result.csv") {
+		resarr = readFile("result.csv")
+	} else {
+		return amap
+	}
 	for _, val := range resarr {
 		amap[val[0]] = val[1]
 	}
@@ -207,19 +239,81 @@ func after() {
 	f.SetCellValue("Sheet3", "A1", "当前告警")
 	f.MergeCell("Sheet3", "A1", "J1")
 
+	styleIdnc, _ := f.NewStyle(&excelize.Style{
+		Border: []excelize.Border{
+			{Type: "left", Color: "000000", Style: 1},
+			{Type: "top", Color: "000000", Style: 1},
+			{Type: "bottom", Color: "000000", Style: 1},
+			{Type: "right", Color: "000000", Style: 1},
+		},
+		Alignment: &excelize.Alignment{
+			Vertical: "center",
+			WrapText: true,
+		},
+		Font: &excelize.Font{
+			Family: "宋体",
+		},
+	})
+	styleIdc, _ := f.NewStyle(&excelize.Style{
+		Border: []excelize.Border{
+			{Type: "left", Color: "000000", Style: 1},
+			{Type: "top", Color: "000000", Style: 1},
+			{Type: "bottom", Color: "000000", Style: 1},
+			{Type: "right", Color: "000000", Style: 1},
+		},
+		Alignment: &excelize.Alignment{
+			Horizontal: "center",
+			Vertical:   "center",
+			WrapText:   true,
+		},
+		Font: &excelize.Font{
+			Family: "宋体",
+		},
+	})
+
+	sfar := fmt.Sprintf("F%d", smrr)
+	hfar := fmt.Sprintf("H%d", hisr+1)
+	cfar := fmt.Sprintf("J%d", crtr+1)
+	hcent := fmt.Sprintf("D%d", hisr+1)
+	ccent := fmt.Sprintf("D%d", crtr+1)
+	hcl := fmt.Sprintf("G%d", hisr+1)
+	ccl := fmt.Sprintf("I%d", crtr+1)
+	f.SetCellStyle("Sheet1", "A1", sfar, styleIdc)
+
+	f.SetCellStyle("Sheet2", "E1", hfar, styleIdnc)
+	f.SetCellStyle("Sheet2", "A3", hcent, styleIdc)
+	f.SetCellStyle("Sheet2", "G3", hcl, styleIdc)
+	f.SetCellStyle("Sheet2", "A1", "H2", styleIdc)
+
+	f.SetCellStyle("Sheet3", "E1", cfar, styleIdnc)
+	f.SetCellStyle("Sheet3", "A3", ccent, styleIdc)
+	f.SetCellStyle("Sheet3", "G3", ccl, styleIdc)
+	f.SetCellStyle("Sheet3", "A1", "J2", styleIdc)
+
+	var smwdth = map[string]float64{"A": 11, "B": 7, "C": 13, "D": 13, "E": 17, "F": 13}
+	var hcwdth = map[string]float64{"A": 11, "B": 8, "C": 20, "D": 20, "E": 45, "F": 22, "G": 10, "H": 22, "I": 10, "J": 17}
+	for col, wdth := range smwdth {
+		f.SetColWidth("Sheet1", col, col, wdth)
+	}
+	for col, wdth := range hcwdth {
+		f.SetColWidth("Sheet2", col, col, wdth)
+		f.SetColWidth("Sheet3", col, col, wdth)
+	}
+
 	f.SetSheetName("Sheet1", "汇总")
 	f.SetSheetName("Sheet2", "历史告警处理记录")
 	f.SetSheetName("Sheet3", "当前告警处理记录")
 
 	f.SaveAs(bookname)
+	mvFiles()
 }
 
-func defaultKey(key, defkey string, anymap map[string]string) string {
+func defaultKey(key, defval string, anymap map[string]string) string {
 	_, exist := anymap[key]
 	if exist {
 		return anymap[key]
 	} else {
-		return defkey
+		return defval
 	}
 }
 
@@ -231,4 +325,32 @@ func getKey(key string) [][]string {
 	totalcrt := defaultKey(crtcsv, "0", totalmap)
 	lines = append(lines, []string{totalhis, totalcrt, totalcrt, "0"})
 	return lines
+}
+
+func fileExist(fl string) bool {
+	if _, err := os.Stat(fl); err == nil {
+		return true
+	} else {
+		return false
+	}
+}
+
+func mvFile(file string) {
+	dirname := fmt.Sprintf("done-%s", namedate)
+	os.Mkdir(dirname, 0755)
+	newpath := fmt.Sprintf("%s/%s", dirname, file)
+	if fileExist(file) {
+		os.Rename(file, newpath)
+	}
+}
+
+func mvFiles() {
+	for _, pool := range pools {
+		re := regexp.MustCompile("[0-9]+")
+		nums := re.FindAllString(pool, -1)
+		cfile := fmt.Sprintf("c%s.csv", nums[0])
+		mvFile(cfile)
+		hfile := fmt.Sprintf("h%s.csv", nums[0])
+		mvFile(hfile)
+	}
 }
