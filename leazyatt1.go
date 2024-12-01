@@ -30,6 +30,23 @@ var (
 	yorn             string = "yes"
 )
 
+func main() {
+	before()
+	if fileExist("config") {
+		pools = readFile("config")[0]
+	}
+	for _, pool := range pools {
+		re := regexp.MustCompile("[0-9]+")
+		nums := re.FindAllString(pool, -1)
+		cfile := fmt.Sprintf("c%s.csv", nums[0])
+		hfile := fmt.Sprintf("h%s.csv", nums[0])
+		writeSheet("Sheet2", pool, hisr, checkExist(hfile, pool, 4))
+		writeSheet("Sheet3", pool, crtr, checkExist(cfile, pool, 3))
+		writeSheet("Sheet1", pool, smrr, getKey(nums[0]))
+	}
+	after()
+}
+
 func getTime() time.Time {
 	var ctime = time.Now()
 	cstSh, err := time.LoadLocation("Asia/Shanghai")
@@ -199,22 +216,6 @@ func checkExist(file, pool string, hc int) [][]string {
 		timedict[file] = deltime
 	}
 	return toWall(file, hc)
-}
-func main() {
-	before()
-	if fileExist("config") {
-		pools = readFile("config")[0]
-	}
-	for _, pool := range pools {
-		re := regexp.MustCompile("[0-9]+")
-		nums := re.FindAllString(pool, -1)
-		cfile := fmt.Sprintf("c%s.csv", nums[0])
-		hfile := fmt.Sprintf("h%s.csv", nums[0])
-		writeSheet("Sheet2", pool, hisr, checkExist(hfile, pool, 4))
-		writeSheet("Sheet3", pool, crtr, checkExist(cfile, pool, 3))
-		writeSheet("Sheet1", pool, smrr, getKey(nums[0]))
-	}
-	after()
 }
 
 func toDict() map[string]string {
