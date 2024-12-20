@@ -24,3 +24,6 @@ _day_=`date +%w`
 PS2='\[\e[0;32m\]>\[\e[0m\]'
 alias diff='diff --color'
 HISTTIMEFORMAT='%F %T '
+shopt -s histappend
+PROMPT_COMMAND="history -a"
+GOPATH="/data/data/com.termux/files/home/grassland"
