@@ -4,6 +4,7 @@
 package main
 
 import (
+	"bufio"
 	"encoding/csv"
 	"fmt"
 	"io"
@@ -211,8 +212,8 @@ func checkExist(file, pool string, hc int) [][]string {
 		timedict[file] = currentTime.Format("2006-01-02 03:04:05")
 	} else if hc == 3 && yorn == "no" {
 		fmt.Printf("%s当前告警清除时间：", pool)
-		var deltime string
-		fmt.Scanln(&deltime)
+		reader := bufio.NewReader(os.Stdin)
+		deltime, _ := reader.ReadString('\n')
 		timedict[file] = deltime
 	}
 	return toWall(file, hc)
