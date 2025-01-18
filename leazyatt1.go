@@ -213,7 +213,8 @@ func checkExist(file, pool string, hc int) [][]string {
 	} else if hc == 3 && yorn == "no" {
 		fmt.Printf("%s当前告警清除时间：", pool)
 		reader := bufio.NewReader(os.Stdin)
-		deltime, _ := reader.ReadString('\n')
+		pdeltime, _ := reader.ReadString('\n')
+		deltime := strings.TrimRight(pdeltime, "\n")
 		timedict[file] = deltime
 	}
 	return toWall(file, hc)
