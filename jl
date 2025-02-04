@@ -887,3 +887,4 @@
 028 d2 01:38 2025 Jan 28 Tue | nml eas brn 08min null
 031 d2 14:58 2025 Jan 31 Fri | nml eas brn 12min (null)+1
 032 d0 22:28 2025 Feb 01 Sat | nml eas brn 08min null
+036 d3 02:16 2025 Feb 05 Wed | sft eas brn 06min null
