@@ -975,3 +975,4 @@
 153 d0 19:00 2025 Jun 02 Mon | nml eas brn 09min (null)+1
 154 d0 21:46 2025 Jun 03 Tue | nml eas brn 07min null
 155 d0 22:54 2025 Jun 04 Wed | nml eas brn 11min null
+156 d0 22:15 2025 Jun 05 Thu | nml eas brn 09min null
