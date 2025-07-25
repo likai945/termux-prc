@@ -1,6 +1,5 @@
-//Dec 1, 2024
-//by LiKai
-
+// Dec 1, 2024
+// by LiKai
 package main
 
 import (
@@ -49,7 +48,7 @@ func main() {
 }
 
 func getTime() time.Time {
-	var ctime = time.Now()
+	ctime := time.Now()
 	cstSh, err := time.LoadLocation("Asia/Shanghai")
 	if err == nil {
 		ctime = ctime.In(cstSh)
@@ -185,16 +184,15 @@ func writeSheet(sheet, pool string, ruler int, lines [][]string) {
 			}
 		}
 	}
-
 }
 
 func checkExist(file, pool string, hc int) [][]string {
 	hcmap := map[int][][]string{
-		4: [][]string{{"无告警，不涉及", "无告警，不涉及", "无告警，不涉及", "无告警，不涉及", "0", "无告警，不涉及"}},
-		3: [][]string{{"无告警，不涉及", "无告警，不涉及", "无告警，不涉及", "无告警，不涉及", "0", "无告警，不涉及", "是"}},
+		4: {{"无告警，不涉及", "无告警，不涉及", "无告警，不涉及", "无告警，不涉及", "0", "无告警，不涉及"}},
+		3: {{"无告警，不涉及", "无告警，不涉及", "无告警，不涉及", "无告警，不涉及", "0", "无告警，不涉及", "是"}},
 	}
 	hcchmap := map[int]string{4: "历史", 3: "当前"}
-	//magic num 4 is his, 3 is crt
+	// magic num 4 is his, 3 is crt
 	fexist, _ := filepath.Glob(file)
 	var command string
 	if fileExist("config") {
@@ -293,8 +291,8 @@ func after() {
 	f.SetCellStyle("Sheet3", "G3", ccl, styleIdc)
 	f.SetCellStyle("Sheet3", "A1", "J2", styleIdc)
 
-	var smwdth = map[string]float64{"A": 11, "B": 7, "C": 13, "D": 13, "E": 17, "F": 13}
-	var hcwdth = map[string]float64{"A": 11, "B": 8, "C": 20, "D": 20, "E": 45, "F": 22, "G": 10, "H": 22, "I": 10, "J": 17}
+	smwdth := map[string]float64{"A": 11, "B": 7, "C": 13, "D": 13, "E": 17, "F": 13}
+	hcwdth := map[string]float64{"A": 11, "B": 8, "C": 20, "D": 20, "E": 45, "F": 22, "G": 10, "H": 22, "I": 10, "J": 17}
 	for col, wdth := range smwdth {
 		f.SetColWidth("Sheet1", col, col, wdth)
 	}
@@ -340,7 +338,7 @@ func fileExist(fl string) bool {
 
 func mvFile(file string) {
 	dirname := fmt.Sprintf("done-%s", namedate)
-	os.Mkdir(dirname, 0755)
+	os.Mkdir(dirname, 0o755)
 	newpath := fmt.Sprintf("%s/%s", dirname, file)
 	if fileExist(file) {
 		os.Rename(file, newpath)
