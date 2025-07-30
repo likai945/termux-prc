@@ -1,5 +1,8 @@
 // Dec 1, 2024
+// Jul 25, 2025
+// Jul 30, 2025
 // by LiKai
+
 package main
 
 import (
@@ -76,7 +79,8 @@ func readFile(fl string) [][]string {
 func toDisc(file string, indx int) map[string][3][]string {
 	alrmsli := readFile(file)
 	amap := map[string][3][]string{}
-	for _, row := range alrmsli {
+	for _, prerow := range alrmsli {
+		row := removeRocks(prerow) // fp
 		desc := row[indx]
 		rowval := amap[desc]
 		sttt := append(rowval[0], row[7])
@@ -87,6 +91,16 @@ func toDisc(file string, indx int) map[string][3][]string {
 	}
 	return amap
 }
+
+func removeRocks(prerow []string) []string {
+	var row []string
+	for _, item := range prerow {
+		if item != "admin" {
+			row = append(row, item)
+		}
+	}
+	return row
+} // fp
 
 func toWall(file string, indx int) [][]string {
 	amap := toDisc(file, indx)
