@@ -1030,3 +1030,4 @@
 217 d0 22:20 2025 Aug 05 Tue | nml eas brn 06min null
 218 d0 22:49 2025 Aug 06 Wed | nml eas brn 09min null
 219 d0 23:08 2025 Aug 07 Thu | nml eas brn 05min null
+221 d1 22:44 2025 Aug 09 Sat | sft eas brn 15min null
