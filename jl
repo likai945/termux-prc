@@ -1060,3 +1060,4 @@
 250 d0 22:25 2025 Sep 07 Sun | nml eas brn 08min null
 251 d0 22:35 2025 Sep 08 Mon | nml eas brn 13min null
 252 d0 22:19 2025 Sep 09 Tue | nml eas brn 05min null
+253 d0 23:01 2025 Sep 10 Wed | nml eas brn 13min null
