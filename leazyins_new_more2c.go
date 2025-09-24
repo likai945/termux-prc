@@ -93,7 +93,7 @@ func countAll() {
 		case strings.HasSuffix(file, "runlog"):
 			readFile(file, '|', 0, 1, 2)
 		case strings.HasSuffix(file, "csv"):
-			readFile(file, ',', 3, 4, 5)
+			readFile(file, ',', 3, 5, 4)
 		}
 	}
 }
