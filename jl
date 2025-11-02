@@ -1103,4 +1103,4 @@
 303 d0 21:10 2025 Oct 30 Thu | sft eas blk 09min ate_blood
 304 d0 23:15 2025 Oct 31 Fri | nml eas brn 07min null
 305 d0 09:22 2025 Nov 01 Sat | sft eas brn 05min (null)+1
-306 d0 20:56 2025 Nov 02 Sun | nml blk brn 05min null
+306 d0 20:56 2025 Nov 02 Sun | sft blk brn 05min (ate_blood)+1
