@@ -216,7 +216,7 @@ func checkExist(file, pool string, hc int) [][]string {
 		timefill = readFile("config")[2][0]
 	}
 	if len(fexist) == 0 {
-		fmt.Printf("\033[32m%s\033[0m不存在,若\033[32m%s\033[0m无\033[32m%s\033[0m告警，请输入OK\n", file, pool, hcchmap[hc])
+		fmt.Printf("\033[32m%s\033[0m不存在,若\033[32m%s\033[0m无\033[32m%s\033[0m告警，请输入OK，否则输入NG以退出。\n", file, pool, hcchmap[hc])
 		fmt.Scanln(&command)
 		if strings.EqualFold(command, "OK") {
 			return hcmap[hc]
