@@ -221,6 +221,7 @@ func checkExist(file, pool string, hc int) [][]string {
 		if strings.EqualFold(command, "OK") {
 			return hcmap[hc]
 		} else {
+			rmFiles()
 			os.Exit(2)
 		}
 	}
@@ -400,6 +401,23 @@ func mvFiles() {
 		mvFile(hfile)
 		hzipfile := fmt.Sprintf("h%s.zip", nums[0])
 		mvFile(hzipfile)
+	}
+}
+
+func rmFile(file string) {
+	if fileExist(file) {
+		os.Remove(file)
+	}
+}
+
+func rmFiles() {
+	for _, pool := range pools {
+		re := regexp.MustCompile("[0-9]+")
+		nums := re.FindAllString(pool, -1)
+		cfile := fmt.Sprintf("c%s.csv", nums[0])
+		rmFile(cfile)
+		hfile := fmt.Sprintf("h%s.csv", nums[0])
+		rmFile(hfile)
 	}
 }
 
