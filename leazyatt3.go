@@ -316,25 +316,25 @@ func style() {
 	hfar := fmt.Sprintf("H%d", hisr+1)
 	cfar := fmt.Sprintf("J%d", crtr+1)
 	chcolfar := fmt.Sprintf("H%d", crtr+1)
-	hcent := fmt.Sprintf("D%d", hisr+1)
-	ccent := fmt.Sprintf("D%d", crtr+1)
+	hcent := fmt.Sprintf("B%d", hisr+1)
+	ccent := fmt.Sprintf("B%d", crtr+1)
 	hcl := fmt.Sprintf("G%d", hisr+1)
 	ccl := fmt.Sprintf("I%d", crtr+1)
 	f.SetCellStyle("Sheet1", "A1", sfar, styleIdc)
 
-	f.SetCellStyle("Sheet2", "E1", hfar, styleIdnc)
+	f.SetCellStyle("Sheet2", "C1", hfar, styleIdnc)
 	f.SetCellStyle("Sheet2", "A3", hcent, styleIdc)
 	f.SetCellStyle("Sheet2", "G3", hcl, styleIdc)
 	f.SetCellStyle("Sheet2", "A1", "H2", styleIdc)
 
-	f.SetCellStyle("Sheet3", "E1", cfar, styleIdnc)
+	f.SetCellStyle("Sheet3", "C1", cfar, styleIdnc)
 	f.SetCellStyle("Sheet3", "A3", ccent, styleIdc)
 	f.SetCellStyle("Sheet3", "G3", ccl, styleIdc)
 	f.SetCellStyle("Sheet3", "A1", "J2", styleIdc)
 	f.SetCellStyle("Sheet3", "H1", chcolfar, styleIdnc)
 
 	smwdth := map[string]float64{"A": 11, "B": 7, "C": 13, "D": 13, "E": 17, "F": 13}
-	hcwdth := map[string]float64{"A": 11, "B": 8, "C": 20, "D": 20, "E": 45, "F": 22, "G": 10, "H": 22, "I": 10, "J": 17}
+	hcwdth := map[string]float64{"A": 11, "B": 8, "C": 20, "D": 20, "E": 45, "F": 22, "G": 6, "H": 26, "I": 10, "J": 17}
 	for col, wdth := range smwdth {
 		f.SetColWidth("Sheet1", col, col, wdth)
 	}
