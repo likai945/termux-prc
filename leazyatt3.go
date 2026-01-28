@@ -280,37 +280,8 @@ func after() {
 }
 
 func style() {
-	styleIdnc, _ := f.NewStyle(&excelize.Style{
-		Border: []excelize.Border{
-			{Type: "left", Color: "000000", Style: 1},
-			{Type: "top", Color: "000000", Style: 1},
-			{Type: "bottom", Color: "000000", Style: 1},
-			{Type: "right", Color: "000000", Style: 1},
-		},
-		Alignment: &excelize.Alignment{
-			Vertical: "center",
-			WrapText: true,
-		},
-		Font: &excelize.Font{
-			Family: "宋体",
-		},
-	})
-	styleIdc, _ := f.NewStyle(&excelize.Style{
-		Border: []excelize.Border{
-			{Type: "left", Color: "000000", Style: 1},
-			{Type: "top", Color: "000000", Style: 1},
-			{Type: "bottom", Color: "000000", Style: 1},
-			{Type: "right", Color: "000000", Style: 1},
-		},
-		Alignment: &excelize.Alignment{
-			Horizontal: "center",
-			Vertical:   "center",
-			WrapText:   true,
-		},
-		Font: &excelize.Font{
-			Family: "宋体",
-		},
-	})
+	styleIdnc := filling("left")
+	styleIdc := filling("center")
 
 	sfar := fmt.Sprintf("F%d", smrr)
 	hfar := fmt.Sprintf("H%d", hisr+1)
@@ -342,6 +313,26 @@ func style() {
 		f.SetColWidth("Sheet2", col, col, wdth)
 		f.SetColWidth("Sheet3", col, col, wdth)
 	}
+}
+
+func filling(corl string) int {
+	styleI, _ := f.NewStyle(&excelize.Style{
+		Border: []excelize.Border{
+			{Type: "left", Color: "000000", Style: 1},
+			{Type: "top", Color: "000000", Style: 1},
+			{Type: "bottom", Color: "000000", Style: 1},
+			{Type: "right", Color: "000000", Style: 1},
+		},
+		Alignment: &excelize.Alignment{
+			Horizontal: corl,
+			Vertical:   "center",
+			WrapText:   true,
+		},
+		Font: &excelize.Font{
+			Family: "宋体",
+		},
+	})
+	return styleI
 }
 
 func styless() {
