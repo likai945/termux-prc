@@ -148,7 +148,7 @@ func before() {
 	f.NewSheet("Sheet2")
 	f.NewSheet("Sheet3")
 
-	smrtitle := []string{"时间", "资源池", "历史告警数", "当前告警数量", "当前告警清除数量", "当前告警剩余"}
+	smrtitle := []string{"时间", "资源池", "历史告警数量", "当前告警数量", "当前告警清除数量", "当前告警剩余"}
 	histitle := []string{"时间", "资源池", "告警时间", "清除时间", "对象名称", "告警描述", "数量", "处理结果"}
 	crttitle := []string{"时间", "资源池", "告警时间", "确认恢复时间", "对象名称", "告警描述", "数量", "处理结果", "是否清除", "未确认恢复原因"}
 
@@ -315,6 +315,7 @@ func style() {
 	sfar := fmt.Sprintf("F%d", smrr)
 	hfar := fmt.Sprintf("H%d", hisr+1)
 	cfar := fmt.Sprintf("J%d", crtr+1)
+	chcolfar := fmt.Sprintf("H%d", crtr+1)
 	hcent := fmt.Sprintf("D%d", hisr+1)
 	ccent := fmt.Sprintf("D%d", crtr+1)
 	hcl := fmt.Sprintf("G%d", hisr+1)
@@ -330,6 +331,7 @@ func style() {
 	f.SetCellStyle("Sheet3", "A3", ccent, styleIdc)
 	f.SetCellStyle("Sheet3", "G3", ccl, styleIdc)
 	f.SetCellStyle("Sheet3", "A1", "J2", styleIdc)
+	f.SetCellStyle("Sheet3", "H1", chcolfar, styleIdnc)
 
 	smwdth := map[string]float64{"A": 11, "B": 7, "C": 13, "D": 13, "E": 17, "F": 13}
 	hcwdth := map[string]float64{"A": 11, "B": 8, "C": 20, "D": 20, "E": 45, "F": 22, "G": 10, "H": 22, "I": 10, "J": 17}
