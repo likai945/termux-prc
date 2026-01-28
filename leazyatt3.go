@@ -1,6 +1,5 @@
-// Dec 1, 2024
-// Jul 25, 2025
-// Jul 30, 2025
+// Dec 1, 2024 the very beginning
+// Jul 30, 2025 update for removing rocks
 // Jan 23, 2026 no need to unzip manually
 // by LiKai
 
