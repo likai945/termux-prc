@@ -465,7 +465,7 @@ func toNum(s string) int {
 
 func remind() {
 	for _, file := range unget {
-		fmt.Print("程序不知道\033[42m%s\033[0m是哪个资源池的，但你一定知道，请勿退出程序，输入该资源池的编号后回车。",file)
+		fmt.Printf("程序不知道\033[42m%s\033[0m是哪个资源池的，但你一定知道，请勿退出程序，输入该资源池的编号后回车。\n",file)
 		var poolnum string
 		fmt.Scanln(&poolnum)
 		newcname := file[0:1] + poolnum + ".csv"
