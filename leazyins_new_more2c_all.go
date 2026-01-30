@@ -1,5 +1,6 @@
 // Sep 24, 2025
-// v2.5
+// Jan 30, 2026 no need to unzip files
+// v3.0
 // by LiKai
 
 package main
@@ -14,6 +15,8 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/dablelv/cyan/zip"
 )
 
 var (
@@ -142,7 +145,25 @@ func mvFiles() {
 	}
 }
 
+func unzipFiles() {
+	currentTime := time.Now()
+	fmtime := currentTime.Format("20060102")
+	patternz := fmt.Sprintf("*%s*.zip", fmtime)
+	zfiles, _ := filepath.Glob(patternz)
+	for _, zfile := range zfiles {
+		dirname := strings.Replace(zfile, ".zip", "", -1)
+		zip.Unzip(zfile, dirname)
+		patn := fmt.Sprintf("%s/*[0-9].csv", dirname)
+		csvname := dirname + ".csv"
+		files, _ := filepath.Glob(patn)
+		os.Rename(files[0], csvname)
+		os.RemoveAll(dirname)
+		os.Remove(zfile)
+	}
+}
+
 func main() {
+	unzipFiles()
 	getFiles()
 	countAll()
 	mvFiles()
