@@ -107,7 +107,7 @@ func toDisc(file string) map[string][3][]string {
 
 func getIndex(val string, arr []string) int {
 	for i, v := range arr {
-		if v == val {
+		if val == v {
 			return i
 		}
 	}
