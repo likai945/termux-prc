@@ -2,6 +2,7 @@
 // Jul 30, 2025 update for removing rocks
 // Jan 23, 2026 no need to unzip manually
 // Jan 29, 2026 no need to rename files
+// Feb 4, 2026 change the way to get indexies
 // by LiKai
 
 package main
@@ -41,15 +42,15 @@ func main() {
 	renameFiles()
 	before()
 	if fileExist("config") {
-		pools = readFile("config")[0]
+		pools = readFile("config")[1]
 	}
 	for _, pool := range pools {
 		re := regexp.MustCompile("[0-9]+")
 		nums := re.FindAllString(pool, -1)
 		cfile := fmt.Sprintf("c%s.csv", nums[0])
 		hfile := fmt.Sprintf("h%s.csv", nums[0])
-		writeSheet("Sheet2", pool, hisr, checkExist(hfile, pool, 4))
-		writeSheet("Sheet3", pool, crtr, checkExist(cfile, pool, 3))
+		writeSheet("Sheet2", pool, hisr, checkExist(hfile, pool))
+		writeSheet("Sheet3", pool, crtr, checkExist(cfile, pool))
 		writeSheet("Sheet1", pool, smrr, getKey(nums[0]))
 	}
 	after()
@@ -78,37 +79,43 @@ func readFile(fl string) [][]string {
 		}
 		sli = append(sli, record)
 	}
-	return sli[1:]
+	return sli
 }
 
-func toDisc(file string, indx int) map[string][3][]string {
-	alrmsli := readFile(file)
+func toDisc(file string) map[string][3][]string {
+	allsli := readFile(file)
+	title := allsli[0]
+	desci := getIndex("告警描述", title)
+	sttti := getIndex("发生时间", title)
+	eti := getIndex("恢复时间", title)
+	typei := getIndex("对象类型", title)
+	devi := getIndex("对象名称", title)
+
+	alrmsli := allsli[1:]
 	amap := map[string][3][]string{}
-	for _, prerow := range alrmsli {
-		row := removeRocks(prerow) // fp
-		desc := row[indx]
+	for _, row := range alrmsli {
+		desc := row[desci]
 		rowval := amap[desc]
-		sttt := append(rowval[0], row[7])
-		et := defaultKey(file, row[9], timedict)
+		sttt := append(rowval[0], row[sttti])
+		et := defaultKey(file, row[eti], timedict)
 		endt := append(rowval[1], et)
-		devi := append(rowval[2], row[5]+"名="+row[6])
-		amap[desc] = [3][]string{sttt, endt, devi}
+		dev := append(rowval[2], row[typei]+"名="+row[devi])
+		amap[desc] = [3][]string{sttt, endt, dev}
 	}
 	return amap
 }
 
-func removeRocks(prerow []string) []string {
-	var row []string
-	for _, item := range prerow {
-		if item != "admin" {
-			row = append(row, item)
+func getIndex(val string, arr []string) int {
+	for i, v := range arr {
+		if v == val {
+			return i
 		}
 	}
-	return row
-} // fp
+	return 0
+}
 
-func toWall(file string, indx int) [][]string {
-	amap := toDisc(file, indx)
+func toWall(file string) [][]string {
+	amap := toDisc(file)
 	resmap := toDict()
 	var sum int
 	var lines [][]string
@@ -122,9 +129,9 @@ func toWall(file string, indx int) [][]string {
 		num := strconv.Itoa(nu)
 		res := resmap[desc]
 		var line []string
-		if indx == 3 {
+		if file[0:1] == "c" {
 			line = []string{sttt, endt, devi, desc, num, res, "是"}
-		} else if indx == 4 {
+		} else if file[0:1] == "h" {
 			line = []string{sttt, endt, devi, desc, num, res}
 		}
 		lines = append(lines, line)
@@ -205,39 +212,38 @@ func writeSheet(sheet, pool string, ruler int, lines [][]string) {
 	}
 }
 
-func checkExist(file, pool string, hc int) [][]string {
-	hcmap := map[int][][]string{
-		4: {{"无告警，不涉及", "无告警，不涉及", "无告警，不涉及", "无告警，不涉及", "0", "无告警，不涉及"}},
-		3: {{"无告警，不涉及", "无告警，不涉及", "无告警，不涉及", "无告警，不涉及", "0", "无告警，不涉及", "是"}},
+func checkExist(file, pool string) [][]string {
+	hcmap := map[string][][]string{
+		"h": {{"无告警，不涉及", "无告警，不涉及", "无告警，不涉及", "无告警，不涉及", "0", "无告警，不涉及"}},
+		"c": {{"无告警，不涉及", "无告警，不涉及", "无告警，不涉及", "无告警，不涉及", "0", "无告警，不涉及", "是"}},
 	}
-	hcchmap := map[int]string{4: "历史", 3: "当前"}
-	// magic num 4 is his, 3 is crt
+	hcchmap := map[string]string{"h": "历史", "c": "当前"}
 	fexist, _ := filepath.Glob(file)
 	var command string
 	if fileExist("config") {
-		timefill = readFile("config")[2][0]
+		timefill = readFile("config")[3][0]
 	}
 	if len(fexist) == 0 {
-		fmt.Printf("\033[32m%s\033[0m不存在,若\033[32m%s\033[0m无\033[32m%s\033[0m告警，请输入OK，否则输入NG以退出。\n", file, pool, hcchmap[hc])
+		fmt.Printf("\033[32m%s\033[0m不存在,若\033[32m%s\033[0m无\033[32m%s\033[0m告警，请输入OK，否则输入NG以退出。\n", file, pool, hcchmap[file[0:1]])
 		fmt.Scanln(&command)
 		if strings.EqualFold(command, "OK") {
-			return hcmap[hc]
+			return hcmap[file[0:1]]
 		} else {
 			rmFiles()
 			os.Exit(2)
 		}
 	}
 
-	if hc == 3 && timefill == "auto" {
+	if file[0:1] == "c" && timefill == "auto" {
 		timedict[file] = currentTime.Format("2006-01-02 03:04:05")
-	} else if hc == 3 && timefill == "no" {
+	} else if file[0:1] == "c" && timefill == "no" {
 		fmt.Printf("%s当前告警清除时间：", pool)
 		reader := bufio.NewReader(os.Stdin)
 		pdeltime, _ := reader.ReadString('\n')
 		deltime := strings.TrimRight(pdeltime, "\n")
 		timedict[file] = deltime
 	}
-	return toWall(file, hc)
+	return toWall(file)
 }
 
 func toDict() map[string]string {
@@ -263,7 +269,7 @@ func after() {
 	f.MergeCell("Sheet3", "A1", "J1")
 
 	if fileExist("config") {
-		styletype = readFile("config")[4][0]
+		styletype = readFile("config")[5][0]
 	}
 	if styletype == "format" {
 		style()
