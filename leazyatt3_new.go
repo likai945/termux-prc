@@ -36,10 +36,12 @@ var (
 	timefill         string = "auto"
 	styletype        string = "format"
 	unget                   = []string{}
+	tmpfiles                = []string{}
 )
 
 func main() {
-	renameFiles()
+	renameZiles()
+	renameCiles()
 	before()
 	if fileExist("config") {
 		pools = readFile("config")[1]
@@ -411,17 +413,12 @@ func rmFile(file string) {
 }
 
 func rmFiles() {
-	for _, pool := range pools {
-		re := regexp.MustCompile("[0-9]+")
-		nums := re.FindAllString(pool, -1)
-		cfile := fmt.Sprintf("c%s.csv", nums[0])
-		rmFile(cfile)
-		hfile := fmt.Sprintf("h%s.csv", nums[0])
-		rmFile(hfile)
+	for _, file := range tmpfiles {
+		rmFile(file)
 	}
 }
 
-func renameFiles() {
+func renameZiles() {
 	patn := "[ch]*.zip"
 	files, _ := filepath.Glob(patn)
 	for _, zipfile := range files {
@@ -437,9 +434,24 @@ func renameFiles() {
 		prefix := filename[0:1]
 		newcname := prefix + strconv.Itoa(poolnum) + ".csv"
 		newzname := prefix + strconv.Itoa(poolnum) + ".zip"
+		tmpfiles = append(tmpfiles, newcname)
 		if poolnum != 0 {
 			os.Rename(csvname, newcname)
 			os.Rename(zipfile, newzname)
+		}
+	}
+	remind()
+}
+
+func renameCiles() {
+	patn := "[ch][ui][rs]*.csv"
+	files, _ := filepath.Glob(patn)
+	for _, csvfile := range files {
+		poolnum := toNum(getPool(csvfile))
+		prefix := csvfile[0:1]
+		newcname := prefix + strconv.Itoa(poolnum) + ".csv"
+		if poolnum != 0 {
+			os.Rename(csvfile, newcname)
 		}
 	}
 	remind()
