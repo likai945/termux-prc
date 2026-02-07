@@ -284,7 +284,7 @@ func checkExist(file, pool string) {
 	fexist, _ := filepath.Glob(file)
 	var command string
 	if len(fexist) == 0 && checkEnn(file) {
-		fmt.Printf("\033[32m%s\033[0m不存在,若\033[32m%s\033[0m无\033[32m%s\033[0m告警，请输入OK，否则输入NG以退出。\n", file, pool, hcchmap[file[0:1]])
+		fmt.Printf("未发现\033[32m%s\033[0m资源池\033[42m%s\033[0m告警，若该资源池确无\033[42m%s\033[0m告警，请请输入OK以确认，否则输入NG以退出。\n", pool, hcchmap[file[0:1]], hcchmap[file[0:1]])
 		fmt.Scanln(&command)
 		if strings.EqualFold(command, "OK") {
 			existmap[file] = false
