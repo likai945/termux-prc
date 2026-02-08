@@ -265,7 +265,7 @@ func build(file, pool string) [][]string {
 	timefill = config[1][0]
 	if file[0:1] == "c" && timefill == "auto" {
 		timedict[file] = currentTime.Format("2006-01-02 15:04:05")
-	} else if file[0:1] == "c" && timefill == "no" {
+	} else if file[0:1] == "c" && timefill == "no" && existmap[file] {
 		fmt.Printf("%s当前告警清除时间：", pool)
 		reader := bufio.NewReader(os.Stdin)
 		pdeltime, _ := reader.ReadString('\n')
