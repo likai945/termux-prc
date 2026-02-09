@@ -350,6 +350,7 @@ func after() {
 
 	f.SaveAs(bookname)
 	mvFiles()
+	mvOFs()
 }
 
 func style() {
@@ -455,17 +456,33 @@ func mvFile(file, dirname string) {
 
 func mvFiles() {
 	dirname := fmt.Sprintf("done-%s", namedate)
-	os.Mkdir(dirname, 0o755)
-	for _, pool := range pools {
-		hfile := getFile(pool)[0]
-		mvFile(hfile, dirname)
-		cfile := getFile(pool)[1]
-		mvFile(cfile, dirname)
-		patn := "[ch]*.zip"
-		files, _ := filepath.Glob(patn)
-		for _, zipfile := range files {
-			mvFile(zipfile, dirname)
+	for _, val := range existmap {
+		if val {
+			os.Mkdir(dirname, 0o755)
 		}
+	}
+	for _, pool := range pools {
+		hcile := getFile(pool)[0]
+		hzile := strings.Replace(hcile, "csv", "zip", -1)
+		mvFile(hcile, dirname)
+		mvFile(hzile, dirname)
+		ccile := getFile(pool)[1]
+		czile := strings.Replace(ccile, "csv", "zip", -1)
+		mvFile(ccile, dirname)
+		mvFile(czile, dirname)
+	}
+}
+
+func mvOFs() {
+	patn := "[ch]*.[zc][is][pv]"
+	files, _ := filepath.Glob(patn)
+
+	dirname := fmt.Sprintf("others-%s", namedate)
+	if len(files) != 0 {
+		os.Mkdir(dirname, 0o755)
+	}
+	for _, file := range files {
+		mvFile(file, dirname)
 	}
 }
 
