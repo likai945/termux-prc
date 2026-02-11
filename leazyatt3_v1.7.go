@@ -153,7 +153,7 @@ func toWall(file string) [][]string {
 		endt := strings.Join(val[1], "\n")
 
 		var devi string
-		piece = config["piece"]
+		piece := config["piece"]
 		if piece == "uni" {
 			devi = strings.Join(unifyPc(val[2]), "\n")
 		} else {
@@ -261,7 +261,7 @@ func build(file, pool string) [][]string {
 		"c": {{"无告警，不涉及", "无告警，不涉及", "无告警，不涉及", "无告警，不涉及", "0", "无告警，不涉及", "是"}},
 	}
 
-	timefill = config["time"]
+	timefill := config["time"]
 	if file[0:1] == "c" && timefill == "auto" {
 		timedict[file] = currentTime.Format("2006-01-02 15:04:05")
 	} else if file[0:1] == "c" && timefill == "no" && existmap[file] {
@@ -344,7 +344,7 @@ func after() {
 	f.SetCellValue("Sheet3", "A1", "当前告警")
 	f.MergeCell("Sheet3", "A1", "J1")
 
-	styletype = config["style"]
+	styletype := config["style"]
 	if styletype == "format" {
 		style()
 	} else {
