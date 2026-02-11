@@ -33,7 +33,7 @@ var (
 	date             string = currentTime.Format("2006-01-02")
 	namedate         string = currentTime.Format("20060102")
 	bookname         string = fmt.Sprintf("附件3：告警分析-中兴资源池-%s.xlsx", namedate)
-	poolstr          string = "可信3, 可信4, 可信5, DMZ9, 可信11, 可信14, DMZ16, 可信17"
+	poolstr          string = "可信3,可信4,可信5,DMZ9,可信11,可信14,DMZ16,可信17"
 	timefill         string = "auto"
 	styletype        string = "format"
 	piece            string = "uni"
@@ -326,8 +326,14 @@ func toDict(file string) map[string]string {
 		return amap
 	}
 	for _, val := range resarr {
-		if val[0] != val[len(val)-1] {
-			amap[val[0]] = val[len(val)-1]
+		nkey := val[0]
+		nval := val[len(val)-1]
+		if file == "config" {
+			nkey = strings.ReplaceAll(nkey, " ", "")
+			nval = strings.ReplaceAll(nval, " ", "")
+		}
+		if nkey != nval {
+			amap[nkey] = nval
 		}
 	}
 	return amap
@@ -417,11 +423,18 @@ func styless() {
 	styleIdc, _ := f.NewStyle(&excelize.Style{
 		Alignment: &excelize.Alignment{
 			Horizontal: "center",
+			Vertical:   "center",
 		},
 	})
 
+	hcent := fmt.Sprintf("B%d", hisr+1)
+	ccent := fmt.Sprintf("B%d", crtr+1)
+
+	f.SetCellStyle("Sheet1", "A2", "A2", styleIdc)
 	f.SetCellStyle("Sheet2", "A1", "A1", styleIdc)
+	f.SetCellStyle("Sheet2", "A3", hcent, styleIdc)
 	f.SetCellStyle("Sheet3", "A1", "A1", styleIdc)
+	f.SetCellStyle("Sheet3", "A3", ccent, styleIdc)
 }
 
 func defaultKey(key, defval string, anymap map[string]string) string {
