@@ -34,10 +34,7 @@ var (
 	namedate         string = currentTime.Format("20060102")
 	bookname         string = fmt.Sprintf("附件3：告警分析-中兴资源池-%s.xlsx", namedate)
 	poolstr          string = "可信3,可信4,可信5,DMZ9,可信11,可信14,DMZ16,可信17"
-	timefill         string = "auto"
-	styletype        string = "format"
-	piece            string = "uni"
-	config                  = map[string]string{"pools": poolstr, "time": timefill, "style": styletype, "piece": piece}
+	config                  = map[string]string{"pools": poolstr, "time": "auto", "style": "format", "piece": "uni"}
 	pools                   = []string{}
 	timedict                = map[string]string{}
 	unget                   = []string{}
