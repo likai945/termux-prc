@@ -134,19 +134,19 @@ func fmtPm(pn string) (pm string) {
 }
 
 func display() {
-	border := strings.Repeat("=", 63)
 	fmt.Printf("               \t\t%s\t\t%s\n", "INPUT_TEMP", "CPU_TEMP")
-	green := "\033[32m%s\033[0m\n"
-	fmt.Printf(green, border)
+	border := strings.Repeat("=", 63)
+	green := "\033[32m%s\033[0m"
+	fmt.Printf(green+"\n", border)
 
 	for _, pn := range pns {
 		pm := fmtPm(pn)
 		oneline := fmt.Sprintf("%s\t\t%s/%s\t\t%s/%s", pm, getVal(pm[:7], 0), getVal(pm[8:], 0), getVal(pm[:7], 2), getVal(pm[8:], 2))
 		fmt.Println(oneline)
 	}
-	fmt.Printf(green, border)
+	fmt.Printf(green+"\n", border)
 	for _, fname := range files {
-		fmt.Printf("\033[32mcalculated:\033[0m %s\n", fname)
+		fmt.Printf(green+" %s\n", "calculated:",fname)
 	}
 	fmt.Println()
 	forWin()
