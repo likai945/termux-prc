@@ -196,6 +196,6 @@ func main() {
 	getFiles()
 	getPns()
 	countAll()
-	display()
 	mvFiles()
+	display()
 }
