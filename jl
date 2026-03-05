@@ -1190,4 +1190,4 @@
 061 d0 23:22 2026 Mar 02 Mon | nml eas brn 07min null
 062 d0 23:51 2026 Mar 03 Tue | nml eas brn 09min null
 063 d0 23:50 2026 Mar 04 Wed | nml eas brn 07min null
-064 d0 17:04 2026 Mar 05 Thu | lqd eas brn 08min paper_wiped
+064 d0 17:04 2026 Mar 05 Thu | lqd eas brn 08min (paper_wiped)+1
