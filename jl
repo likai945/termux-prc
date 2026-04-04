@@ -296,7 +296,7 @@
 213 d1 17:27 2022 Aug 01 Mon | nml eas brn 09min paper_wiped
 214 d0 22:35 2022 Aug 02 Tue | sft eas brn 10min null
 216 d1 23:17 2022 Aug 04 Thu | nml eas brn 15min null
-219 d2 11:30 2022 Aug 07 Sun | nml eas brn 08min paper_wiped@hli
+219 d2 11:30 2022 Aug 07 Sun | nml eas brn 08min paper_wiped_in_hli
 220 d0 19:15 2022 Aug 08 Mon | sft eas brn 05min null
 221 d0 19:20 2022 Aug 09 Tue | nml eas brn 08min paper_wiped
 223 d1 14:40 2022 Aug 11 Thu | sft eas brn 06min paper_wiped
@@ -499,9 +499,9 @@
 168 d0 23:58 2023 Jun 17 Sat | nml eas brn 08min null
 169 d0 23:02 2023 Jun 18 Sun | sft eas brn 06min null
 171 d1 12:27 2023 Jun 20 Tue | nml eas brn 03min null
-172 d0 23:05 2023 Jun 21 Wed | nml eas brn 10min paper_wiped@longmen
-174 d1 10:10 2023 Jun 23 Fri | nml eas brn 07min (paper_wiped@longmen)+1
-175 d0 10:12 2023 Jun 24 Sat | nml eas brn 04min (paper_wiped@longmen)+1
+172 d0 23:05 2023 Jun 21 Wed | nml eas brn 10min paper_wiped_in_longmen
+174 d1 10:10 2023 Jun 23 Fri | nml eas brn 07min (paper_wiped_in_longmen)+1
+175 d0 10:12 2023 Jun 24 Sat | nml eas brn 04min (paper_wiped_in_longmen)+1
 176 d0 23:50 2023 Jun 25 Sun | nml eas brn 07min null
 177 d0 14:53 2023 Jun 26 Mon | nml eas brn 07min (paper_wiped)+1
 178 d0 15:42 2023 Jun 27 Tue | nml eas brn 07min (paper_wiped)+1
@@ -576,7 +576,7 @@
 269 d1 23:32 2023 Sep 26 Tue | dry dff brn 06min null
 272 d2 09:15 2023 Sep 29 Fri | nml eas brn 05min null
 273 d0 02:07 2023 Sep 30 Sat | nml eas brn 05min null
-275 d1 23:34 2023 Oct 02 Mon | nml eas brn 11min paper_wiped@longmen
+275 d1 23:34 2023 Oct 02 Mon | nml eas brn 11min paper_wiped_in_longmen
 276 d0 23:36 2023 Oct 03 Tue | nml eas brn 12min null
 278 d1 23:02 2023 Oct 05 Thu | nml eas brn 08min null
 279 d0 21:39 2023 Oct 06 Fri | sft eas brn 06min null
@@ -651,8 +651,8 @@
 037 d1 21:29 2024 Feb 06 Tue | nml eas drk 12min null
 038 d0 22:20 2024 Feb 07 Wed | nml eas brn 08min null
 041 d2 01:14 2024 Feb 10 Sat | nml eas brn 10min (null)+1
-045 d3 13:40 2024 Feb 14 Wed | nml eas brn 12min paper_wiped@longmen
-049 d3 01:45 2024 Feb 18 Sun | dry eas brn 08min paper_wiped@hli
+045 d3 13:40 2024 Feb 14 Wed | nml eas brn 12min paper_wiped_in_longmen
+049 d3 01:45 2024 Feb 18 Sun | dry eas brn 08min paper_wiped_in_hli
 050 d0 14:35 2024 Feb 19 Mon | nml eas brn 06min null
 051 d0 20:34 2024 Feb 20 Tue | nml eas brn 05min (null)+1
 053 d1 20:41 2024 Feb 22 Thu | dry eas brn 06min null
@@ -726,8 +726,8 @@
 156 d0 21:34 2024 Jun 04 Tue | sft eas brn 07min null
 158 d1 22:13 2024 Jun 06 Thu | nml eas brn 09min null
 160 d1 11:38 2024 Jun 08 Sat | dry eas blk 10min (null)+1
-161 d0 09:14 2024 Jun 09 Sun | nml eas brn 07min paper_wiped@longmen
-162 d0 09:27 2024 Jun 10 Mon | nml eas brn 08min paper_wiped@longmen
+161 d0 09:14 2024 Jun 09 Sun | nml eas brn 07min paper_wiped_in_longmen
+162 d0 09:27 2024 Jun 10 Mon | nml eas brn 08min paper_wiped_in_longmen
 163 d0 20:45 2024 Jun 11 Tue | nml eas brn 12min null
 165 d1 12:31 2024 Jun 13 Thu | nml eas brn 06min null
 166 d0 00:14 2024 Jun 14 Fri | sft eas brn 12min null
@@ -737,8 +737,8 @@
 170 d0 16:29 2024 Jun 18 Tue | nml eas brn 05min (paper_wiped)+1
 171 d0 20:33 2024 Jun 19 Wed | sft eas brn 05min null
 172 d0 22:24 2024 Jun 20 Thu | sft eas brn 09min null
-174 d1 16:26 2024 Jun 22 Sat | dry eas brn 05min @longmen
-175 d0 10:23 2024 Jun 23 Sun | nml eas brn 03min (@longmen)+1
+174 d1 16:26 2024 Jun 22 Sat | dry eas brn 05min _in_longmen
+175 d0 10:23 2024 Jun 23 Sun | nml eas brn 03min (_in_longmen)+1
 176 d0 23:23 2024 Jun 24 Mon | nml eas brn 08min null
 178 d1 15:51 2024 Jun 26 Wed | nml eas brn 13min paper_wiped
 179 d0 15:59 2024 Jun 27 Thu | nml eas brn 12min (paper_wiped)+1
@@ -806,9 +806,9 @@
 271 d0 22:21 2024 Sep 27 Fri | dry eas brn 08min null
 272 d0 20:42 2024 Sep 28 Sat | nml eas brn 07min null
 275 d2 15:25 2024 Oct 01 Tue | dry eas brn 06min (null)+1
-277 d1 08:41 2024 Oct 03 Thu | lqd eas brn 08min (paper_wiped@longmen)+1
-279 d1 10:10 2024 Oct 05 Sat | nml eas brn 08min paper_wiped@longmen
-280 d0 10:24 2024 Oct 06 Sun | nml eas brn 07min paper_wiped@longmen
+277 d1 08:41 2024 Oct 03 Thu | lqd eas brn 08min (paper_wiped_in_longmen)+1
+279 d1 10:10 2024 Oct 05 Sat | nml eas brn 08min paper_wiped_in_longmen
+280 d0 10:24 2024 Oct 06 Sun | nml eas brn 07min paper_wiped_in_longmen
 281 d0 10:41 2024 Oct 07 Mon | sft eas brn 06min null
 283 d1 23:02 2024 Oct 09 Wed | nml eas brn 07min null
 284 d0 23:33 2024 Oct 10 Thu | nml eas brn 07min null
@@ -1182,9 +1182,9 @@
 041 d0 15:04 2026 Feb 10 Tue | nml eas brn 11min paper_wiped
 043 d1 23:58 2026 Feb 12 Thu | nml eas brn 09min null
 045 d1 00:01 2026 Feb 14 Sat | nml eas brn 09min (null)+1
-049 d3 14:04 2026 Feb 18 Wed | nml eas brn 11min paper_wiped@longmen
-052 d2 12:13 2026 Feb 21 Sat | nml eas brn 08min paper_wiped@longmen
-056 d3 12:47 2026 Feb 25 Wed | dry eas brn 08min paper_wiped@longmen
+049 d3 14:04 2026 Feb 18 Wed | nml eas brn 11min paper_wiped_in_longmen
+052 d2 12:13 2026 Feb 21 Sat | nml eas brn 08min paper_wiped_in_longmen
+056 d3 12:47 2026 Feb 25 Wed | dry eas brn 08min paper_wiped_in_longmen
 058 d1 00:16 2026 Feb 27 Fri | nml eas brn 07min (null)+1
 060 d1 15:30 2026 Mar 01 Sun | nml eas brn 10min null
 061 d0 23:22 2026 Mar 02 Mon | nml eas brn 07min null
@@ -1211,4 +1211,4 @@
 090 d0 23:58 2026 Mar 31 Tue | nml eas brn 07min null
 092 d1 22:15 2026 Apr 02 Thu | nml eas brn 07min null
 093 d0 10:48 2026 Apr 03 Fri | sft eas brn 07min null
-094 d0 13:18 2026 Apr 04 Sat | nml eas brn 05min paper_wiped@longmen
+094 d0 13:18 2026 Apr 04 Sat | nml eas brn 05min ((paper_wiped_in_longmen)+1
