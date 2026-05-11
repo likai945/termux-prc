@@ -1240,3 +1240,4 @@
 129 d1 00:10 2026 May 09 Sat | nml eas brn 04min (null)+1
 130 d0 19:01 2026 May 10 Sun | nml eas brn 09min (null)+1
 131 d0 23:46 2026 May 11 Mon | nml eas brn 08min null
+132 d0 02:28 2026 May 12 Tue | lqd eas brn 08min null
