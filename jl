@@ -1272,4 +1272,4 @@
 175 d1 00:37 2026 Jun 24 Wed | nml eas brn 09min null
 176 d0 00:13 2026 Jun 25 Thu | sft eas brn 10min (null)+1
 179 d2 08:25 2026 Jun 28 Sun | nml eas brn 07min (at_gaoping)+1
-180 d0 04:13 2026 Jun 29 Mon | lqd eas brn 03min null
+180 d0 04:13 2026 Jun 29 Mon | lqd eas brn 03min (null)+1
