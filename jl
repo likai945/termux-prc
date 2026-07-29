@@ -1294,3 +1294,5 @@
 205 d1 23:00 2026 Jul 24 Fri | nml eas brn 09min null
 207 d1 08:48 2026 Jul 26 Sun | nml eas brn 05min (at_gaoping)+2
 208 d0 23:57 2026 Jul 27 Mon | nml eas brn 06min null
+209 d0 23:59 2026 Jul 28 Tue | nml eas brn 11min null
+210 d0 23:31 2026 Jul 29 Wed | lqd eas red 10min dragon_druit
