@@ -1305,4 +1305,5 @@
 223 d1 04:31 2026 Aug 11 Tue | sft eas brn 07min (null)+1
 224 d0 23:32 2026 Aug 12 Wed | nml eas brn 08min null
 225 d0 23:46 2026 Aug 13 Thu | nml eas brn 10min null
-227 d1 01:10 2026 Aug 15 Sat | nml eas brn 08min null
+226 d0 23:47 2026 Aug 14 Fri | nml eas brn 08min null
+227 d0 23:07 2026 Aug 15 Sat | nml eas brn 07min null
