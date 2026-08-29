@@ -1314,3 +1314,4 @@
 235 d1 12:06 2026 Aug 23 Sun | nml eas brn 06min null
 237 d1 23:37 2026 Aug 25 Tue | nml eas brn 08min null
 240 d2 00:00 2026 Aug 28 Fri | nml eas brn 10min (null)+1
+242 d1 01:35 2026 Aug 30 Sun | nml eas brn 09min at_gaoping
