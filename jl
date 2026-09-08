@@ -1320,4 +1320,5 @@
 245 d0 23:40 2026 Sep 02 Wed | nml eas brn 09min null
 246 d0 22:57 2026 Sep 03 Thu | nml eas brn 06min null
 248 d1 02:20 2026 Sep 05 Sat | nml eas brn 17min null
-249 d0 18:11 2026 Sep 06 Sun | nml eas brn 09min null
+249 d0 18:11 2026 Sep 06 Sun | sft eas brn 09min null
+251 d1 23:25 2026 Sep 08 Tue | nml eas brn 09min null
